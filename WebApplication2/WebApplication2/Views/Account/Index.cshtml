@@ -1,0 +1,23 @@
+﻿@model WebApplication2.Models.Account
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Software Process Planner</h2>
+
+@using (Html.BeginForm())
+{
+    <br/>
+    <br/>
+    @Html.Label("Username:    "); 
+    @Html.TextBox("Username");
+    <br/>
+    <br/>
+    @Html.Label("Password:    ");
+    @Html.Password("Password");
+    <br/>
+    <br/>
+    <input type="submit" value="Sign In" formaction="SignUp">
+}
+
