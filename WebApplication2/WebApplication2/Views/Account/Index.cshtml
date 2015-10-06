@@ -10,14 +10,33 @@
 {
     <br/>
     <br/>
-    @Html.Label("Username:    "); 
+    @Html.Label("Username:    ");
     @Html.TextBox("Username");
     <br/>
     <br/>
     @Html.Label("Password:    ");
     @Html.Password("Password");
-    <br/>
-    <br/>
+   <br/>
+   <br/>
     <input type="submit" value="Sign In" formaction="SignUp">
+    
 }
+@{      
+        List<SelectListItem> dropDown = new List<SelectListItem>();
+        dropDown.Add(new SelectListItem{ Value = "1", Text = "Team Member"});
+        dropDown.Add(new SelectListItem{ Value = "2", Text = "Team Leader"});
+        dropDown.Add(new SelectListItem{ Value = "3", Text = "Team Administrator"});
+}
+@using (Html.BeginForm())
+{
+    <br/>
+    <br/>
+    @Html.Label("Not a member?");
+    <br/>
+    <br/>
+    @Html.DropDownList("Sign Up", new SelectList(dropDown, "Value", "Text"))
+    <input type="submit" value="Sign Up" formaction="SignUp">
+}
+
+
 
