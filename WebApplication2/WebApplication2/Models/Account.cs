@@ -9,10 +9,13 @@ namespace WebApplication2.Models
     {
         public Boolean isUserValid(String Username, String Password)
         {
-            //if valid return true
-            //else return false
-            return false;
+           return false;
         }
-        
+        public Boolean Create(Member mem)
+        {
+            //use object mem to create and entry in one of the tables
+            //SQL 
+            return true; //return to if sucessful
+        }
     }
 }

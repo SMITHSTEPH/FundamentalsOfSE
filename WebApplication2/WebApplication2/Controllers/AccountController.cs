@@ -8,15 +8,10 @@ using System.Web.Mvc;
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
-    {
-        private Models.Account account = new Models.Account();
-        private Models.Member member = new Models.Member();
-        private Models.Leader leader = new Models.Leader();
-        private Models.Administrator admin = new Models.Administrator();
+    { 
         // GET: Account
         public ActionResult Index()
         {
-            Debug.Print("In Index controller");
             ViewData["isValid"] = true;
             return View();
         }
@@ -39,6 +34,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult SignIn(String Username, String Password)
         {
+            Models.Account account = new Models.Account();
             if(account.isUserValid(Username, Password)){return View("SuccessTest");}
             else
             {
