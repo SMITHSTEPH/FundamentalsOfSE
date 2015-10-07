@@ -10,15 +10,26 @@
 {
     <br/>
     <br/>
-    @Html.Label("Username:    ");
+    @Html.Label("Username:");
+    @Html.Raw("&nbsp");
     @Html.TextBox("Username");
     <br/>
     <br/>
-    @Html.Label("Password:    ");
+    @Html.Label("Password:");
+    @Html.Raw("&nbsp");
     @Html.Password("Password");
    <br/>
    <br/>
     <input type="submit" value="Sign In">
+    if (!Convert.ToBoolean(ViewData["isValid"]))
+    {
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Invalid username of password");
+        <br/>        
+        @Html.Raw("&nbsp");
+        //&nbsp &nbsp &nbsp
+        @Html.Label("Please try again");
+    }
 }
 @{      
         List<SelectListItem> dropDown = new List<SelectListItem>();

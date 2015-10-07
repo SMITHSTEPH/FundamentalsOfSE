@@ -97,3 +97,13 @@ C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2
 C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\obj\Debug\WebApplication2.csprojResolveAssemblyReference.cache
 C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\obj\Debug\WebApplication2.dll
 C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\obj\Debug\WebApplication2.pdb
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\EntityFramework.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\de\EntityFramework.resources.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\es\EntityFramework.resources.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\fr\EntityFramework.resources.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\it\EntityFramework.resources.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\ja\EntityFramework.resources.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\ko\EntityFramework.resources.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\ru\EntityFramework.resources.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\zh-Hans\EntityFramework.resources.dll
+C:\Users\Stephanie\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\zh-Hant\EntityFramework.resources.dll

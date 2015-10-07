@@ -17,6 +17,7 @@ namespace WebApplication2.Controllers
         public ActionResult Index()
         {
             Debug.Print("In Index controller");
+            ViewData["isValid"] = true;
             return View();
         }
         //[HttpPost]
@@ -38,13 +39,11 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult SignIn(String Username, String Password)
         {
-            if(account.isUserValid(Username, Password))
-            {
-                return View("SuccessTest");
-            }
+            if(account.isUserValid(Username, Password)){return View("SuccessTest");}
             else
             {
-                return Redirect("Index");
+                ViewData["isValid"] = false;
+                return View("Index");
             }
         }
         
