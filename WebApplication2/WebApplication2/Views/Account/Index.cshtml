@@ -11,12 +11,10 @@
     <br/>
     <br/>
     @Html.Label("Username:");
-    @Html.Raw("&nbsp");
     @Html.TextBox("Username");
     <br/>
     <br/>
     @Html.Label("Password:");
-    @Html.Raw("&nbsp");
     @Html.Password("Password");
    <br/>
    <br/>
@@ -26,16 +24,14 @@
         System.Diagnostics.Debug.Print("In if statement");
         @Html.Label("Invalid username of password");
         <br/>        
-        @Html.Raw("&nbsp");
-        //&nbsp &nbsp &nbsp
         @Html.Label("Please try again");
     }
 }
 @{      
         List<SelectListItem> dropDown = new List<SelectListItem>();
-        dropDown.Add(new SelectListItem{ Value = "1", Text = "Team Member"});
-        dropDown.Add(new SelectListItem{ Value = "2", Text = "Team Leader"});
-        dropDown.Add(new SelectListItem{ Value = "3", Text = "Team Administrator"});
+        dropDown.Add(new SelectListItem{ Value = "SignUpMember", Text = "Team Member"});
+        dropDown.Add(new SelectListItem{ Value = "SignUpLeader", Text = "Team Leader"});
+        dropDown.Add(new SelectListItem{ Value = "SignUpAdmin", Text = "Team Administrator"});
 }
 @using (Html.BeginForm("SignUp", "Account"))
 {
@@ -44,7 +40,7 @@
     @Html.Label("Not a member?");
     <br/>
     <br/>
-    @Html.DropDownList("Sign Up", new SelectList(dropDown, "Value", "Text"))
+    @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
     <input type="submit" value="Sign Up">
 }
 

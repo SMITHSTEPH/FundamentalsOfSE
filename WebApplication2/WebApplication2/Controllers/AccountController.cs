@@ -18,9 +18,6 @@ namespace WebApplication2.Controllers
         //[HttpPost]
         public ActionResult SignUpMember(FormCollection Form)
         {
-            
-           // Debug.Print(Form.ToString());
-            Debug.Print("In Sign Up controller");
             return View();
         }
         public ActionResult SignUpAdmin()
@@ -30,6 +27,11 @@ namespace WebApplication2.Controllers
         public ActionResult SignUpLeader()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult SignUp(String DropChoice)
+        {
+            return View(DropChoice);
         }
         [HttpPost]
         public ActionResult SignIn(String Username, String Password)
