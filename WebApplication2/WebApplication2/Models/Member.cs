@@ -15,5 +15,17 @@ namespace WebApplication2.Models
         public string PhoneNumber { get; set; }
         public string Gender { get; set; }
         public string Birthdate { get; set; }
+
+        public virtual void Init(System.Web.Mvc.FormCollection form)
+        {
+            Address = form["Address"];
+            Birthdate = form["Birthdate"];
+            FirstName = form["FirstName"];
+            LastName = form["LastName"];
+            UserName = form["UserName"];
+            Password = form["Password"];
+            PhoneNumber = form["PhoneNumber"];
+            Gender = form["Gender"];
+        }
     }
 }

@@ -9,24 +9,29 @@ namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
     { 
+        Models.Account account = new Models.Account();
         // GET: Account
         public ActionResult Index()
         {
             ViewData["isValid"] = true;
             return View();
         }
-        
-        public ActionResult SignUpMember(FormCollection Form)
+
+        [HttpPost]
+        public ActionResult SignUpMember(FormCollection form)
         {
-            return View();
+            Models.Member model = new Models.Member();
+            return account.Create(model) ? View("Index") : View();
         }
         public ActionResult SignUpAdmin()
         {
-            return View();
+            Models.Member model = new Models.Administrator();
+            return account.Create(model) ? View("Index") : View();
         }
         public ActionResult SignUpLeader()
         {
-            return View();
+            Models.Member model = new Models.Leader();
+            return account.Create(model) ? View("Index") : View();
         }
 
         [HttpPost]
@@ -38,7 +43,6 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult SignIn(String Username, String Password)
         {
-            Models.Account account = new Models.Account();
             if(account.isUserValid(Username, Password)){return View("SuccessTest");}
             else
             {
@@ -46,7 +50,7 @@ namespace WebApplication2.Controllers
                 return View("Index");
             }
         }
-
+        
         [HttpPost]
         public ActionResult CreateMember(String Username)
         {
