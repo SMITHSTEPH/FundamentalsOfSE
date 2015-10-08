@@ -32,11 +32,11 @@ public partial class RegistrationEntities1 : DbContext
     }
 
 
+    public virtual DbSet<memberTable> memberTables { get; set; }
+
     public virtual DbSet<administration> administrations { get; set; }
 
     public virtual DbSet<leaderTable> leaderTables { get; set; }
-
-    public virtual DbSet<memberTable> memberTables { get; set; }
 
 }
 
