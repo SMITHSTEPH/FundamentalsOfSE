@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
-    {
+    { 
         Models.Account account = new Models.Account();
         // GET: Account
         public ActionResult Index()
@@ -33,11 +33,13 @@ namespace WebApplication2.Controllers
             Models.Member model = new Models.Leader();
             return account.Create(model) ? View("Index") : View();
         }
+
         [HttpPost]
         public ActionResult SignUp(String DropChoice)
         {
             return View(DropChoice);
         }
+
         [HttpPost]
         public ActionResult SignIn(String Username, String Password)
         {
@@ -47,6 +49,12 @@ namespace WebApplication2.Controllers
                 ViewData["isValid"] = false;
                 return View("Index");
             }
+        }
+        
+        [HttpPost]
+        public ActionResult CreateMember(String Username)
+        {
+            return View("SuccessTest");
         }
         
     }
