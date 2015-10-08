@@ -11,6 +11,10 @@ namespace WebApplication2.Models
         {
            return false;
         }
+        public Boolean Create(Member mem)
+        {
+            return true;
+        }
         
     }
 }
