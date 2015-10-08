@@ -15,7 +15,7 @@ namespace WebApplication2.Controllers
             ViewData["isValid"] = true;
             return View();
         }
-        //[HttpPost]
+        
         public ActionResult SignUpMember(FormCollection Form)
         {
             return View();
@@ -28,11 +28,13 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult SignUp(String DropChoice)
         {
             return View(DropChoice);
         }
+
         [HttpPost]
         public ActionResult SignIn(String Username, String Password)
         {
@@ -43,6 +45,12 @@ namespace WebApplication2.Controllers
                 ViewData["isValid"] = false;
                 return View("Index");
             }
+        }
+
+        [HttpPost]
+        public ActionResult CreateMember(String Username)
+        {
+            return View("SuccessTest");
         }
         
     }

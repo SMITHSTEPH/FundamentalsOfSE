@@ -130,3 +130,7 @@ C:\Users\TY\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\Sy
 C:\Users\TY\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\obj\Debug\WebApplication2.csprojResolveAssemblyReference.cache
 C:\Users\TY\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\obj\Debug\WebApplication2.dll
 C:\Users\TY\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\obj\Debug\WebApplication2.pdb
+C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\EntityFramework.dll
+C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\EntityFramework.SqlServer.dll
+C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\EntityFramework.xml
+C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\EntityFramework.SqlServer.xml

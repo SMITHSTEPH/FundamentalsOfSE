@@ -6,3 +6,43 @@
 
 <h2>SignUp Member!</h2>
 
+
+
+@using (Html.BeginForm("CreateMember", "Account"))
+{
+        <br />
+        <br />
+        @Html.Label("First Name:");
+        @Html.TextBox("FirstName"); 
+        <br />
+        <br />
+        @Html.Label("Last Name:");
+        @Html.TextBox("LastName");
+        <br />
+        <br />
+        @Html.Label("Username:");
+        @Html.TextBox("Username");
+        <br />
+        <br />
+        @Html.Label("Password:");
+        @Html.Password("Password");
+        <br />
+        <br />
+        @Html.Label("Address:");
+        @Html.TextBox("Address");
+        <br />
+        <br />
+        @Html.Label("Phone Number:");
+        @Html.TextBox("PhoneNumber");
+        <br />
+        <br />
+        @Html.Label("Gender:");
+        @Html.TextBox("Gender");
+        <br />
+        <br />
+        @Html.Label("Birth Date:");
+        @Html.TextBox("Birthdate");
+        <br />
+        <br />
+        <input type="submit" value="Create Account">
+     }
