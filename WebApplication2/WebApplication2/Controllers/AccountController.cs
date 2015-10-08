@@ -20,18 +20,15 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult SignUpMember(FormCollection form)
         {
-            Models.Member model = new Models.Member();
-            return account.Create(model) ? View("Index") : View();
+            return View();
         }
         public ActionResult SignUpAdmin()
         {
-            Models.Member model = new Models.Administrator();
-            return account.Create(model) ? View("Index") : View();
+            return View();
         }
         public ActionResult SignUpLeader()
         {
-            Models.Member model = new Models.Leader();
-            return account.Create(model) ? View("Index") : View();
+            return View();
         }
 
         [HttpPost]
