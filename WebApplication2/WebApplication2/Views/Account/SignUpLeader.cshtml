@@ -3,5 +3,55 @@
     ViewBag.Title = "SignUpLeader";
 }
 
-<h2>SignUpLeader</h2>
+<h2>Team Leader Sign Up</h2>
+@model  WebApplication2.Models.Member
+
+@{
+    ViewBag.Title = "Member";
+}
+
+<h2>Member Sign Up</h2>
+@using (Html.BeginForm("SignUpAdmin", "Account"))
+{
+    <br />
+    <br />
+    @Html.Label("Username:");
+    @Html.TextBox("UserName");
+    <br />
+    <br />
+    @Html.Label("Password:");
+    @Html.Password("Password");
+    <br />
+    <br />
+    @Html.Label("First name:");
+    @Html.TextBox("FirstName");
+    <br />
+    <br />
+    @Html.Label("Last name:");
+    @Html.TextBox("LastName");
+    <br />
+    <br />
+    @Html.Label("Address:");
+    @Html.TextBox("Address");
+    <br />
+    <br />
+    @Html.Label("Birthdate:");
+    @Html.TextBox("Birthdate");
+    <br />
+    <br />
+    @Html.Label("Phone Number:");
+    @Html.TextBox("PhoneNumber");
+    <br/>
+    <br/>
+    @Html.Label("Gender:");
+    @Html.TextBox("Gender");
+    <br/>
+    <br/>
+    @Html.Label("Team Leader Key: ");
+    @Html.TextBox("LeaderKey");
+    <br/>
+    <br/>
+    <input type="submit" value="Sign Up">
+
+}
 

@@ -8,25 +8,30 @@ using System.Web.Mvc;
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
-    { 
+    {
+        Models.Account account = new Models.Account();
         // GET: Account
         public ActionResult Index()
         {
             ViewData["isValid"] = true;
             return View();
         }
-        //[HttpPost]
-        public ActionResult SignUpMember(FormCollection Form)
+
+        [HttpPost]
+        public ActionResult SignUpMember(FormCollection form)
         {
-            return View();
+            Models.Member model = new Models.Member();
+            return account.Create(model) ? View("Index") : View();
         }
         public ActionResult SignUpAdmin()
         {
-            return View();
+            Models.Member model = new Models.Administrator();
+            return account.Create(model) ? View("Index") : View();
         }
         public ActionResult SignUpLeader()
         {
-            return View();
+            Models.Member model = new Models.Leader();
+            return account.Create(model) ? View("Index") : View();
         }
         [HttpPost]
         public ActionResult SignUp(String DropChoice)
@@ -36,7 +41,6 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult SignIn(String Username, String Password)
         {
-            Models.Account account = new Models.Account();
             if(account.isUserValid(Username, Password)){return View("SuccessTest");}
             else
             {
