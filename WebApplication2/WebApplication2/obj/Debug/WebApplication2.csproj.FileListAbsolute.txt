@@ -134,3 +134,7 @@ C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\
 C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\EntityFramework.SqlServer.dll
 C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\EntityFramework.xml
 C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\EntityFramework.SqlServer.xml
+C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Brad\Source\Repos\FundamentalsOfSE\WebApplication2\WebApplication2\bin\Microsoft.AspNet.Identity.EntityFramework.xml

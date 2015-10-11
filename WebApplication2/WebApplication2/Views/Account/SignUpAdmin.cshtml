@@ -7,6 +7,13 @@
 <h2>Admin Sign Up</h2>
 @using (Html.BeginForm("CreateAdmin", "Account", FormMethod.Post))
 {
+    if (Convert.ToInt16(ViewData["isValidNull"]) == 1)
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Please have an input for all text fields");
+
+    }
     <br />
     <br />
     @Html.Label("Username:");
@@ -15,6 +22,19 @@
     <br />
     @Html.Label("Password:");
     @Html.PasswordFor(model => model.Password, "Password");
+    if (Convert.ToInt16(ViewData["isValidLength"]) == 1)
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Password needs to be at least 6 characters");
+
+    }
+    if (Convert.ToInt16(ViewData["isValidChar"]) == 1)
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Password must contain a lower case, upper case, digit and a symbol");
+    }
     <br />
     <br />
     @Html.Label("First name:");
@@ -50,7 +70,7 @@
     <br />
     <br />
     <input type="submit" value="Create Admin">
-    if (!Convert.ToBoolean(ViewData["AdminKey"]))
+    if (Convert.ToInt16(ViewData["AdminKey"]) == 1)
     {
         System.Diagnostics.Debug.Print("In if statement");
         @Html.Label("Invalid Admin Key");

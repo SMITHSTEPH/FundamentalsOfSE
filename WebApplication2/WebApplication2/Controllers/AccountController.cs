@@ -14,12 +14,13 @@ namespace WebApplication2.Controllers
     public class AccountController : Controller
     { 
         Models.Account account = new Models.Account();
+        Verifcation Check = new Verifcation();
         private RegistrationEntities1 db = new RegistrationEntities1();
 
         // GET: Account
         public ActionResult Index()
         {
-            ViewData["isValid"] = false;
+            ViewData["isValid"] = 0;
             return View();
         }
 
@@ -27,6 +28,8 @@ namespace WebApplication2.Controllers
         public ActionResult SignUpMember(FormCollection form)
         {
             Models.Member model = new Models.Member();
+            ViewData["isValidLength"] = 0;
+            ViewData["isValidChar"] = 0;
             return account.Create(model) ? View("Index") : View();
         }
         public ActionResult SignUpAdmin()
@@ -60,19 +63,22 @@ namespace WebApplication2.Controllers
 
             if (LT != null)
             {
-                return View("SignUpLeader");
+                ViewData["isValid"] = 2;
+                return View("Index");
             }
             if (AT != null)
             {
-                return View("SignUpAdmin");
+                ViewData["isValid"] = 3;
+                return View("Index");
             }
             if (MT != null)
             {
-                return View("SignUpMember");
+                ViewData["isValid"] = 4;
+                return View("Index");
             }
 
 
-            ViewData["isValid"] = false;
+            ViewData["isValid"] = 1;
             return View("Index");
 
         }
@@ -80,30 +86,68 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult CreateMember(Member Table)
         {
+            if (Check.IsNullMember(Table))
+            {
+                ViewData["isValidNull"] = 1;
+                return View("SignUpMember");
+            }
+            else if (Check.PasswordCheck(Table.Password) == 1)
+            {
+                ViewData["isValidLength"] = 1;
+                return View("SignUpMember");
+            }
+            else if (Check.PasswordCheck(Table.Password) == 2)
+            {
+                ViewData["isValidChar"] = 1;
+                return View("SignUpMember");
+            }
+            else
+            {
+                 db.memberTables.Add(new memberTable
+                 {
+                     UserName = Table.UserName,
+                     Email = Table.Email,
+                     Password = Encrypt(Table.Password),
+                     Address = Table.Address,
+                     BirthDate = Table.Birthdate,
+                     Gender = Table.Gender,
+                     FirstName = Table.FirstName,
+                     LastName = Table.LastName,
+                     PhoneNumber = Table.PhoneNumber
+                 });
+                 db.SaveChanges();
 
-            
 
-            db.memberTables.Add(new memberTable {
-                UserName = Table.UserName,
-                Email = Table.Email,
-                Password = Encrypt(Table.Password),
-                Address = Table.Address,
-                BirthDate = Table.Birthdate,
-                Gender = Table.Gender,
-                FirstName = Table.FirstName,
-                LastName = Table.LastName,
-                PhoneNumber= Table.PhoneNumber
-            });
-            db.SaveChanges();
-
-
-            return View("Index");
+                 return View("Index");
+            }
         }
 
         [HttpPost]
         public ActionResult CreateLeader(Leader Table)
         {
-            if(Table.LeaderKey == "5") {
+
+            if (Check.IsNullMember(Table))
+            {
+                ViewData["isValidNull"] = 1;
+                return View("SignUpMember");
+            }
+            else if (Check.PasswordCheck(Table.Password) == 1)
+            {
+                ViewData["isValidLength"] = 1;
+                return View("SignUpMember");
+            }
+            else if (Check.PasswordCheck(Table.Password) == 2)
+            {
+                ViewData["isValidChar"] = 1;
+                return View("SignUpMember");
+            }
+            else if(Table.LeaderKey != "5") {
+               
+                ViewData["LeaderKey"] = 1;
+                return View("SignUpLeader");
+            }
+            else
+            {
                 db.leaderTables.Add(new leaderTable
                 {
                     UserName = Table.UserName,
@@ -120,17 +164,33 @@ namespace WebApplication2.Controllers
 
                 return View("Index");
             }
-            else
-            {
-                ViewData["LeaderKey"] = false;
-                return View("SignUpLeader");
-            }
         }
 
         [HttpPost]
         public ActionResult CreateAdmin(Administrator Table)
         {
-            if (Table.AdminKey == "5")
+            if (Check.IsNullMember(Table))
+            {
+                ViewData["isValidNull"] = 1;
+                return View("SignUpMember");
+            }
+            else if (Check.PasswordCheck(Table.Password) == 1)
+            {
+                ViewData["isValidLength"] = 1;
+                return View("SignUpMember");
+            }
+            else if (Check.PasswordCheck(Table.Password) == 2)
+            {
+                ViewData["isValidChar"] = 1;
+                return View("SignUpMember");
+            } 
+            else if (Table.AdminKey != "5")
+            {
+                ViewData["AdminKey"] = 1;
+                return View("SignUpAdmin");
+               
+            }
+            else
             {
                 db.administrations.Add(new administration
                 {
@@ -147,11 +207,6 @@ namespace WebApplication2.Controllers
                 db.SaveChanges();
 
                 return View("Index");
-            }
-            else
-            {
-                ViewData["AdminKey"] = false;
-                return View("SignUpAdmin");
             }
         }
 
@@ -198,7 +253,6 @@ namespace WebApplication2.Controllers
             }
             return cipherText;
         }
-
 
     }
 }

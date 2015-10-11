@@ -19,16 +19,31 @@
    <br/>
    <br/>
    <input type="submit" value="Sign In">
-    if (!Convert.ToBoolean(ViewData["isValid"]))
+    if (Convert.ToInt16(ViewData["isValid"]) == 1)
     {
         System.Diagnostics.Debug.Print("In if statement");
         @Html.Label("Invalid username of password");
         <br/>        
         @Html.Label("Please try again");
     }
+    else if(Convert.ToInt16(ViewData["isValid"]) == 2)
+    {
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Team Leader Logged In!");
+    }
+    else if (Convert.ToInt16(ViewData["isValid"]) == 3)
+    {
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Team Admin Logged In!");
+    }
+    else if (Convert.ToInt16(ViewData["isValid"]) == 4)
+    {
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Team Member Logged In!");
+    }
     else
     {
-        @Html.Label("Logged In!");
+
     }
 }
 @{      

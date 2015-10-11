@@ -14,7 +14,7 @@ namespace WebApplication2.Models
 
         public string UserName { get; set; }
 
-      // [DataType(DataType.Password)]
+        [StringLength(20,MinimumLength =6)]
         public string Password { get; set; }
 
         public string Address { get; set; }
