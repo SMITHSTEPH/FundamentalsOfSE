@@ -81,6 +81,8 @@ namespace WebApplication2.Controllers
         public ActionResult CreateMember(Member Table)
         {
 
+            Table.Password
+
             db.memberTables.Add(new memberTable {
                 UserName = Table.UserName,
                 Email = Table.Email,
@@ -196,6 +198,7 @@ namespace WebApplication2.Controllers
             }
             return cipherText;
         }
+
 
     }
 }
