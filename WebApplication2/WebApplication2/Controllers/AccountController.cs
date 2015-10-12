@@ -30,16 +30,24 @@ namespace WebApplication2.Controllers
             Models.Member model = new Models.Member();
             ViewData["isValidLength"] = 0;
             ViewData["isValidChar"] = 0;
+            ViewData["isValidNull"] = 0;
             return account.Create(model) ? View("Index") : View();
         }
         public ActionResult SignUpAdmin()
         {
             Models.Member model = new Models.Administrator();
+            ViewData["isValidLength"] = 0;
+            ViewData["isValidChar"] = 0;
+            ViewData["isValidNull"] = 0;
+            ViewData["LeaderKey"] = 0;
             return account.Create(model) ? View("Index") : View();
         }
         public ActionResult SignUpLeader()
         {
-            ViewData["LeaderKey"] = true;
+            ViewData["LeaderKey"] = 0;
+            ViewData["isValidLength"] = 0;
+            ViewData["isValidChar"] = 0;
+            ViewData["isValidNull"] = 0;
             Models.Member model = new Models.Leader();
             return account.Create(model) ? View("Index") : View();
         }
