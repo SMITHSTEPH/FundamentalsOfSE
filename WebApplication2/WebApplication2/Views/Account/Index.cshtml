@@ -26,7 +26,7 @@
         <br/>        
         @Html.Label("Please try again");
     }
-    else if(Convert.ToString(ViewData["isValid"]) == "Leader")
+    else if(Convert.ToString(ViewData["isValid"]) == "Leader") //do we need these other options, I thought if it was successful it would just login
     {
         System.Diagnostics.Debug.Print("In if statement");
         @Html.Label("Team Leader Logged In as " + ViewData["Username"] + "!");
@@ -43,7 +43,7 @@
     }
     else
     {
-
+        //???
     }
 }
 @{      

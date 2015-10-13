@@ -31,7 +31,7 @@
     <br/>
     @Html.Label("Password:");
     @Html.PasswordFor(model => model.Password, "Password");
-    if (Convert.ToString(ViewData["isValid"]) == "Length")
+    if (Convert.ToString(ViewData["isValid"]) == "Length") //perhaps match this to a regex? migth be clearer to the user if we repeat what needs to be done each time they fuck up the password
     {
         <br />
         System.Diagnostics.Debug.Print("In if statement");

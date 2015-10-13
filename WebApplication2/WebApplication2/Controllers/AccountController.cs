@@ -22,20 +22,19 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignUp(String DropChoice)
+        public ActionResult SignUp(String DropChoice) //arrives here when the user hits 'sign uo'. The user will be redirected to the appropriate view then
         {
-            if (ConfirmedUser.UserName != null) ViewData["UserName"] = ConfirmedUser.UserName;
+            if (ConfirmedUser.UserName != null) ViewData["UserName"] = ConfirmedUser.UserName; //what does this do here?;
             else ViewData["UserName"] = "Null";
-
             return View(DropChoice);
         }
 
         [HttpPost]
-        public ActionResult SignIn(Account PossibleUser)
+        public ActionResult SignIn(Account PossibleUser) //arrives here when the user hits 'sign in'
         {
             ConfirmedUser = PossibleUser.Create(PossibleUser);
             ViewData["isValid"] = ConfirmedUser.Rank;
-            ViewData["Username"] = ConfirmedUser.UserName;
+            ViewData["Username"] = ConfirmedUser.UserName; //do we care about sending this information back?
             return View("Index");
         }
         
@@ -92,7 +91,5 @@ namespace WebApplication2.Controllers
                 return View("Index");
             }
         }
-
-
     }
 }
