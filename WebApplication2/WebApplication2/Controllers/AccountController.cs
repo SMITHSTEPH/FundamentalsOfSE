@@ -24,6 +24,9 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult SignUp(String DropChoice)
         {
+            if (ConfirmedUser.UserName != null) ViewData["UserName"] = ConfirmedUser.UserName;
+            else ViewData["UserName"] = "Null";
+
             return View(DropChoice);
         }
 

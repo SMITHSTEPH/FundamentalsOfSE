@@ -8,6 +8,13 @@
 
 @using (Html.BeginForm("CreateLeader", "Account", FormMethod.Post))
 {
+    if (Convert.ToString(ViewData["UserName"]) != "Null")
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Logged In as " + ViewData["UserName"]);
+
+    }
     if (Convert.ToString(ViewData["isValid"]) == "NullFields")
     {
         <br />
