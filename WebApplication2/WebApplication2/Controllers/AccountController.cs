@@ -32,7 +32,7 @@ namespace WebApplication2.Controllers
             ViewData["isValidNull"] = 0;
             return account.Create(model) ? View("Index") : View();
         }
-        public ActionResult SignUpAdmin()
+        public ActionResult SignUpAdmin(FormCollection form)
         {
             Models.Member model = new Models.Administrator();
             ViewData["isValidLength"] = 0;
@@ -41,7 +41,7 @@ namespace WebApplication2.Controllers
             ViewData["LeaderKey"] = 0;
             return account.Create(model) ? View("Index") : View();
         }
-        public ActionResult SignUpLeader()
+        public ActionResult SignUpLeader(FormCollection form)
         {
             ViewData["LeaderKey"] = 0;
             ViewData["isValidLength"] = 0;
