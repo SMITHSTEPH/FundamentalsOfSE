@@ -8,7 +8,7 @@
 <h2>Member Sign Up</h2>
 @using (Html.BeginForm("CreateMember", "Account", FormMethod.Post))
 {
-    if (Convert.ToInt16(ViewData["isValidNull"]) == 1)
+    if (Convert.ToString(ViewData["isValid"]) == "NullFields")
     {
         <br />
         System.Diagnostics.Debug.Print("In if statement");
@@ -23,14 +23,14 @@
     <br/>
     @Html.Label("Password:");
     @Html.PasswordFor(model => model.Password, "Password");
-    if (Convert.ToInt16(ViewData["isValidLength"]) == 1)
+    if (Convert.ToString(ViewData["isValid"]) == "Length")
     {
         <br />
         System.Diagnostics.Debug.Print("In if statement");
         @Html.Label("Password needs to be at least 6 characters");
 
     }
-    if (Convert.ToInt16(ViewData["isValidChar"]) == 1)
+    if (Convert.ToString(ViewData["isValid"]) == "Char")
     {
         <br />
         System.Diagnostics.Debug.Print("In if statement");

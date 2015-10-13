@@ -10,20 +10,25 @@ namespace WebApplication2.Models
 
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string MemberClass { get; set;}
 
         private RegistrationEntities1 db = new RegistrationEntities1();
         private Verifcation vf = new Verifcation();
 
-        public Boolean isUserValid(String Username, String password)
+        public Boolean Create(Account user)
         {
-           return false;
-        }
-        public Boolean Create(Member mem)
-        {
-            return true;
+            if(user.UserName != null && user.Password != null)
+            {
+                user.Password = vf.Decrypt(user.Password);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public int login(Account user)
+        public string login(Account user)
         {
             string queryL = "SELECT * FROM leaderTable WHERE UserName='" + user.UserName + "' AND Password='" + vf.Encrypt(user.Password) + "'";
             leaderTable LT = db.leaderTables.SqlQuery(queryL).SingleOrDefault();
@@ -34,18 +39,18 @@ namespace WebApplication2.Models
 
             if (LT != null)
             {
-                return 2;
+                return "Leader";
             }
             if (AT != null)
             {
-                return 3;
+                return "Admin";
             }
             if (MT != null)
             {
-                return 4;
+                return "Member";
             }
 
-            return 1;
+            return "Fail";
         }
         
     }

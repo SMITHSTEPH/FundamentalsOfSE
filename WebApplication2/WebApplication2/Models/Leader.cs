@@ -9,9 +9,6 @@ namespace WebApplication2.Models
 	{
         public string LeaderKey { get; set; }
 
-        private RegistrationEntities1 db = new RegistrationEntities1();
-        private Verifcation vf = new Verifcation();
-
         public override void Init(Member Table)
         {
             db.leaderTables.Add(new leaderTable
@@ -27,6 +24,18 @@ namespace WebApplication2.Models
                 PhoneNumber = Table.PhoneNumber
             });
             db.SaveChanges();
+        }
+
+        public string isValid(Leader Self)
+        {
+            if (Self.LeaderKey != "5")
+            {
+                return "LeaderKey";
+            }
+            else
+            {
+                return vf.Check(Self);
+            }
         }
 
     }

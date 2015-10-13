@@ -9,9 +9,6 @@ namespace WebApplication2.Models
     {
         public string AdminKey { get; set; }
 
-        private RegistrationEntities1 db = new RegistrationEntities1();
-        private Verifcation vf = new Verifcation();
-
         public override void Init(Member Table)
         {
             db.administrations.Add(new administration
@@ -28,6 +25,18 @@ namespace WebApplication2.Models
             });
             db.SaveChanges();
 
+        }
+
+        public string isValid(Administrator Self)
+        {
+            if (Self.AdminKey != "5")
+            {
+                return "AdminKey";
+            }
+            else
+            {
+                return vf.Check(Self);
+            }
         }
     }
 }

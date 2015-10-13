@@ -18,8 +18,8 @@ namespace WebApplication2.Models
         public string Birthdate { get; set; }
         public string Email { get; set; }
 
-        private RegistrationEntities1 db = new RegistrationEntities1();
-        private Verifcation vf = new Verifcation();
+        protected RegistrationEntities1 db = new RegistrationEntities1();
+        protected Verifcation vf = new Verifcation();
 
         public virtual void Init(Member Table)
         {
@@ -36,6 +36,11 @@ namespace WebApplication2.Models
                 PhoneNumber = Table.PhoneNumber
             });
             db.SaveChanges();
+        }
+
+        public string isValid(Member Self)
+        {
+            return vf.Check(Self);
         }
 
     }

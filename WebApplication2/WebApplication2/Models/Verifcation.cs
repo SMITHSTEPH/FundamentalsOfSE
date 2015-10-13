@@ -11,25 +11,28 @@ namespace WebApplication2.Models
     public class Verifcation
     {
 
-        public int PasswordCheck(String password)
+        public string Check(Member Table)
         {
+            string possiblePassword = Convert.ToString(Table.Password);
 
-            string possiblePassword = Convert.ToString(password);
-
-            if (possiblePassword.Length < 6)
+            if (IsNullMember(Table))
             {
-                return 1;
+                return "NullFields";
+            }
+            else if (possiblePassword.Length < 6)
+            {
+                return "Length";
             }
             else if (!possiblePassword.Any(c => IsDigit(c)) ||
                     !possiblePassword.Any(c => IsSymbol(c)) ||
                     !possiblePassword.Any(c => IsLetterLower(c)) ||
                     !possiblePassword.Any(c => IsLetterHigher(c)))
             {
-                return 2;
+                return "Char";
             }
             else
             {
-                return 0;
+                return "Valid";
             }
         }
 
