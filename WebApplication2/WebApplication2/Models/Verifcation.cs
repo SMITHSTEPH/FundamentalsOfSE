@@ -15,25 +15,16 @@ namespace WebApplication2.Models
         {
             string possiblePassword = Convert.ToString(Table.Password);
 
-            if (IsNullMember(Table))
-            {
-                return "NullFields";
-            }
-            else if (possiblePassword.Length < 6)
-            {
-                return "Length";
-            }
+            if (IsNullMember(Table)) return "NullFields";
+
+            else if (possiblePassword.Length < 6) return "Length";
+
             else if (!possiblePassword.Any(c => IsDigit(c)) ||
                     !possiblePassword.Any(c => IsSymbol(c)) ||
                     !possiblePassword.Any(c => IsLetterLower(c)) ||
-                    !possiblePassword.Any(c => IsLetterHigher(c)))
-            {
-                return "Char";
-            }
-            else
-            {
-                return "Valid";
-            }
+                    !possiblePassword.Any(c => IsLetterHigher(c))) return "Char";
+
+            else return "Valid";
         }
 
         static bool IsDigit(char c)
@@ -63,23 +54,17 @@ namespace WebApplication2.Models
                      IsNull(Table.Gender) ||
                      IsNull(Table.FirstName) ||
                      IsNull(Table.LastName) ||
-                     IsNull(Table.PhoneNumber)){
-
+                     IsNull(Table.PhoneNumber))
+            {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            else return false;
         }
 
         public bool IsNull(string input)
         {
-            if(input == null)
-            {
-                return true;
-            }
-            return false;
+            if(input == null) return true;
+            else return false;
             
         }
 

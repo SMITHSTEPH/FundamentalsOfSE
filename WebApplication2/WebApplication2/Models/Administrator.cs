@@ -30,13 +30,8 @@ namespace WebApplication2.Models
         public string isValid(Administrator Self)
         {
             if (Self.AdminKey != "5")
-            {
                 return "AdminKey";
-            }
-            else
-            {
-                return vf.Check(Self);
-            }
+            else return vf.Check(Self);
         }
     }
 }

@@ -29,13 +29,8 @@ namespace WebApplication2.Models
         public string isValid(Leader Self)
         {
             if (Self.LeaderKey != "5")
-            {
                 return "LeaderKey";
-            }
-            else
-            {
-                return vf.Check(Self);
-            }
+            else return vf.Check(Self);
         }
 
     }

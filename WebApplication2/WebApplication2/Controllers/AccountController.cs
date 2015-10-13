@@ -18,7 +18,6 @@ namespace WebApplication2.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            ViewData["isValid"] = 0;
             return View();
         }
 
@@ -29,36 +28,17 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignIn(Account user)
+        public ActionResult SignIn(Account PossibleUser)
         {
-
-            user.MemberClass = user.login(user);
-            ViewData["isValid"] = user.MemberClass;
-
-            if (user.MemberClass == "Leader")
-            {
-                return account.Create(user) ? View("Index") : View();
-            }
-            else if(user.MemberClass == "Admin")
-            {
-                return account.Create(user) ? View("Index") : View();
-            }
-            else if(user.MemberClass == "Member")
-            {
-                return account.Create(user) ? View("Index") : View();
-            }
-            else
-            {
-                ViewData["isValid"] = "Fail";
-                return View("Index");
-            }
+            Account ConfirmedUser = PossibleUser.Create(PossibleUser);
+            ViewData["isValid"] = ConfirmedUser.Rank;
+            return View("Index");
         }
         
         [HttpPost]
-        public ActionResult CreateMember(Member Table)
+        public ActionResult CreateMember(Member PossibleMem)
         {
-
-            string print = Table.isValid(Table);
+            string print = PossibleMem.isValid(PossibleMem);
 
             if (print != "Valid")
             {
@@ -67,15 +47,16 @@ namespace WebApplication2.Controllers
             }
             else
             {
-                Table.Init(Table);
+                Member ConfirmedMem = PossibleMem;
+                ConfirmedMem.Init(PossibleMem);
                 return View("Index");
             }
         }
 
         [HttpPost]
-        public ActionResult CreateLeader(Leader Table)
+        public ActionResult CreateLeader(Leader PossibleLead)
         {
-            string print = Table.isValid(Table);
+            string print = PossibleLead.isValid(PossibleLead);
 
             if (print != "Valid")
             {
@@ -84,15 +65,16 @@ namespace WebApplication2.Controllers
             }
             else
             {
-                Table.Init(Table);
+                Leader ConfirmedLead = PossibleLead;
+                ConfirmedLead.Init(PossibleLead);
                 return View("Index");
             }
         }
 
         [HttpPost]
-        public ActionResult CreateAdmin(Administrator Table)
+        public ActionResult CreateAdmin(Administrator PossibleAdmin)
         {
-            string print = Table.isValid(Table);
+            string print = PossibleAdmin.isValid(PossibleAdmin);
 
             if (print != "Valid")
             {
@@ -101,7 +83,8 @@ namespace WebApplication2.Controllers
             }
             else
             {
-                Table.Init(Table);
+                Administrator ConfirmedAdmin = PossibleAdmin;
+                ConfirmedAdmin.Init(PossibleAdmin);
                 return View("Index");
             }
         }

@@ -10,48 +10,68 @@ namespace WebApplication2.Models
 
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string MemberClass { get; set;}
+        public string Rank { get; set;}
 
         private RegistrationEntities1 db = new RegistrationEntities1();
         private Verifcation vf = new Verifcation();
 
-        public Boolean Create(Account user)
+        public Account Create(Account PossibleUser)
         {
-            if(user.UserName != null && user.Password != null)
+            if(PossibleUser.Password != null)
             {
-                user.Password = vf.Decrypt(user.Password);
-                return true;
+                if (PossibleUser.FindLeader(PossibleUser.UserName, PossibleUser.Password))
+                {
+                    PossibleUser.Rank = "Leader";
+                    return PossibleUser;
+                }
+                else if (PossibleUser.FindAdmin(PossibleUser.UserName, PossibleUser.Password))
+                {
+                    PossibleUser.Rank = "Admin";
+                    return PossibleUser;
+                }
+                else if (PossibleUser.FindMember(PossibleUser.UserName, PossibleUser.Password))
+                {
+
+                    PossibleUser.Rank = "Member";
+                    return PossibleUser;
+                }
+
             }
-            else
-            {
-                return false;
-            }
+
+            PossibleUser.Rank = "Fail";
+            return PossibleUser;
+            
         }
 
-        public string login(Account user)
+        private Boolean FindMember(String UserName, String Password)
         {
-            string queryL = "SELECT * FROM leaderTable WHERE UserName='" + user.UserName + "' AND Password='" + vf.Encrypt(user.Password) + "'";
-            leaderTable LT = db.leaderTables.SqlQuery(queryL).SingleOrDefault();
-            string queryA = "SELECT * FROM administration WHERE UserName='" + user.UserName + "' AND Password='" + vf.Encrypt(user.Password) + "'";
-            administration AT = db.administrations.SqlQuery(queryA).SingleOrDefault();
-            string queryM = "SELECT * FROM memberTable WHERE UserName='" + user.UserName + "' AND Password='" + vf.Encrypt(user.Password) + "'";
+            string queryM = "SELECT * FROM memberTable WHERE UserName='" + UserName + "' AND Password='" + vf.Encrypt(Password) + "'";
             memberTable MT = db.memberTables.SqlQuery(queryM).SingleOrDefault();
 
-            if (LT != null)
-            {
-                return "Leader";
-            }
-            if (AT != null)
-            {
-                return "Admin";
-            }
-            if (MT != null)
-            {
-                return "Member";
-            }
+            if (MT != null) return true;
 
-            return "Fail";
+            return false;
         }
-        
+
+        private Boolean FindLeader(String UserName, String Password)
+        {
+            string queryL = "SELECT * FROM leaderTable WHERE UserName='" + UserName + "' AND Password='" + vf.Encrypt(Password) + "'";
+            leaderTable LT = db.leaderTables.SqlQuery(queryL).SingleOrDefault();
+
+            if (LT != null) return true;
+
+            return false;
+        }
+
+        private Boolean FindAdmin(String UserName, String Password)
+        {
+            string queryA = "SELECT * FROM administration WHERE UserName='" + UserName + "' AND Password='" + vf.Encrypt(Password) + "'";
+            administration AT = db.administrations.SqlQuery(queryA).SingleOrDefault();
+
+            if (AT != null) return true;
+
+            return false;
+        }
+
     }
 }

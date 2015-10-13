@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 //http://www.asp.net/mvc/overview/older-versions/getting-started-with-aspnet-mvc4/adding-a-model
 //http://www.codeproject.com/Articles/639709/Getting-Data-From-View-to-Controller-in-MVC
@@ -42,6 +43,5 @@ namespace WebApplication2.Models
         {
             return vf.Check(Self);
         }
-
     }
 }
