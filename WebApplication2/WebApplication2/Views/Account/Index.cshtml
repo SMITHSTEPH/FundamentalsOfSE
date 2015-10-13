@@ -6,40 +6,40 @@
 
 <h2>Software Process Planner</h2>
 
-@using (Html.BeginForm("SignIn", "Account"))
+@using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
 {
     <br/>
     <br/>
     @Html.Label("Username:");
-    @Html.TextBox("Username");
+    @Html.TextBoxFor(model => model.UserName, "Username");
     <br/>
     <br/>
     @Html.Label("Password:");
-    @Html.Password("Password");
+    @Html.PasswordFor(model => model.Password, "Password");
    <br/>
    <br/>
    <input type="submit" value="Sign In">
-    if (Convert.ToInt16(ViewData["isValid"]) == 1)
+    if (Convert.ToString(ViewData["isValid"]) == "Fail")
     {
         System.Diagnostics.Debug.Print("In if statement");
         @Html.Label("Invalid username of password");
         <br/>        
         @Html.Label("Please try again");
     }
-    else if(Convert.ToInt16(ViewData["isValid"]) == 2)
+    else if(Convert.ToString(ViewData["isValid"]) == "Leader")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Leader Logged In!");
+        @Html.Label("Team Leader Logged In as " + ViewData["Username"] + "!");
     }
-    else if (Convert.ToInt16(ViewData["isValid"]) == 3)
+    else if (Convert.ToString(ViewData["isValid"]) == "Admin")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Admin Logged In!");
+        @Html.Label("Team Admin Logged In as " + ViewData["Username"] + "!");
     }
-    else if (Convert.ToInt16(ViewData["isValid"]) == 4)
+    else if (Convert.ToString(ViewData["isValid"]) == "Member")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Member Logged In!");
+        @Html.Label("Team Member Logged In as " + ViewData["Username"] + "!");
     }
     else
     {

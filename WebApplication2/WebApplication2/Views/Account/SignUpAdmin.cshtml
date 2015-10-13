@@ -7,7 +7,15 @@
 <h2>Admin Sign Up</h2>
 @using (Html.BeginForm("CreateAdmin", "Account", FormMethod.Post))
 {
-    if (Convert.ToInt16(ViewData["isValidNull"]) == 1)
+
+    if (Convert.ToString(ViewData["UserName"]) != "Null")
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Logged In as " + ViewData["UserName"]);
+
+    }
+    if (Convert.ToString(ViewData["isValid"]) == "NullFields")
     {
         <br />
         System.Diagnostics.Debug.Print("In if statement");
@@ -22,14 +30,14 @@
     <br />
     @Html.Label("Password:");
     @Html.PasswordFor(model => model.Password, "Password");
-    if (Convert.ToInt16(ViewData["isValidLength"]) == 1)
+    if (Convert.ToString(ViewData["isValid"]) == "Length")
     {
         <br />
         System.Diagnostics.Debug.Print("In if statement");
         @Html.Label("Password needs to be at least 6 characters");
 
     }
-    if (Convert.ToInt16(ViewData["isValidChar"]) == 1)
+    if (Convert.ToString(ViewData["isValid"]) == "Char")
     {
         <br />
         System.Diagnostics.Debug.Print("In if statement");
@@ -70,10 +78,10 @@
     <br />
     <br />
     <input type="submit" value="Create Admin">
-    if (Convert.ToInt16(ViewData["AdminKey"]) == 1)
+    if (Convert.ToString(ViewData["isValid"]) == "AdminKey")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Invalid Admin Key");
+        @Html.Label("Invalid Leader Key");
         <br />
         @Html.Label("Please try again");
     }
