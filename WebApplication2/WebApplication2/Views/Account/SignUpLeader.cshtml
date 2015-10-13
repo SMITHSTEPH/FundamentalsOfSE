@@ -1,57 +1,82 @@
 ﻿
 @{
-    ViewBag.Title = "SignUpLeader";
+    ViewBag.Title = "Leader";
 }
 
 <h2>Team Leader Sign Up</h2>
-@model  WebApplication2.Models.Member
+@model  WebApplication2.Models.Leader
 
-@{
-    ViewBag.Title = "Member";
-}
-
-<h2>Member Sign Up</h2>
-@using (Html.BeginForm("SignUpAdmin", "Account"))
+@using (Html.BeginForm("CreateLeader", "Account", FormMethod.Post))
 {
+    if (Convert.ToInt16(ViewData["isValidNull"]) == 1)
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Please have an input for all text fields");
+
+    }
     <br />
     <br />
     @Html.Label("Username:");
-    @Html.TextBox("UserName");
+    @Html.TextBoxFor(model => model.UserName, "UserName");
     <br />
     <br />
     @Html.Label("Password:");
-    @Html.Password("Password");
+    @Html.PasswordFor(model => model.Password, "Password");
+    if (Convert.ToInt16(ViewData["isValidLength"]) == 1)
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Password needs to be at least 6 characters");
+
+    }
+    if (Convert.ToInt16(ViewData["isValidChar"]) == 1)
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Password must contain a lower case, upper case, digit and a symbol");
+    }
     <br />
     <br />
     @Html.Label("First name:");
-    @Html.TextBox("FirstName");
+    @Html.TextBoxFor(model => model.FirstName, "FirstName");
     <br />
     <br />
     @Html.Label("Last name:");
-    @Html.TextBox("LastName");
+    @Html.TextBoxFor(model => model.LastName, "LastName");
     <br />
     <br />
     @Html.Label("Address:");
-    @Html.TextBox("Address");
+    @Html.TextBoxFor(model => model.Address, "Address");
     <br />
     <br />
     @Html.Label("Birthdate:");
-    @Html.TextBox("Birthdate");
+    @Html.TextBoxFor(model => model.Birthdate, "Birthdate");
     <br />
     <br />
     @Html.Label("Phone Number:");
-    @Html.TextBox("PhoneNumber");
-    <br/>
-    <br/>
+    @Html.TextBoxFor(model => model.PhoneNumber, "PhoneNumber");
+    <br />
+    <br />
     @Html.Label("Gender:");
-    @Html.TextBox("Gender");
-    <br/>
-    <br/>
-    @Html.Label("Team Leader Key: ");
-    @Html.TextBox("LeaderKey");
-    <br/>
-    <br/>
-    <input type="submit" value="Sign Up">
+    @Html.TextBoxFor(model => model.Gender, "Gender");
+    <br />
+    <br />
+    @Html.Label("Email:");
+    @Html.TextBoxFor(model => model.Email, "Email");
+    <br />
+    <br />
+    @Html.Label("Leader Code:");
+    @Html.TextBoxFor(model => model.LeaderKey, "LeaderKey");
+    <br />
+    <br />
+    <input type="submit" value="Create Leader">
+    if (Convert.ToInt16(ViewData["LeaderKey"]) == 1)
+    {
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Invalid Leader Key");
+        <br />
+        @Html.Label("Please try again");
+    }
 
 }
-

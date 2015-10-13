@@ -18,7 +18,7 @@ using System;
 public partial class leaderTable
 {
 
-    public Nullable<int> Id { get; set; }
+    public int Id { get; set; }
 
     public string UserName { get; set; }
 
@@ -26,7 +26,17 @@ public partial class leaderTable
 
     public string Password { get; set; }
 
-    public Nullable<int> TeamLeaderCode { get; set; }
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+
+    public string PhoneNumber { get; set; }
+
+    public string Address { get; set; }
+
+    public string Gender { get; set; }
+
+    public string BirthDate { get; set; }
 
 }
 

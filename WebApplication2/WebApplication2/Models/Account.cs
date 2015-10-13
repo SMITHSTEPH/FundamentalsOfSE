@@ -7,7 +7,11 @@ namespace WebApplication2.Models
 {
     public class Account
     {
-        public Boolean isUserValid(String Username, String Password)
+
+        public string UserName { get; set; }
+        public string Password { get; set; }
+
+        public Boolean isUserValid(String Username, String password)
         {
            return false;
         }

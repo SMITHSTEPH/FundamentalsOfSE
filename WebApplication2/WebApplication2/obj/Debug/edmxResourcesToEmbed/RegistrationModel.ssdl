@@ -2,30 +2,48 @@
 <Schema Namespace="RegistrationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="administration">
     <Key>
-      <PropertyRef Name="UserName" />
+      <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
     <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="leaderTable">
     <Key>
-      <PropertyRef Name="UserName" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
     <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="nchar" MaxLength="20" Nullable="false" />
-    <Property Name="TeamLeaderCode" Type="int" />
+    <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="memberTable">
     <Key>
-      <PropertyRef Name="UserName" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
     <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityContainer Name="RegistrationModelStoreContainer">
     <EntitySet Name="administration" EntityType="Self.administration" Schema="dbo" store:Type="Tables" />
