@@ -23,12 +23,12 @@ namespace WebApplication2.Controllers
             Models.Member model = new Models.Member();
             return account.Create(model) ? View("Index") : View();
         }
-        public ActionResult SignUpAdmin()
+        public ActionResult SignUpAdmin(FormCollection form)
         {
             Models.Member model = new Models.Administrator();
             return account.Create(model) ? View("Index") : View();
         }
-        public ActionResult SignUpLeader()
+        public ActionResult SignUpLeader(FormCollection form)
         {
             Models.Member model = new Models.Leader();
             return account.Create(model) ? View("Index") : View();
