@@ -195,7 +195,6 @@
     <Content Include="Views\Account\SignUpAdmin.cshtml" />
     <Content Include="Views\Account\SignUpLeader.cshtml" />
     <Content Include="Views\Account\SignUpMember.cshtml" />
-    <Content Include="Views\Account\SuccessTest.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -29,17 +29,17 @@
     else if(Convert.ToString(ViewData["isValid"]) == "Leader")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Leader Logged In!");
+        @Html.Label("Team Leader Logged In as " + ViewData["Username"] + "!");
     }
     else if (Convert.ToString(ViewData["isValid"]) == "Admin")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Admin Logged In!");
+        @Html.Label("Team Admin Logged In as " + ViewData["Username"] + "!");
     }
     else if (Convert.ToString(ViewData["isValid"]) == "Member")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Member Logged In!");
+        @Html.Label("Team Member Logged In as " + ViewData["Username"] + "!");
     }
     else
     {

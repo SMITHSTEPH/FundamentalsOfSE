@@ -13,7 +13,7 @@ namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
     { 
-        Account account = new Account();
+        Account ConfirmedUser = new Account();
 
         // GET: Account
         public ActionResult Index()
@@ -30,8 +30,9 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult SignIn(Account PossibleUser)
         {
-            Account ConfirmedUser = PossibleUser.Create(PossibleUser);
+            ConfirmedUser = PossibleUser.Create(PossibleUser);
             ViewData["isValid"] = ConfirmedUser.Rank;
+            ViewData["Username"] = ConfirmedUser.UserName;
             return View("Index");
         }
         
