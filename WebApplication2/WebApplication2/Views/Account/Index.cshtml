@@ -6,16 +6,16 @@
 
 <h2>Software Process Planner</h2>
 
-@using (Html.BeginForm("SignIn", "Account"))
+@using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
 {
     <br/>
     <br/>
     @Html.Label("Username:");
-    @Html.TextBox("Username");
+    @Html.TextBoxFor(model => model.UserName, "Username");
     <br/>
     <br/>
     @Html.Label("Password:");
-    @Html.Password("Password");
+    @Html.PasswordFor(model => model.Password, "Password");
    <br/>
    <br/>
    <input type="submit" value="Sign In">
