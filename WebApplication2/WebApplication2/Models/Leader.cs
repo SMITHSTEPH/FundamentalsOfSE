@@ -11,22 +11,25 @@ namespace WebApplication2.Models
 
         public override void Init(Member Table)
         {
-            db.leaderTableV2.Add(new leaderTableV2
+            using (var activedb = new RegistrationEntities1())
             {
-                UserName = Table.UserName,
-                Email = Table.Email,
-                ConfirmEmail = Table.ConfirmEmail,
-                OptionalPhoneNumber = Table.OptionalPhoneNumber,
-                Password = vf.Encrypt(Table.Password),
-                Address = Table.Address,
-                BirthDate = Table.Birthdate,
-                Gender = Table.Gender,
-                FirstName = Table.FirstName,
-                MiddleName = Table.MiddleName,
-                LastName = Table.LastName,
-                PhoneNumber = Table.PhoneNumber
-            });
-            db.SaveChanges();
+                activedb.leaderTableV2.Add(new leaderTableV2
+                {
+                    UserName = Table.UserName,
+                    Email = Table.Email,
+                    ConfirmEmail = Table.ConfirmEmail,
+                    OptionalPhoneNumber = Table.OptionalPhoneNumber,
+                    Password = vf.Encrypt(Table.Password),
+                    Address = Table.Address,
+                    BirthDate = Table.Birthdate,
+                    Gender = Table.Gender,
+                    FirstName = Table.FirstName,
+                    MiddleName = Table.MiddleName,
+                    LastName = Table.LastName,
+                    PhoneNumber = Table.PhoneNumber
+                });
+                activedb.SaveChanges();
+            }
         }
 
         public string isValid(Leader Self)

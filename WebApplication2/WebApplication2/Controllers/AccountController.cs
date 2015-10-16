@@ -14,6 +14,7 @@ namespace WebApplication2.Controllers
     public class AccountController : Controller
     { 
         Account ConfirmedUser = new Account();
+        EmailConfirmation ef = new EmailConfirmation();
 
         // GET: Account
         public ActionResult Index()
@@ -21,11 +22,16 @@ namespace WebApplication2.Controllers
             return View();
         }
 
+        public ActionResult EmailVerificationPage()
+        {
+            ViewData["Email"] = "Verified";
+
+            return View();
+        }
+
         [HttpPost]
         public ActionResult SignUp(String DropChoice)
         {
-            if (ConfirmedUser.UserName != null) ViewData["UserName"] = ConfirmedUser.UserName;
-            else ViewData["UserName"] = "Null";
 
             return View(DropChoice);
         }
@@ -53,8 +59,9 @@ namespace WebApplication2.Controllers
             else
             {
                 Member ConfirmedMem = PossibleMem;
+                ViewData["Email"] = ef.sendEmail(ConfirmedMem.Email);
                 ConfirmedMem.Init(PossibleMem);
-                return View("Index");
+                return View("EmailConfirmationPage");
             }
         }
 
@@ -94,6 +101,13 @@ namespace WebApplication2.Controllers
                 ConfirmedAdmin.Init(PossibleAdmin);
                 return View("Index");
             }
+        }
+
+        public ActionResult Resend(Account User)
+        {
+            //User.UpdateUsersEmail();
+            ViewData["Email"] = ef.sendEmail(User.Email);
+            return View("EmailConfirmationPage");
         }
 
 

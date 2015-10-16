@@ -22,28 +22,31 @@ namespace WebApplication2.Models
         public string Birthdate { get; set; }
         public string Email { get; set; }
 
-        protected RegistrationEntities1 db = new RegistrationEntities1();
         protected Verifcation vf = new Verifcation();
 
         public virtual void Init(Member Table)
         {
 
-            db.memberTableV2.Add(new memberTableV2
+            using (var activedb = new RegistrationEntities1())
             {
-                UserName = Table.UserName,
-                Email = Table.Email,
-                ConfirmEmail = Table.ConfirmEmail,
-                OptionalPhoneNumber = Table.OptionalPhoneNumber,
-                Password = vf.Encrypt(Table.Password),
-                Address = Table.Address,
-                BirthDate = Table.Birthdate,
-                Gender = Table.Gender,
-                FirstName = Table.FirstName,
-                MiddleName = Table.MiddleName,
-                LastName = Table.LastName,
-                PhoneNumber = Table.PhoneNumber
-            });
-            db.SaveChanges();
+                activedb.memberTableV2.Add(new memberTableV2
+                {
+                    UserName = Table.UserName,
+                    Email = Table.Email,
+                    ConfirmEmail = Table.ConfirmEmail,
+                    OptionalPhoneNumber = Table.OptionalPhoneNumber,
+                    Password = vf.Encrypt(Table.Password),
+                    Address = Table.Address,
+                    BirthDate = Table.Birthdate,
+                    Gender = Table.Gender,
+                    FirstName = Table.FirstName,
+                    MiddleName = Table.MiddleName,
+                    LastName = Table.LastName,
+                    PhoneNumber = Table.PhoneNumber
+                });
+                activedb.SaveChanges();
+            }
+
         }
 
         public string isValid(Member Self)
