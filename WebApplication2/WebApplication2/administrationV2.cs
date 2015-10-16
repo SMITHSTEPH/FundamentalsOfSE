@@ -15,7 +15,7 @@ namespace WebApplication2
 using System;
     using System.Collections.Generic;
     
-public partial class memberTable
+public partial class administrationV2
 {
 
     public int Id { get; set; }
@@ -24,13 +24,19 @@ public partial class memberTable
 
     public string Email { get; set; }
 
+    public bool ConfirmEmail { get; set; }
+
     public string Password { get; set; }
 
     public string FirstName { get; set; }
 
+    public string MiddleName { get; set; }
+
     public string LastName { get; set; }
 
     public string PhoneNumber { get; set; }
+
+    public string OptionalPhoneNumber { get; set; }
 
     public string Address { get; set; }
 

@@ -52,6 +52,10 @@
     @Html.Label("*");
     <br />
     <br />
+    @Html.Label("Middle name:");
+    @Html.TextBoxFor(model => model.MiddleName, "MiddleName");
+    <br />
+    <br />
     @Html.Label("Last name:");
     @Html.TextBoxFor(model => model.LastName, "LastName");
     @Html.Label("*");
@@ -70,6 +74,10 @@
     @Html.Label("Phone Number:");
     @Html.TextBoxFor(model => model.PhoneNumber, "PhoneNumber");
     @Html.Label("*");
+    <br />
+    <br />
+    @Html.Label("2nd Phone Number:");
+    @Html.TextBoxFor(model => model.OptionalPhoneNumber, "PhoneNumber");
     <br />
     <br />
     @Html.Label("Gender:");

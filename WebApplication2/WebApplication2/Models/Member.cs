@@ -11,6 +11,9 @@ namespace WebApplication2.Models
     {
         public string FirstName { get; set; } //define properties
         public string LastName { get; set; }
+        public string OptionalPhoneNumber { get; set; }
+        public bool ConfirmEmail { get; set; }
+        public string MiddleName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Address { get; set; }
@@ -24,15 +27,19 @@ namespace WebApplication2.Models
 
         public virtual void Init(Member Table)
         {
-            db.memberTables.Add(new memberTable
+
+            db.memberTableV2.Add(new memberTableV2
             {
                 UserName = Table.UserName,
                 Email = Table.Email,
+                ConfirmEmail = Table.ConfirmEmail,
+                OptionalPhoneNumber = Table.OptionalPhoneNumber,
                 Password = vf.Encrypt(Table.Password),
                 Address = Table.Address,
                 BirthDate = Table.Birthdate,
                 Gender = Table.Gender,
                 FirstName = Table.FirstName,
+                MiddleName = Table.MiddleName,
                 LastName = Table.LastName,
                 PhoneNumber = Table.PhoneNumber
             });

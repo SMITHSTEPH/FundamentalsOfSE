@@ -5,106 +5,124 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="RegistrationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="administration">
+        <EntityType Name="administrationV2">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="MiddleName" Type="nchar" MaxLength="20" />
           <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
           <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <EntityType Name="leaderTable">
+        <EntityType Name="leaderTableV2">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="MiddleName" Type="nchar" MaxLength="20" />
           <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
           <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <EntityType Name="memberTable">
+        <EntityType Name="memberTableV2">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="MiddleName" Type="nchar" MaxLength="20" />
           <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
           <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityContainer Name="RegistrationModelStoreContainer">
-          <EntitySet Name="administration" EntityType="Self.administration" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="leaderTable" EntityType="Self.leaderTable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="memberTable" EntityType="Self.memberTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RegistrationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="RegistrationEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="memberTables" EntityType="RegistrationModel.memberTable" />
-          <EntitySet Name="administrations" EntityType="RegistrationModel.administration" />
-          <EntitySet Name="leaderTables" EntityType="RegistrationModel.leaderTable" />
+          <EntitySet Name="memberTableV2" EntityType="RegistrationModel.memberTableV2" />
+          <EntitySet Name="administrationV2" EntityType="RegistrationModel.administrationV2" />
+          <EntitySet Name="leaderTableV2" EntityType="RegistrationModel.leaderTableV2" />
         </EntityContainer>
-        <EntityType Name="memberTable">
+        <EntityType Name="memberTableV2">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ConfirmEmail" Type="Boolean" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="OptionalPhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="BirthDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
-        <EntityType Name="administration">
+        <EntityType Name="administrationV2">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ConfirmEmail" Type="Boolean" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="OptionalPhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="BirthDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
-        <EntityType Name="leaderTable">
+        <EntityType Name="leaderTableV2">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="ConfirmEmail" Type="Boolean" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="OptionalPhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="BirthDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -115,48 +133,57 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RegistrationModelStoreContainer" CdmEntityContainer="RegistrationEntities1">
-          <EntitySetMapping Name="memberTables">
-            <EntityTypeMapping TypeName="RegistrationModel.memberTable">
-              <MappingFragment StoreEntitySet="memberTable">
+          <EntitySetMapping Name="memberTableV2">
+            <EntityTypeMapping TypeName="RegistrationModel.memberTableV2">
+              <MappingFragment StoreEntitySet="memberTableV2">
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="administrations">
-            <EntityTypeMapping TypeName="RegistrationModel.administration">
-              <MappingFragment StoreEntitySet="administration">
+          <EntitySetMapping Name="administrationV2">
+            <EntityTypeMapping TypeName="RegistrationModel.administrationV2">
+              <MappingFragment StoreEntitySet="administrationV2">
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="leaderTables">
-            <EntityTypeMapping TypeName="RegistrationModel.leaderTable">
-              <MappingFragment StoreEntitySet="leaderTable">
+          <EntitySetMapping Name="leaderTableV2">
+            <EntityTypeMapping TypeName="RegistrationModel.leaderTableV2">
+              <MappingFragment StoreEntitySet="leaderTableV2">
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

@@ -11,15 +11,18 @@ namespace WebApplication2.Models
 
         public override void Init(Member Table)
         {
-            db.administrations.Add(new administration
+            db.administrationV2.Add(new administrationV2
             {
                 UserName = Table.UserName,
                 Email = Table.Email,
+                ConfirmEmail = Table.ConfirmEmail,
+                OptionalPhoneNumber = Table.OptionalPhoneNumber,
                 Password = vf.Encrypt(Table.Password),
                 Address = Table.Address,
                 BirthDate = Table.Birthdate,
                 Gender = Table.Gender,
                 FirstName = Table.FirstName,
+                MiddleName = Table.MiddleName,
                 LastName = Table.LastName,
                 PhoneNumber = Table.PhoneNumber
             });

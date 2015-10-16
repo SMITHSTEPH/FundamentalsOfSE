@@ -42,6 +42,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult CreateMember(Member PossibleMem)
         {
+            PossibleMem.ConfirmEmail = false;
             string print = PossibleMem.isValid(PossibleMem);
 
             if (print != "Valid")
@@ -60,6 +61,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult CreateLeader(Leader PossibleLead)
         {
+            PossibleLead.ConfirmEmail = false;
             string print = PossibleLead.isValid(PossibleLead);
 
             if (print != "Valid")
@@ -78,6 +80,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult CreateAdmin(Administrator PossibleAdmin)
         {
+            PossibleAdmin.ConfirmEmail = false;
             string print = PossibleAdmin.isValid(PossibleAdmin);
 
             if (print != "Valid")

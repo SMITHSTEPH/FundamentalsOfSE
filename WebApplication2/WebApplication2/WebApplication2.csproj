@@ -150,7 +150,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="administration.cs">
+    <Compile Include="administrationV2.cs">
       <DependentUpon>RegistrationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -158,10 +158,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="leaderTable.cs">
+    <Compile Include="leaderTableV2.cs">
       <DependentUpon>RegistrationModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="memberTable.cs">
+    <Compile Include="memberTableV2.cs">
       <DependentUpon>RegistrationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
