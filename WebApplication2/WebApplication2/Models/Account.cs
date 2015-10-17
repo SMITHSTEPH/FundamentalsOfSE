@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 
 namespace WebApplication2.Models
 {
@@ -13,8 +10,9 @@ namespace WebApplication2.Models
         public string Rank { get; set;}
         public bool ConfirmEmail { get; set; }
         public string Email { get; set; }
-
+        
         private Verifcation vf = new Verifcation();
+        private RegistrationEntities1 activeDb = new RegistrationEntities1();
 
         public Account Create(Account PossibleUser)
         {
@@ -32,8 +30,6 @@ namespace WebApplication2.Models
 
         private Account Find(Account PossibleUser)
         {
-            using (var activeDb = new RegistrationEntities1())
-            {
                 string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + UserName + "' AND Password='" + vf.Encrypt(Password) + "'";
                 memberTableV2 MT = activeDb.memberTableV2.SqlQuery(queryM).SingleOrDefault();
                 string queryL = "SELECT * FROM leaderTableV2 WHERE UserName='" + UserName + "' AND Password='" + vf.Encrypt(Password) + "'";
@@ -63,7 +59,6 @@ namespace WebApplication2.Models
                 {
                     PossibleUser.Rank = "Fail";
                 }
-            }
 
             return PossibleUser;
         }

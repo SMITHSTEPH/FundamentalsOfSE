@@ -19,32 +19,40 @@
    <br/>
    <br/>
    <input type="submit" value="Sign In">
-    if (Convert.ToString(ViewData["isValid"]) == "Fail")
-    {
-        System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Invalid username of password");
-        <br/>        
-        @Html.Label("Please try again");
-    }
-    else if(Convert.ToString(ViewData["isValid"]) == "Leader")
-    {
-        System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Leader Logged In as " + ViewData["Username"] + "!");
-    }
-    else if (Convert.ToString(ViewData["isValid"]) == "Admin")
-    {
-        System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Admin Logged In as " + ViewData["Username"] + "!");
-    }
-    else if (Convert.ToString(ViewData["isValid"]) == "Member")
-    {
-        System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Team Member Logged In as " + ViewData["Username"] + "!");
-    }
-    else
-    {
+    //if (Convert.ToBoolean(ViewData["Emai"]) == true)
+    //{
+        if (Convert.ToString(ViewData["isValid"]) == "Fail")
+        {
+            System.Diagnostics.Debug.Print("In if statement");
+            @Html.Label("Invalid username of password");
+            <br />
+            @Html.Label("Please try again");
+        }
+        else if (Convert.ToString(ViewData["isValid"]) == "Leader")
+        {
+            System.Diagnostics.Debug.Print("In if statement");
+            @Html.Label("Team Leader Logged In as " + Model.UserName + "!");
+        }
+        else if (Convert.ToString(ViewData["isValid"]) == "Admin")
+        {
+            System.Diagnostics.Debug.Print("In if statement");
+            @Html.Label("Team Admin Logged In as " + Model.UserName + "!");
+        }
+        else if (Convert.ToString(ViewData["isValid"]) == "Member")
+        {
+            System.Diagnostics.Debug.Print("In if statement");
+            @Html.Label("Team Member Logged In as " + Model.UserName + "!");
+        }
+        else
+        {
 
-    }
+        }
+   // }
+   // else
+   // {
+     //   @Html.Label("Verify Email before logging In!");
+   // }
+
 }
 @{      
         List<SelectListItem> dropDown = new List<SelectListItem>();

@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
-using System.Text;
-using System.IO;
 
 namespace WebApplication2.Controllers
 {
@@ -19,7 +12,7 @@ namespace WebApplication2.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public ActionResult EmailVerificationPage()
@@ -41,8 +34,8 @@ namespace WebApplication2.Controllers
         {
             ConfirmedUser = PossibleUser.Create(PossibleUser);
             ViewData["isValid"] = ConfirmedUser.Rank;
-            ViewData["Username"] = ConfirmedUser.UserName;
-            return View("Index");
+            ViewData["Email"] = ConfirmedUser.ConfirmEmail;
+            return View("Index", ConfirmedUser);
         }
         
         [HttpPost]

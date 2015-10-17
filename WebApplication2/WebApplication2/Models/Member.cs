@@ -1,9 +1,4 @@
-﻿using System;
-using System.Data.Entity;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-
-//http://www.asp.net/mvc/overview/older-versions/getting-started-with-aspnet-mvc4/adding-a-model
+﻿//http://www.asp.net/mvc/overview/older-versions/getting-started-with-aspnet-mvc4/adding-a-model
 //http://www.codeproject.com/Articles/639709/Getting-Data-From-View-to-Controller-in-MVC
 namespace WebApplication2.Models
 {
@@ -23,13 +18,11 @@ namespace WebApplication2.Models
         public string Email { get; set; }
 
         protected Verifcation vf = new Verifcation();
+        protected RegistrationEntities1 db = new RegistrationEntities1();
 
         public virtual void Init(Member Table)
         {
-
-            using (var activedb = new RegistrationEntities1())
-            {
-                activedb.memberTableV2.Add(new memberTableV2
+                db.memberTableV2.Add(new memberTableV2
                 {
                     UserName = Table.UserName,
                     Email = Table.Email,
@@ -44,8 +37,7 @@ namespace WebApplication2.Models
                     LastName = Table.LastName,
                     PhoneNumber = Table.PhoneNumber
                 });
-                activedb.SaveChanges();
-            }
+                db.SaveChanges();
 
         }
 
