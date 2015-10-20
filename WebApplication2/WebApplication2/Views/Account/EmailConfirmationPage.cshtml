@@ -1,0 +1,43 @@
+﻿@model WebApplication2.Models.Account
+
+@{
+    ViewBag.Title = "EmailConfirmationPage";
+}
+
+<h2>Email Confirmation Page</h2>
+
+@using (Html.BeginForm("Resend", "Account", FormMethod.Post))
+{
+    <br />
+    <br />
+    <br />
+    if (Convert.ToString(ViewData["Email"]) == "Sent")
+    {
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Confirmation Email Sent");
+    }
+    else
+    {
+        System.Diagnostics.Debug.Print("In else statement");
+        @Html.Label("Error in sending please Email, Please enter Username and Password to Resend");
+        <br />
+        <br />
+        @Html.Label("Username:");
+        @Html.TextBoxFor(model => model.UserName, "Username");
+        <br />
+        <br />
+        @Html.Label("Password:");
+        @Html.PasswordFor(model => model.Password, "Password");
+        <br />
+        <input type="submit" value="Resend">
+    }
+}
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Get))
+{
+    <br />
+    <br />
+    <br />
+    <br />
+    <input type="submit" value="Go Back to Home Page">
+}

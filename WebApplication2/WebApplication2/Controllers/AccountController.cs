@@ -1,46 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
-using System.Text;
-using System.IO;
 
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
     { 
         Account ConfirmedUser = new Account();
+        EmailConfirmation ef = new EmailConfirmation();
 
         // GET: Account
         public ActionResult Index()
+        {
+            return View("Index");
+        }
+
+        public ActionResult EmailVerificationPage()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult SignUp(String DropChoice) //arrives here when the user hits 'sign uo'. The user will be redirected to the appropriate view then
+        public ActionResult SignUp(String DropChoice)
         {
-            if (ConfirmedUser.UserName != null) ViewData["UserName"] = ConfirmedUser.UserName; //what does this do here?;
-            else ViewData["UserName"] = "Null";
+
             return View(DropChoice);
         }
 
         [HttpPost]
-        public ActionResult SignIn(Account PossibleUser) //arrives here when the user hits 'sign in'
+        public ActionResult SignIn(Account PossibleUser)
         {
             ConfirmedUser = PossibleUser.Create(PossibleUser);
             ViewData["isValid"] = ConfirmedUser.Rank;
-            ViewData["Username"] = ConfirmedUser.UserName; //do we care about sending this information back?
-            return View("Index");
+            ViewData["Email"] = ConfirmedUser.ConfirmEmail;
+            return View("Index", ConfirmedUser);
         }
         
         [HttpPost]
         public ActionResult CreateMember(Member PossibleMem)
         {
+            PossibleMem.ConfirmEmail = false;
             string print = PossibleMem.isValid(PossibleMem);
 
             if (print != "Valid")
@@ -51,14 +50,16 @@ namespace WebApplication2.Controllers
             else
             {
                 Member ConfirmedMem = PossibleMem;
+                ViewData["Email"] = ef.sendEmail(ConfirmedMem.Email, ConfirmedMem.UserName);
                 ConfirmedMem.Init(PossibleMem);
-                return View("Index");
+                return View("EmailConfirmationPage");
             }
         }
 
         [HttpPost]
         public ActionResult CreateLeader(Leader PossibleLead)
         {
+            PossibleLead.ConfirmEmail = false;
             string print = PossibleLead.isValid(PossibleLead);
 
             if (print != "Valid")
@@ -69,14 +70,16 @@ namespace WebApplication2.Controllers
             else
             {
                 Leader ConfirmedLead = PossibleLead;
+                ViewData["Email"] = ef.sendEmail(ConfirmedLead.Email, ConfirmedLead.UserName);
                 ConfirmedLead.Init(PossibleLead);
-                return View("Index");
+                return View("EmailConfirmationPage");
             }
         }
 
         [HttpPost]
         public ActionResult CreateAdmin(Administrator PossibleAdmin)
         {
+            PossibleAdmin.ConfirmEmail = false;
             string print = PossibleAdmin.isValid(PossibleAdmin);
 
             if (print != "Valid")
@@ -87,9 +90,27 @@ namespace WebApplication2.Controllers
             else
             {
                 Administrator ConfirmedAdmin = PossibleAdmin;
+                ViewData["Email"] = ef.sendEmail(ConfirmedAdmin.Email, ConfirmedAdmin.UserName);
                 ConfirmedAdmin.Init(PossibleAdmin);
-                return View("Index");
+                return View("EmailConfirmationPage");
             }
         }
+
+        public ActionResult Resend(Account PossibleUser)
+        {
+            ConfirmedUser = PossibleUser.Create(PossibleUser);
+            ef.sendEmail(ConfirmedUser.Email,ConfirmedUser.UserName);
+            return View("EmailConfirmationPage");
+        }
+
+        public ActionResult Verify( )
+        {
+            string UserName = (string) RouteData.Values["id"];
+            ViewData["User"] = UserName;
+            ViewData["Email"] = ef.UpdateConfirmation(UserName);
+            return View("EmailVerificationPage");
+        }
+
+
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 
 namespace WebApplication2.Models
 {
@@ -11,26 +8,34 @@ namespace WebApplication2.Models
 
         public override void Init(Member Table)
         {
-            db.administrations.Add(new administration
+            using (var activedb = new RegistrationEntities1())
             {
-                UserName = Table.UserName,
-                Email = Table.Email,
-                Password = vf.Encrypt(Table.Password),
-                Address = Table.Address,
-                BirthDate = Table.Birthdate,
-                Gender = Table.Gender,
-                FirstName = Table.FirstName,
-                LastName = Table.LastName,
-                PhoneNumber = Table.PhoneNumber
-            });
-            db.SaveChanges();
+                activedb.administrationV2.Add(new administrationV2
+                {
+                    UserName = Table.UserName,
+                    Email = Table.Email,
+                    ConfirmEmail = Table.ConfirmEmail,
+                    OptionalPhoneNumber = Table.OptionalPhoneNumber,
+                    Password = vf.Encrypt(Table.Password),
+                    Address = Table.Address,
+                    BirthDate = Table.Birthdate,
+                    Gender = Table.Gender,
+                    FirstName = Table.FirstName,
+                    MiddleName = Table.MiddleName,
+                    LastName = Table.LastName,
+                    PhoneNumber = Table.PhoneNumber
+                });
+                activedb.SaveChanges();
 
+            }
         }
 
         public string isValid(Administrator Self)
         {
             if (Self.AdminKey != "5")
                 return "AdminKey";
+            else if (vf.FindAdmin(Self.UserName))
+                return "Exist";
             else return vf.Check(Self);
         }
     }
