@@ -8,19 +8,19 @@
 <h2>Member Sign Up</h2>
 @using (Html.BeginForm("CreateMember", "Account", FormMethod.Post))
 {
-    if (Convert.ToString(ViewData["UserName"]) != "Null")
-    {
-        <br />
-        System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Logged In as " + ViewData["UserName"]);
-
-    }
 
     if (Convert.ToString(ViewData["isValid"]) == "NullFields")
     {
         <br />
         System.Diagnostics.Debug.Print("In if statement");
         @Html.Label("Please have an input for all text fields with *");
+
+    }
+    if (Convert.ToString(ViewData["isValid"]) == "Exist")
+    {
+        <br />
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("UserName already Exists choose another one");
 
     }
     <br/>

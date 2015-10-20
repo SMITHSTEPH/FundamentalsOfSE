@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models
+﻿using System.Linq;
+
+namespace WebApplication2.Models
 {
     public class Leader : Member
 	{
@@ -31,6 +33,8 @@
         {
             if (Self.LeaderKey != "5")
                 return "LeaderKey";
+            else if (vf.FindLeader(Self.UserName))
+                return "Exist";
             else return vf.Check(Self);
         }
 

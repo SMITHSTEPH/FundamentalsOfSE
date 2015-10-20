@@ -17,8 +17,6 @@ namespace WebApplication2.Controllers
 
         public ActionResult EmailVerificationPage()
         {
-            ViewData["Email"] = "Verified";
-
             return View();
         }
 
@@ -52,7 +50,7 @@ namespace WebApplication2.Controllers
             else
             {
                 Member ConfirmedMem = PossibleMem;
-                ViewData["Email"] = ef.sendEmail(ConfirmedMem.Email);
+                ViewData["Email"] = ef.sendEmail(ConfirmedMem.Email, ConfirmedMem.UserName);
                 ConfirmedMem.Init(PossibleMem);
                 return View("EmailConfirmationPage");
             }
@@ -72,8 +70,9 @@ namespace WebApplication2.Controllers
             else
             {
                 Leader ConfirmedLead = PossibleLead;
+                ViewData["Email"] = ef.sendEmail(ConfirmedLead.Email, ConfirmedLead.UserName);
                 ConfirmedLead.Init(PossibleLead);
-                return View("Index");
+                return View("EmailConfirmationPage");
             }
         }
 
@@ -91,16 +90,25 @@ namespace WebApplication2.Controllers
             else
             {
                 Administrator ConfirmedAdmin = PossibleAdmin;
+                ViewData["Email"] = ef.sendEmail(ConfirmedAdmin.Email, ConfirmedAdmin.UserName);
                 ConfirmedAdmin.Init(PossibleAdmin);
-                return View("Index");
+                return View("EmailConfirmationPage");
             }
         }
 
-        public ActionResult Resend(Account User)
+        public ActionResult Resend(Account PossibleUser)
         {
-            //User.UpdateUsersEmail();
-            ViewData["Email"] = ef.sendEmail(User.Email);
+            ConfirmedUser = PossibleUser.Create(PossibleUser);
+            ef.sendEmail(ConfirmedUser.Email,ConfirmedUser.UserName);
             return View("EmailConfirmationPage");
+        }
+
+        public ActionResult Verify( )
+        {
+            string UserName = (string) RouteData.Values["id"];
+            ViewData["User"] = UserName;
+            ViewData["Email"] = ef.UpdateConfirmation(UserName);
+            return View("EmailVerificationPage");
         }
 
 

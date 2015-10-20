@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Net.Mail;
+using System.Linq;
+using System.Data.Entity;
 
 namespace WebApplication2.Models
 {
     public class EmailConfirmation
     {
+        private RegistrationEntities1 activeDb = new RegistrationEntities1();
 
-        public string sendEmail(String Emailto)
+        public string sendEmail(String Emailto, string User)
         {
-
             try
             {
                 SmtpClient Sender = new SmtpClient();
@@ -19,7 +21,7 @@ namespace WebApplication2.Models
 
                 MailMessage mail = new MailMessage("bradbergeron90@gmail.com", Emailto);
                 mail.Subject = "This mail is sent from asp.net application";
-                mail.Body = "Please Click <a href=\"http://localhost:49882/Account/EmailVerificationPage\">Here</a> to Confirm your email";
+                mail.Body = "Please Click <a href=\"http://localhost:49882/Account/EmailVerificationPage?UserName="+User+"\">Here</a> to Confirm your email";
                 mail.IsBodyHtml = true;
           
                 Sender.Send(mail);
@@ -36,6 +38,40 @@ namespace WebApplication2.Models
                 }
                 return "Fail";
             }
+        }
+
+
+        public string UpdateConfirmation(string UserName)
+        {
+            string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + UserName + "'";
+            memberTableV2 MT = activeDb.memberTableV2.SqlQuery(queryM).SingleOrDefault();
+            string queryL = "SELECT * FROM leaderTableV2 WHERE UserName='" + UserName + "'";
+            leaderTableV2 LT = activeDb.leaderTableV2.SqlQuery(queryL).SingleOrDefault();
+            string queryA = "SELECT * FROM administrationV2 WHERE UserName='" + UserName + "'";
+            administrationV2 AT = activeDb.administrationV2.SqlQuery(queryA).SingleOrDefault();
+
+            if (MT != null)
+            {
+                MT.ConfirmEmail = true;
+                activeDb.Entry(MT).State = EntityState.Modified;
+            }
+            else if (LT != null)
+            {
+                LT.ConfirmEmail = true;
+                activeDb.Entry(LT).State = EntityState.Modified;
+            }
+            else if (AT != null)
+            {
+                AT.ConfirmEmail = true;
+                activeDb.Entry(AT).State = EntityState.Modified;
+            }
+            else
+            {
+                return "Error";   
+            }
+
+            activeDb.SaveChanges();
+            return "Verified";
         }
     }
 }

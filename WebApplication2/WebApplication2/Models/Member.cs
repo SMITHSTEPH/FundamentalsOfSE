@@ -1,5 +1,8 @@
 ﻿//http://www.asp.net/mvc/overview/older-versions/getting-started-with-aspnet-mvc4/adding-a-model
 //http://www.codeproject.com/Articles/639709/Getting-Data-From-View-to-Controller-in-MVC
+
+using System.Linq;
+
 namespace WebApplication2.Models
 {
     public class Member
@@ -43,7 +46,10 @@ namespace WebApplication2.Models
 
         public string isValid(Member Self)
         {
-            return vf.Check(Self);
+            if (vf.FindMember(Self.UserName))
+               return "Exist";
+            else
+                return vf.Check(Self);
         }
     }
 }

@@ -14,14 +14,20 @@
     if (Convert.ToString(ViewData["Email"]) == "Sent")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("COnfirmation Email Sent");
+        @Html.Label("Confirmation Email Sent");
     }
     else
     {
         System.Diagnostics.Debug.Print("In else statement");
-        @Html.Label("Error in sending please reenter Email and resend");
-        @Html.TextBoxFor(model => model.Email, "Email");
+        @Html.Label("Error in sending please Email, Please enter Username and Password to Resend");
         <br />
+        <br />
+        @Html.Label("Username:");
+        @Html.TextBoxFor(model => model.UserName, "Username");
+        <br />
+        <br />
+        @Html.Label("Password:");
+        @Html.PasswordFor(model => model.Password, "Password");
         <br />
         <input type="submit" value="Resend">
     }

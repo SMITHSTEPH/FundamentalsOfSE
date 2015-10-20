@@ -25,7 +25,6 @@ namespace WebApplication2.Models
 
             PossibleUser.Rank = "Fail";
             return PossibleUser;
-            
         }
 
         private Account Find(Account PossibleUser)
@@ -62,11 +61,6 @@ namespace WebApplication2.Models
 
             return PossibleUser;
         }
-
-        /*public void UpdateUsersEmail()
-        {
-
-        }*/
 
 
     }

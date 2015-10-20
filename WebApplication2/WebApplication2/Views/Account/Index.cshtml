@@ -19,8 +19,8 @@
    <br/>
    <br/>
    <input type="submit" value="Sign In">
-    //if (Convert.ToBoolean(ViewData["Emai"]) == true)
-    //{
+    if (Convert.ToBoolean(ViewData["Email"]) == true)
+    {
         if (Convert.ToString(ViewData["isValid"]) == "Fail")
         {
             System.Diagnostics.Debug.Print("In if statement");
@@ -47,11 +47,11 @@
         {
 
         }
-   // }
-   // else
-   // {
-     //   @Html.Label("Verify Email before logging In!");
-   // }
+   }
+   else
+   {
+       @Html.Label("Verify Email before logging In!");
+   }
 
 }
 @{      

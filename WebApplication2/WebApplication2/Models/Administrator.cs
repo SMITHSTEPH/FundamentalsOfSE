@@ -1,4 +1,6 @@
-﻿namespace WebApplication2.Models
+﻿using System.Linq;
+
+namespace WebApplication2.Models
 {
     public class Administrator : Member
     {
@@ -32,6 +34,8 @@
         {
             if (Self.AdminKey != "5")
                 return "AdminKey";
+            else if (vf.FindAdmin(Self.UserName))
+                return "Exist";
             else return vf.Check(Self);
         }
     }

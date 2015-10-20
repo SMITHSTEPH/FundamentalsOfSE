@@ -1,30 +1,16 @@
-﻿@model WebApplication2.Models.Account
-
-@{
+﻿@{
     ViewBag.Title = "EmailVerificationPage";
 }
 
 <h2>EmailVerificationPage</h2>
 
-@using (Html.BeginForm("Resend", "Account", FormMethod.Post))
+@using (Html.BeginForm("Verify", "Account", new { id = Request.QueryString["UserName"] }, FormMethod.Post))
 {
-    @Html.Label("Log In to Verify Email");
-    <br />
-    <br />
-    @Html.Label("Username:");
-    @Html.TextBoxFor(model => model.UserName, "Username");
-    <br />
-    <br />
-    @Html.Label("Password:");
-    @Html.PasswordFor(model => model.Password, "Password");
-    <br />
-    <br />
-    <input type="submit" value="Sign In">
-    <br />
+   
     if (Convert.ToString(ViewData["Email"]) == "Verified")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Email Verifed");
+        @Html.Label("Email Verifed for " + ViewData["User"]);
     }
     else if (Convert.ToString(ViewData["Email"]) == "Fail")
     {
@@ -36,8 +22,12 @@
     }
     else
     {
-
+        string Clicker = Request.QueryString["UserName"];
+        @Html.Label(Clicker + ", click button to verify");
     }
+    <br />
+    <input type="submit" value="Verify">
+    <br />
 }
 
 @using (Html.BeginForm("Index", "Account", FormMethod.Get))
