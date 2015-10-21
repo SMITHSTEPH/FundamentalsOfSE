@@ -90,7 +90,7 @@ namespace WebApplication2.Tests
             GoodLeader.Email = "bradbergeron90@me.com";
             GoodLeader.LeaderKey = "5";
 
-            Leader BadLeaderKey = new Leader();
+            /*Leader BadLeaderKey = new Leader();
             BadLeaderKey.UserName = "HFSKF";
             BadLeaderKey.FirstName = "Taylor";
             BadLeaderKey.LastName = "Swift";
@@ -101,7 +101,7 @@ namespace WebApplication2.Tests
             BadLeaderKey.Gender = "Female";
             BadLeaderKey.Birthdate = "2/23/19";
             BadLeaderKey.Email = "bradbergeron90@me.com";
-            BadLeaderKey.LeaderKey = "6";
+            BadLeaderKey.LeaderKey = "6";*/
 
             Leader NullLeader = new Leader();
             NullLeader.UserName = "TSwift2";
@@ -155,7 +155,7 @@ namespace WebApplication2.Tests
             GoodAdmin.Email = "bradbergeron90@me.com";
             GoodAdmin.AdminKey = "5";
 
-            Administrator BadAdminKey = new Administrator();
+           /* Administrator BadAdminKey = new Administrator();
             BadAdminKey.UserName = "HFSKS2";
             BadAdminKey.FirstName = "Taylor";
             BadAdminKey.LastName = "Swift";
@@ -166,7 +166,7 @@ namespace WebApplication2.Tests
             BadAdminKey.Gender = "Female";
             BadAdminKey.Birthdate = "2/23/19";
             BadAdminKey.Email = "bradbergeron90@me.com";
-            BadAdminKey.AdminKey = "6";
+            BadAdminKey.AdminKey = "6";*/
 
             Administrator NullAdmin = new Administrator();
             NullAdmin.UserName = "TSwift";
@@ -195,7 +195,7 @@ namespace WebApplication2.Tests
             var CreateAdminResult1 = TestVerifiation.Check(GoodAdmin);
             var CreateAdminResult2 = TestVerifiation.Check(NullAdmin);
             var CreateAdminResult3 = TestVerifiation.Check(BadPasswordAdmin);
-            //var CreateLeaderResult4 = BadAdminKey.isValid(BadAdminKey);
+            //var CreateLeaderResult4 = TestVerifiation.Check(BadAdminKey);
 
             Assert.AreEqual("Valid", CreateAdminResult1);
             Assert.AreEqual("NullFields", CreateAdminResult2);
