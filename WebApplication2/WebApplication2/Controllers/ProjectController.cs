@@ -13,7 +13,7 @@ namespace WebApplication2.Controllers
         {
             
             //Needs to go get the Projects the user is in than display those projects
-            return View("ExisingProjects");
+            return View("ExistingProjects");
         }
 
         public ActionResult AddProjects()
