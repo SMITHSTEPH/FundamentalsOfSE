@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Web.Mvc;
 using WebApplication2.Models;
+using WebApplication2.Controllers;
 
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
     { 
         Account ConfirmedUser = new Account();
-        EmailConfirmation ef = new EmailConfirmation();
+        ProjectController pc = new ProjectController();
 
         // GET: Account
         public ActionResult Index()
@@ -33,7 +34,9 @@ namespace WebApplication2.Controllers
             ConfirmedUser = PossibleUser.Create(PossibleUser);
             ViewData["isValid"] = ConfirmedUser.Rank;
             ViewData["Email"] = ConfirmedUser.ConfirmEmail;
-            return View("Index", ConfirmedUser);
+
+            return RedirectToAction("ExistingProjects", "Project");
+            // return View("Index", ConfirmedUser);
         }
         
         [HttpPost]
@@ -50,7 +53,7 @@ namespace WebApplication2.Controllers
             else
             {
                 Member ConfirmedMem = PossibleMem;
-                ViewData["Email"] = ef.sendEmail(ConfirmedMem.Email, ConfirmedMem.UserName);
+                ViewData["Email"] = ConfirmedUser.sendEmail(ConfirmedMem.Email, ConfirmedMem.UserName);
                 ConfirmedMem.Init(PossibleMem);
                 return View("EmailConfirmationPage");
             }
@@ -70,7 +73,7 @@ namespace WebApplication2.Controllers
             else
             {
                 Leader ConfirmedLead = PossibleLead;
-                ViewData["Email"] = ef.sendEmail(ConfirmedLead.Email, ConfirmedLead.UserName);
+                ViewData["Email"] = ConfirmedUser.sendEmail(ConfirmedLead.Email, ConfirmedLead.UserName);
                 ConfirmedLead.Init(PossibleLead);
                 return View("EmailConfirmationPage");
             }
@@ -90,7 +93,7 @@ namespace WebApplication2.Controllers
             else
             {
                 Administrator ConfirmedAdmin = PossibleAdmin;
-                ViewData["Email"] = ef.sendEmail(ConfirmedAdmin.Email, ConfirmedAdmin.UserName);
+                ViewData["Email"] = ConfirmedUser.sendEmail(ConfirmedUser.Email, ConfirmedUser.UserName);
                 ConfirmedAdmin.Init(PossibleAdmin);
                 return View("EmailConfirmationPage");
             }
@@ -99,7 +102,7 @@ namespace WebApplication2.Controllers
         public ActionResult Resend(Account PossibleUser)
         {
             ConfirmedUser = PossibleUser.Create(PossibleUser);
-            ef.sendEmail(ConfirmedUser.Email,ConfirmedUser.UserName);
+            ConfirmedUser.sendEmail(ConfirmedUser.Email,ConfirmedUser.UserName);
             return View("EmailConfirmationPage");
         }
 
@@ -107,7 +110,7 @@ namespace WebApplication2.Controllers
         {
             string UserName = (string) RouteData.Values["id"];
             ViewData["User"] = UserName;
-            ViewData["Email"] = ef.UpdateConfirmation(UserName);
+            ViewData["Email"] = ConfirmedUser.UpdateConfirmation(UserName);
             return View("EmailVerificationPage");
         }
 

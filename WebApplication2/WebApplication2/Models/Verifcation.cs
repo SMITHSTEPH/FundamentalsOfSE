@@ -8,20 +8,16 @@ namespace WebApplication2.Models
 {
     public class Verifcation
     {
-        private RegistrationEntities1 db = new RegistrationEntities1();
-
-        public string Check(Member Table)
+        public string PasswordCheck(string possiblePassword)
         {
-            string possiblePassword = Convert.ToString(Table.Password);
 
-            if (IsNullMember(Table)) return "NullFields";
-
-            else if (possiblePassword.Length < 6) return "Length";
+            if (possiblePassword.Length < 6) return "Length";
 
             else if (!possiblePassword.Any(c => IsDigit(c)) ||
                     !possiblePassword.Any(c => IsSymbol(c)) ||
                     !possiblePassword.Any(c => IsLetterLower(c)) ||
-                    !possiblePassword.Any(c => IsLetterHigher(c))) return "Char";
+                    !possiblePassword.Any(c => IsLetterHigher(c)))
+                return "Char";
 
             else return "Valid";
         }
@@ -43,88 +39,11 @@ namespace WebApplication2.Models
             return c > 32 && c < 127 && !IsDigit(c) && !IsLetterHigher(c) && !IsLetterLower(c);
         }
 
-        public Boolean IsNullMember(Member Table)
-        {
-            if (IsNull(Table.UserName) ||
-                     IsNull(Table.Email) ||
-                     IsNull(Table.Password) ||
-                     IsNull(Table.Address) ||
-                     IsNull(Table.Birthdate) ||
-                     IsNull(Table.Gender) ||
-                     IsNull(Table.FirstName) ||
-                     IsNull(Table.LastName) ||
-                     IsNull(Table.PhoneNumber))
-            {
-                return true;
-            }
-            else return false;
-        }
-
         public bool IsNull(string input)
         {
             if(input == null) return true;
             else return false;
             
-        }
-
-        public bool FindMember(string UserName)
-        {
-            try
-            {
-                string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + UserName + "'";
-                memberTableV2 MT = db.memberTableV2.SqlQuery(queryM).SingleOrDefault();
-
-                if (MT != null)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            catch
-            {
-                return true;
-            }
-        }
-
-        public bool FindLeader(string UserName)
-        {
-            try
-            {
-                string queryL = "SELECT * FROM leaderTableV2 WHERE UserName='" + UserName + "'";
-                leaderTableV2 LT = db.leaderTableV2.SqlQuery(queryL).SingleOrDefault();
-
-                if (LT != null)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            catch
-            {
-                return true;
-            }
-        }
-
-        public bool FindAdmin(string UserName)
-        {
-            try
-            {
-                string queryA = "SELECT * FROM administrationV2 WHERE UserName='" + UserName + "'";
-                administrationV2 AT = db.administrationV2.SqlQuery(queryA).SingleOrDefault();
-
-                if (AT != null)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-            catch
-            {
-                return true;
-            }
         }
 
         public string Encrypt(string clearText)
