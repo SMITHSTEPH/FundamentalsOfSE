@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "RequiementQuestions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+
+    <ul>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#money">Money</a></li>
+        <li><a href="#Size">Contact</a></li>
+        <li><a href="#Management">About</a></li>
+    </ul>
+
+
+
+<h2 id="requirments">Requirements</h2>
+@using (Html.BeginForm("ProcessModelResult", "ProcessModel"))
+{
+    @Html.Label("The requirements are very well understood (T or F)");
+    <br>
+    @Html.Label("True");
+    @Html.RadioButton("Answer", "True");
+    @Html.Label("False");
+    @Html.RadioButton("Answer", "False");
+    <br>
+    @Html.Label("The requirements are easily defined (T or F)");
+    <br>
+    @Html.Label("The requirments frequently change (T of F");
+    <br>
+    @Html.Label("The requirements indicate a complex system (T or F)");
+    <br>
+    @Html.Label("The requirements will not change even if it takes your team 30-5070% longer than the estimated time to complete the project");
+    <br>
+    @Html.Label("The requirements are driven by a user interface");
+    <br>
+    @Html.Label("How can you gather requirements?");
+    <br>
+    @Html.Label("The project domain is completely understood");
+    <br>
+    <h2 id="money">Money</h2>
+    <input type="submit" value="Submit">
+}
+</body>
+</html>
