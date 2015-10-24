@@ -1,75 +1,96 @@
 ﻿@model WebApplication2.Models.Account
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "Index";}</title>
+</head>
+<body>
+    <h2>Software Process Planner</h2>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Software Process Planner</h2>
-
-@using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
-{
-    <br/>
-    <br/>
-    @Html.Label("Username:");
-    @Html.TextBoxFor(model => model.UserName, "Username");
-    <br/>
-    <br/>
-    @Html.Label("Password:");
-    @Html.PasswordFor(model => model.Password, "Password");
-   <br/>
-   <br/>
-   <input type="submit" value="Sign In">
-    if (Convert.ToBoolean(ViewData["Email"]) == true)
-    {
-        if (Convert.ToString(ViewData["isValid"]) == "Fail")
+    <div>
+        @using (Html.BeginForm("Project", "Account", FormMethod.Post))
         {
-            System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("Invalid username of password");
+            if (Convert.ToBoolean(ViewData["Email"]) == true)
+            {
+                <div class="text-right">
+                    <p>Side Bar</p>
+                </div>
+            }
+        }
+    </div>
+
+    <div>
+        @using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
+        {
             <br />
-            @Html.Label("Please try again");
-        }
-        else if (Convert.ToString(ViewData["isValid"]) == "Leader")
-        {
-            System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("Team Leader Logged In as " + Model.UserName + "!");
-        }
-        else if (Convert.ToString(ViewData["isValid"]) == "Admin")
-        {
-            System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("Team Admin Logged In as " + Model.UserName + "!");
-        }
-        else if (Convert.ToString(ViewData["isValid"]) == "Member")
-        {
-            System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("Team Member Logged In as " + Model.UserName + "!");
-        }
-        else
-        {
+            <br />
+            @Html.Label("Username:");
+            @Html.TextBoxFor(model => model.UserName, "Username");
+            <br />
+            <br />
+            @Html.Label("Password:");
+            @Html.PasswordFor(model => model.Password, "Password");
+            <br />
+            <br />
+            <input type="submit" value="Sign In">
+            if (Convert.ToBoolean(ViewData["Email"]) == true)
+            {
+                if (Convert.ToString(ViewData["isValid"]) == "Fail")
+                {
+                    System.Diagnostics.Debug.Print("In if statement");
+                    @Html.Label("Invalid username of password");
+                    <br />
+                    @Html.Label("Please try again");
+                }
+                else if (Convert.ToString(ViewData["isValid"]) == "Leader")
+                {
+                    System.Diagnostics.Debug.Print("In if statement");
+                    @Html.Label("Team Leader Logged In as " + Model.UserName + "!");
+                }
+                else if (Convert.ToString(ViewData["isValid"]) == "Admin")
+                {
+                    System.Diagnostics.Debug.Print("In if statement");
+                    @Html.Label("Team Admin Logged In as " + Model.UserName + "!");
+                }
+                else if (Convert.ToString(ViewData["isValid"]) == "Member")
+                {
+                    System.Diagnostics.Debug.Print("In if statement");
+                    @Html.Label("Team Member Logged In as " + Model.UserName + "!");
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                @Html.Label("Verify Email before logging In!");
+            }
 
         }
-   }
-   else
-   {
-       @Html.Label("Verify Email before logging In!");
-   }
-
-}
-@{      
-        List<SelectListItem> dropDown = new List<SelectListItem>();
-        dropDown.Add(new SelectListItem{ Value = "SignUpMember", Text = "Team Member"});
-        dropDown.Add(new SelectListItem{ Value = "SignUpLeader", Text = "Team Leader"});
-        dropDown.Add(new SelectListItem{ Value = "SignUpAdmin", Text = "Team Administrator"});
-}
-@using (Html.BeginForm("SignUp", "Account"))
-{
-    <br/>
-    <br/>
-    @Html.Label("Not a member?");
-    <br/>
-    <br/>
-    @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
-    <input type="submit" value="Sign Up">
-}
+    </div>
+    <div>
+        @{
+            List<SelectListItem> dropDown = new List<SelectListItem>();
+            dropDown.Add(new SelectListItem { Value = "SignUpMember", Text = "Team Member" });
+            dropDown.Add(new SelectListItem { Value = "SignUpLeader", Text = "Team Leader" });
+            dropDown.Add(new SelectListItem { Value = "SignUpAdmin", Text = "Team Administrator" });
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm("SignUp", "Account"))
+        {
+            <br />
+            <br />
+            @Html.Label("Not a member?");
+            <br />
+            <br />
+            @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
+            <input type="submit" value="Sign Up">
+        }
+    </div>
+</body>
+</html>
 
 
 

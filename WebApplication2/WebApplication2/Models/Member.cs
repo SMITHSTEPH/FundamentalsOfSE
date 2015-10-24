@@ -2,26 +2,20 @@
 //http://www.codeproject.com/Articles/639709/Getting-Data-From-View-to-Controller-in-MVC
 
 using System.Linq;
+using System;
 
 namespace WebApplication2.Models
 {
-    public class Member
+    public class Member : Account
     {
         public string FirstName { get; set; } //define properties
         public string LastName { get; set; }
         public string OptionalPhoneNumber { get; set; }
-        public bool ConfirmEmail { get; set; }
         public string MiddleName { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string Gender { get; set; }
         public string Birthdate { get; set; }
-        public string Email { get; set; }
-
-        protected Verifcation vf = new Verifcation();
-        protected RegistrationEntities1 db = new RegistrationEntities1();
 
         public virtual void Init(Member Table)
         {
@@ -46,10 +40,43 @@ namespace WebApplication2.Models
 
         public string isValid(Member Self)
         {
-            if (vf.FindMember(Self.UserName))
+            if (FindMember(Self.UserName))
                return "Exist";
+            else if (IsNullMember(Self))
+               return "NullFields";
             else
-                return vf.Check(Self);
+               return vf.PasswordCheck(Self.Password);
         }
+
+        public Boolean IsNullMember(Member Table)
+        {
+            if (vf.IsNull(Table.UserName) ||
+                     vf.IsNull(Table.Email) ||
+                     vf.IsNull(Table.Password) ||
+                     vf.IsNull(Table.Address) ||
+                     vf.IsNull(Table.Birthdate) ||
+                     vf.IsNull(Table.Gender) ||
+                     vf.IsNull(Table.FirstName) ||
+                     vf.IsNull(Table.LastName) ||
+                     vf.IsNull(Table.PhoneNumber))
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public bool FindMember(string UserName)
+        {
+            try
+            {
+                string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + UserName + "'";
+                memberTableV2 MT = db.memberTableV2.SqlQuery(queryM).SingleOrDefault();
+
+                if (MT != null)return true;
+                return false;
+            }
+            catch{return true;}
+        }
+
     }
 }
