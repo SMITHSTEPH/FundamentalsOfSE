@@ -1,9 +1,46 @@
-﻿
-@{
-    ViewBag.Title = "ExistingProjects";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model WebApplication2.Models.Project
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "ExistingProjects";}</title>
+            @{Layout = "~/Views/Shared/_Layout.cshtml";}
+</head>
+<body>
 
-<h2>ExistingProjects</h2>
+    <h2>ExistingProjects</h2>
+    <div>
+        @Html.Label("Logged In as " + Model.UserName)
+        <br />
+        @Html.Label("Your Rank is " + Model.Rank)
+        <br />
+        @Html.Label("Your Id is " + Model.AccountId)
+        <br />
 
+        @if (Model.ProjectId[0] == 0)
+        {
+            @Html.Label("Not in any Projects")
+        }
+        else
+        {
+            foreach (var id in Model.ProjectId)
+            {
+                if (id != 0)
+                {
+                    @Html.Label("Your Project Ids are " + id)
+                    <br />
+                }
+            }
+        }
+
+        @if (Model.Rank == "Leader")
+        {
+            using (Html.BeginForm("AddProjects", "Project", FormMethod.Post))
+            {
+
+                <input type="submit" value="Add New Project">
+            }
+        }
+    </div>
+</body>
+</html>
 

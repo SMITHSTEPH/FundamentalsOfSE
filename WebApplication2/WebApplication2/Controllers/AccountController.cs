@@ -35,7 +35,7 @@ namespace WebApplication2.Controllers
             ViewData["isValid"] = ConfirmedUser.Rank;
             ViewData["Email"] = ConfirmedUser.ConfirmEmail;
 
-            return RedirectToAction("ExistingProjects", "Project");
+            return RedirectToAction("ExistingProjects", "Project", ConfirmedUser);
             // return View("Index", ConfirmedUser);
         }
         

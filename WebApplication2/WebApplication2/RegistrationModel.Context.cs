@@ -38,6 +38,8 @@ public partial class RegistrationEntities1 : DbContext
 
     public virtual DbSet<leaderTableV2> leaderTableV2 { get; set; }
 
+    public virtual DbSet<JunctionTableProjectAndAccount> JunctionTableProjectAndAccounts { get; set; }
+
 }
 
 }

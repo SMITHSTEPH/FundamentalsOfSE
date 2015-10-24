@@ -18,6 +18,15 @@
     <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="JunctionTableProjectAndAccount">
+    <Key>
+      <PropertyRef Name="JId" />
+    </Key>
+    <Property Name="JId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AID" Type="int" />
+    <Property Name="Role" Type="nchar" MaxLength="10" />
+    <Property Name="PId" Type="int" />
+  </EntityType>
   <EntityType Name="leaderTableV2">
     <Key>
       <PropertyRef Name="Id" />
@@ -56,6 +65,7 @@
   </EntityType>
   <EntityContainer Name="RegistrationModelStoreContainer">
     <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JunctionTableProjectAndAccount" EntityType="Self.JunctionTableProjectAndAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
   </EntityContainer>

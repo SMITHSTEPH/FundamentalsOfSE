@@ -4,6 +4,7 @@
     <EntitySet Name="memberTableV2" EntityType="RegistrationModel.memberTableV2" />
     <EntitySet Name="administrationV2" EntityType="RegistrationModel.administrationV2" />
     <EntitySet Name="leaderTableV2" EntityType="RegistrationModel.leaderTableV2" />
+    <EntitySet Name="JunctionTableProjectAndAccounts" EntityType="RegistrationModel.JunctionTableProjectAndAccount" />
   </EntityContainer>
   <EntityType Name="memberTableV2">
     <Key>
@@ -58,5 +59,14 @@
     <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="BirthDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="JunctionTableProjectAndAccount">
+    <Key>
+      <PropertyRef Name="JId" />
+    </Key>
+    <Property Name="JId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AID" Type="Int32" />
+    <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="PId" Type="Int32" />
   </EntityType>
 </Schema>

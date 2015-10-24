@@ -58,5 +58,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="JunctionTableProjectAndAccounts">
+      <EntityTypeMapping TypeName="RegistrationModel.JunctionTableProjectAndAccount">
+        <MappingFragment StoreEntitySet="JunctionTableProjectAndAccount">
+          <ScalarProperty Name="PId" ColumnName="PId" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="AID" ColumnName="AID" />
+          <ScalarProperty Name="JId" ColumnName="JId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

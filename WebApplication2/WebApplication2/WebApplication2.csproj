@@ -214,6 +214,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="JunctionTableProjectAndAccount.cs">
+      <DependentUpon>RegistrationModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="leaderTableV2.cs">
       <DependentUpon>RegistrationModel.tt</DependentUpon>
     </Compile>
@@ -256,6 +259,7 @@
     <Content Include="Views\Account\EmailConfirmationPage.cshtml" />
     <Content Include="Views\Account\EmailVerificationPage.cshtml" />
     <Content Include="Views\Project\ExistingProjects.cshtml" />
+    <Content Include="Views\Project\AddProjects.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
