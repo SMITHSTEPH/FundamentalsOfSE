@@ -7,31 +7,35 @@ namespace WebApplication2.Models
 {
     public class Account
     {
-
-        public string UserName { get; set; }
+        /*These properties specifiy all the information a given user must have in order
+        to have an account with this application*/
+        public string UserName { get; set; } 
         public string Password { get; set; }
-        public string Rank { get; set;}
-        public bool ConfirmEmail { get; set; }
+        public string Rank { get; set;} //0=Member; 1=Leader, 2=Admin
+        public bool ConfirmEmail { get; set; } //True if the user have validated through email, false otherwise
         public string Email { get; set; }
         public int AccountId { get; set; }
         
         protected Verifcation vf = new Verifcation();
-        protected RegistrationEntities1 db = new RegistrationEntities1();
-
-        public Account Create(Account PossibleUser)
+        protected RegistrationEntities1 db = new RegistrationEntities1(); //instance of the registration DB
+        /****
+        Verifies the possible user
+        If the user filled out the username and password fields the try to find the user
+        in the registration DB
+        ****/
+        public Account Verify(Account PossibleUser) 
         {
-
-            if(PossibleUser.Password != null)
+            if (PossibleUser.Password != null && PossibleUser.UserName != null) { return PossibleUser.Find(PossibleUser); }
+            else
             {
-
-                return PossibleUser.Find(PossibleUser);
-
+                PossibleUser.Rank = "Fail";
+                return PossibleUser;
             }
-
-            PossibleUser.Rank = "Fail";
-            return PossibleUser;
         }
-
+        /**
+        Method forms queries to look in the member, admin and leader DB. If the query returns
+        anything other than null it is in the DB.
+        **/
         private Account Find(Account PossibleUser)
         {
                 string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + UserName + "' AND Password='" + vf.Encrypt(Password) + "'";
