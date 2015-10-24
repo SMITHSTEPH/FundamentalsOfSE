@@ -12,90 +12,90 @@
         {
             <br />
             System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("Please have an input for all text fields with *");
+            @Html.Label("Please have an input for all text fields with *")
 
         }
         if (Convert.ToString(ViewData["isValid"]) == "Exist")
         {
             <br />
             System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("UserName already Exists choose another one");
+            @Html.Label("UserName already Exists choose another one")
         }
         <br />
         <br />
-        @Html.Label("Password:");
-        @Html.PasswordFor(model => model.Password, "Password");
-        @Html.Label("*");
+        @Html.Label("Password:")
+        @Html.PasswordFor(model => model.Password, "Password")
+        @Html.Label("*")
         if (Convert.ToString(ViewData["isValid"]) == "Length")
         {
             <br />
             System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("Password needs to be at least 6 characters");
+            @Html.Label("Password needs to be at least 6 characters")
 
         }
         if (Convert.ToString(ViewData["isValid"]) == "Char")
         {
             <br />
             System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("Password must contain a lower case, upper case, digit and a symbol");
+            @Html.Label("Password must contain a lower case, upper case, digit and a symbol")
         }
         <br />
         <br />
-        @Html.Label("First name:");
-        @Html.TextBoxFor(model => model.FirstName, "FirstName");
-        @Html.Label("*");
+        @Html.Label("First name:")
+        @Html.TextBoxFor(model => model.FirstName, "FirstName")
+        @Html.Label("*")
         <br />
         <br />
-        @Html.Label("Middle name:");
-        @Html.TextBoxFor(model => model.MiddleName, "MiddleName");
+        @Html.Label("Middle name:")
+        @Html.TextBoxFor(model => model.MiddleName, "MiddleName")
         <br />
         <br />
-        @Html.Label("Last name:");
-        @Html.TextBoxFor(model => model.LastName, "LastName");
-        @Html.Label("*");
+        @Html.Label("Last name:")
+        @Html.TextBoxFor(model => model.LastName, "LastName")
+        @Html.Label("*")
         <br />
         <br />
-        @Html.Label("Address:");
-        @Html.TextBoxFor(model => model.Address, "Address");
-        @Html.Label("*");
+        @Html.Label("Address:")
+        @Html.TextBoxFor(model => model.Address, "Address")
+        @Html.Label("*")
         <br />
         <br />
-        @Html.Label("Birthdate:");
-        @Html.TextBoxFor(model => model.Birthdate, "Birthdate");
-        @Html.Label("*");
+        @Html.Label("Birthdate:")
+        @Html.TextBoxFor(model => model.Birthdate, "Birthdate")
+        @Html.Label("*")
         <br />
         <br />
-        @Html.Label("Phone Number:");
-        @Html.TextBoxFor(model => model.PhoneNumber, "PhoneNumber");
-        @Html.Label("*");
+        @Html.Label("Phone Number:")
+        @Html.TextBoxFor(model => model.PhoneNumber, "PhoneNumber")
+        @Html.Label("*")
         <br />
         <br />
-        @Html.Label("2nd Phone Number:");
-        @Html.TextBoxFor(model => model.OptionalPhoneNumber, "PhoneNumber");
+        @Html.Label("2nd Phone Number:")
+        @Html.TextBoxFor(model => model.OptionalPhoneNumber, "PhoneNumber")
         <br />
         <br />
-        @Html.Label("Gender:");
-        @Html.TextBoxFor(model => model.Gender, "Gender");
-        @Html.Label("*");
+        @Html.Label("Gender:")
+        @Html.TextBoxFor(model => model.Gender, "Gender")
+        @Html.Label("*")
         <br />
         <br />
-        @Html.Label("Email:");
-        @Html.TextBoxFor(model => model.Email, "Email");
-        @Html.Label("*");
+        @Html.Label("Email:")
+        @Html.TextBoxFor(model => model.Email, "Email")
+        @Html.Label("*")
         <br />
         <br />
-        @Html.Label("Admin Code:");
-        @Html.TextBoxFor(model => model.AdminKey, "AdminKey");
-        @Html.Label("*");
+        @Html.Label("Admin Code:")
+        @Html.TextBoxFor(model => model.AdminKey, "AdminKey")
+        @Html.Label("*")
         <br />
         <br />
         <input type="submit" value="Create Admin">
         if (Convert.ToString(ViewData["isValid"]) == "AdminKey")
         {
             System.Diagnostics.Debug.Print("In if statement");
-            @Html.Label("Invalid Leader Key");
+            @Html.Label("Invalid Leader Key")
             <br />
-            @Html.Label("Please try again");
+            @Html.Label("Please try again")
         }
     }
 </body>

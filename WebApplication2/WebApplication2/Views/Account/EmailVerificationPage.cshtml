@@ -10,12 +10,12 @@
     if (Convert.ToString(ViewData["Email"]) == "Verified")
     {
         System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Email Verifed for " + ViewData["User"]);
+        @Html.Label("Email Verifed for " + ViewData["User"])
     }
     else if (Convert.ToString(ViewData["Email"]) == "Fail")
     {
         System.Diagnostics.Debug.Print("In else statement");
-        @Html.Label("Error in verifing please resend email");
+        @Html.Label("Error in verifing please resend email")
         <br />
         <br />
         <input type="submit" value="Resend">
@@ -23,7 +23,7 @@
     else
     {
         string Clicker = Request.QueryString["UserName"];
-        @Html.Label(Clicker + ", click button to verify");
+        @Html.Label(Clicker + ", click button to verify")
     }
     <br />
     <input type="submit" value="Verify">

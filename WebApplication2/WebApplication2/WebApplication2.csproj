@@ -210,10 +210,12 @@
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ProcessModelController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="JunctionTableProjectAndAccount.cs">
+      <DependentUpon>RegistrationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="leaderTableV2.cs">
       <DependentUpon>RegistrationModel.tt</DependentUpon>
@@ -225,7 +227,6 @@
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Leader.cs" />
     <Compile Include="Models\Member.cs" />
-    <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Verifcation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -258,9 +259,7 @@
     <Content Include="Views\Account\EmailConfirmationPage.cshtml" />
     <Content Include="Views\Account\EmailVerificationPage.cshtml" />
     <Content Include="Views\Project\ExistingProjects.cshtml" />
-    <Content Include="Views\ProcessModel\SizeQuestions.cshtml" />
-    <Content Include="Views\ProcessModel\RequirementQuestions.cshtml" />
-    <Content Include="Views\ProcessModel\ProcessModelResult.cshtml" />
+    <Content Include="Views\Project\AddProjects.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

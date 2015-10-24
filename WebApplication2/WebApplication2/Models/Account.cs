@@ -50,18 +50,21 @@ namespace WebApplication2.Models
                     PossibleUser.Rank = "Member";
                     PossibleUser.ConfirmEmail = MT.ConfirmEmail;
                     PossibleUser.Email = MT.Email;
+                    PossibleUser.AccountId = MT.Id;
                 }
                 else if (LT != null)
                 {
                     PossibleUser.Rank = "Leader";
                     PossibleUser.ConfirmEmail = LT.ConfirmEmail;
                     PossibleUser.Email = LT.Email;
+                    PossibleUser.AccountId = LT.Id;
                 }
                 else if (AT != null)
                 {
                     PossibleUser.Rank = "Admin";
                     PossibleUser.ConfirmEmail = AT.ConfirmEmail;
                     PossibleUser.Email = AT.Email;
+                    PossibleUser.AccountId = AT.Id;
                 }
                 else
                 {
