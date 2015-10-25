@@ -91,13 +91,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="WaterFallProcessModelTables">
-      <EntityTypeMapping TypeName="RegistrationModel.WaterFallProcessModelTable">
-        <MappingFragment StoreEntitySet="WaterFallProcessModelTable">
+    <EntitySetMapping Name="WaterfallTable2">
+      <EntityTypeMapping TypeName="RegistrationModel.WaterfallTable2">
+        <MappingFragment StoreEntitySet="WaterfallTable2">
           <ScalarProperty Name="Priority" ColumnName="Priority" />
-          <ScalarProperty Name="DesiredAnswer" ColumnName="DesiredAnswer" />
-          <ScalarProperty Name="Question" ColumnName="Question" />
-          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

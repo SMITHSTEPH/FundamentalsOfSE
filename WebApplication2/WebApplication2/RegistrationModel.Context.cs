@@ -44,6 +44,8 @@ public partial class RegistrationEntities1 : DbContext
 
     public virtual DbSet<QuestionTable> QuestionTables { get; set; }
 
+    public virtual DbSet<WaterfallTable2> WaterfallTable2 { get; set; }
+
 }
 
 }

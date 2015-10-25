@@ -89,6 +89,14 @@
           <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="QuestionType" Type="nchar" MaxLength="3" Nullable="false" />
         </EntityType>
+        <EntityType Name="WaterfallTable2">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
         <EntityContainer Name="RegistrationModelStoreContainer">
           <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JunctionTableProjectAndAccount" EntityType="Self.JunctionTableProjectAndAccount" Schema="dbo" store:Type="Tables" />
@@ -96,6 +104,7 @@
           <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionTable" EntityType="Self.QuestionTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaterfallTable2" EntityType="Self.WaterfallTable2" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -108,6 +117,7 @@
           <EntitySet Name="JunctionTableProjectAndAccounts" EntityType="RegistrationModel.JunctionTableProjectAndAccount" />
           <EntitySet Name="MultipleChoiceTables" EntityType="RegistrationModel.MultipleChoiceTable" />
           <EntitySet Name="QuestionTables" EntityType="RegistrationModel.QuestionTable" />
+          <EntitySet Name="WaterfallTable2" EntityType="RegistrationModel.WaterfallTable2" />
         </EntityContainer>
         <EntityType Name="memberTableV2">
           <Key>
@@ -192,6 +202,14 @@
           <Property Name="Question" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="QuestionType" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WaterfallTable2">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -286,6 +304,15 @@
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaterfallTable2">
+            <EntityTypeMapping TypeName="RegistrationModel.WaterfallTable2">
+              <MappingFragment StoreEntitySet="WaterfallTable2">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

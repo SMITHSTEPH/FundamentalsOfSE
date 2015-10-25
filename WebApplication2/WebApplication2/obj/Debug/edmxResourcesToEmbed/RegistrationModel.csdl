@@ -7,7 +7,7 @@
     <EntitySet Name="JunctionTableProjectAndAccounts" EntityType="RegistrationModel.JunctionTableProjectAndAccount" />
     <EntitySet Name="MultipleChoiceTables" EntityType="RegistrationModel.MultipleChoiceTable" />
     <EntitySet Name="QuestionTables" EntityType="RegistrationModel.QuestionTable" />
-    <EntitySet Name="WaterFallProcessModelTables" EntityType="RegistrationModel.WaterFallProcessModelTable" />
+    <EntitySet Name="WaterfallTable2" EntityType="RegistrationModel.WaterfallTable2" />
   </EntityContainer>
   <EntityType Name="memberTableV2">
     <Key>
@@ -93,13 +93,12 @@
     <Property Name="Category" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="QuestionType" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
   </EntityType>
-  <EntityType Name="WaterFallProcessModelTable">
+  <EntityType Name="WaterfallTable2">
     <Key>
-      <PropertyRef Name="QuestionID" />
+      <PropertyRef Name="QuestionId" />
     </Key>
-    <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Question" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-    <Property Name="DesiredAnswer" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
-    <Property Name="Priority" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="QuestionId" Type="Int32" Nullable="false" />
+    <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Priority" Type="Int32" />
   </EntityType>
 </Schema>

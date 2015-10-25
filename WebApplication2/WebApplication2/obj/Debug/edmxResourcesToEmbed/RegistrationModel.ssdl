@@ -84,14 +84,13 @@
     <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
     <Property Name="QuestionType" Type="nchar" MaxLength="3" Nullable="false" />
   </EntityType>
-  <EntityType Name="WaterFallProcessModelTable">
+  <EntityType Name="WaterfallTable2">
     <Key>
-      <PropertyRef Name="QuestionID" />
+      <PropertyRef Name="QuestionId" />
     </Key>
-    <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Question" Type="nchar" MaxLength="100" Nullable="false" />
-    <Property Name="DesiredAnswer" Type="nchar" MaxLength="20" Nullable="false" />
-    <Property Name="Priority" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Answer" Type="nchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
   </EntityType>
   <EntityContainer Name="RegistrationModelStoreContainer">
     <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
@@ -100,6 +99,6 @@
     <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QuestionTable" EntityType="Self.QuestionTable" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="WaterFallProcessModelTable" EntityType="Self.WaterFallProcessModelTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WaterfallTable2" EntityType="Self.WaterfallTable2" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

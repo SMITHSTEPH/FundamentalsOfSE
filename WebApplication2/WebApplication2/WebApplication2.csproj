@@ -251,6 +251,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RegistrationModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="WaterfallTable2.cs">
+      <DependentUpon>RegistrationModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -266,6 +269,7 @@
     <Content Include="Views\Account\EmailVerificationPage.cshtml" />
     <Content Include="Views\Project\ExistingProjects.cshtml" />
     <Content Include="Views\Project\AddProjects.cshtml" />
+    <Content Include="Views\Account\Input.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -276,7 +280,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\uploads\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
