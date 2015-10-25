@@ -12,19 +12,24 @@ namespace WebApplication2.Controllers
     {
         ProcessModel PModel = new ProcessModel();
         // GET: ProcessModel
-        public ActionResult RequirementQuestions()
+        public ActionResult Questions()
         {
+            Debug.Print("HEEELOOOO");
             return View();
         }
         [HttpPost]
-        public ActionResult ProcessModelResult(FormCollection form)
+        public ActionResult Result(FormCollection form)
         {
-            int[] Answers = { };
+            Debug.Print("Trying to print form");
+            Debug.Print(form["Answer"]);
+            string[] Answers = {null};
             form.CopyTo(Answers, 0);
             Debug.Print("Length of form is: ");
             Debug.Print(Answers.Length.ToString());
 
             PModel.ProcessAnswers(Answers);
+            PModel.EliminateProcessModels();
+            PModel.ChooseProcessModels();
             return View();
         }
     }

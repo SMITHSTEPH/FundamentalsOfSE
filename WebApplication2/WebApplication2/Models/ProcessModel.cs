@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -25,9 +26,9 @@ namespace WebApplication2.Models
         **/
         public ProcessModel()
         {
-           foreach (ProcessModels processModel in Enum.GetValues(typeof(ProcessModel)))
+           foreach (ProcessModels processModel in Enum.GetValues(typeof(ProcessModels)))
            {
-                ProcessModelsList.Add(processModel);
+                ProcessModelsList.Add(processModel.ToString());
            }
         }
         /**
@@ -40,23 +41,55 @@ namespace WebApplication2.Models
                 //DB.Account.Add(answers);
             }
         }
-        public void TrainData()
+        public void TrainData(string winner)
         {
-          
+
+            EliminateProcessModels();
+            if(!ProcessModelsList.Contains(winner))
+            {
+                Debug.Print("You did selected incorrectly!!");
+            }
+            else
+            {
+                for (int i = 0; i < ProcessModelsList.Count; i++)
+                {
+                    //join answer table and winner table
+                    //accumulate process model points
+                    //add it to the appropriate arrayList
+                }
+            }
         }
-       public ArrayList EliminateProcessModels()
+       public void EliminateProcessModels()
         {
-            //for a given question
-            //for a given process model
-            //if answer in DB !=equal answer for priority 5 questions
-            //remove process model from arraylist of models
-            //
-            
-            return null;
+            foreach (ProcessModels processModel in Enum.GetValues(typeof(ProcessModels)))
+            {
+                //join ProcessModelTable with Answer Table
+                //if selecting from this table where answer!=desired answer && priority==5 != NULL
+                //remove ProcessModel from the list
+            }
         }
         public void ChooseProcessModels()
         {
-
+            int[] ProcessPoints = new int[ProcessModelsList.Count];
+            int ProcessVal = 0;
+            for (int i=0; i<ProcessModelsList.Count; i++)
+            {
+                //join ProcessModel Table With Answer Table
+                //join ProcessModelTable With Answer Table
+                //if when selecting where answer!=desired answer
+                    //Priorty=Priorty*-1
+                //else
+                    //add normal priority
+                //ProcessPoints[i] += 0;
+            }
+            for(int i=0; i<ProcessModelsList.Count; i++)
+            {
+                //if mean of processModel is closer to processVal than the previous process model
+                //select this process model
+            }
+            //add the selected process to the array list
+            //if the arraylist is over a certain capactiy
+            //remove largest outlier from the list
         }
 
     }
