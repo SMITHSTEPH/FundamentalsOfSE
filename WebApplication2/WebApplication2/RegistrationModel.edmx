@@ -68,11 +68,43 @@
           <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="MultipleChoiceTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Response1" Type="nchar" MaxLength="50" />
+          <Property Name="Response2" Type="nchar" MaxLength="50" />
+          <Property Name="Response3" Type="nchar" MaxLength="50" />
+          <Property Name="Response4" Type="nchar" MaxLength="50" />
+          <Property Name="Response5" Type="nchar" MaxLength="50" />
+          <Property Name="Response6" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="QuestionTable">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="Question" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="QuestionType" Type="nchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WaterfallTable2">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
         <EntityContainer Name="RegistrationModelStoreContainer">
           <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JunctionTableProjectAndAccount" EntityType="Self.JunctionTableProjectAndAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionTable" EntityType="Self.QuestionTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaterfallTable2" EntityType="Self.WaterfallTable2" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -83,6 +115,9 @@
           <EntitySet Name="administrationV2" EntityType="RegistrationModel.administrationV2" />
           <EntitySet Name="leaderTableV2" EntityType="RegistrationModel.leaderTableV2" />
           <EntitySet Name="JunctionTableProjectAndAccounts" EntityType="RegistrationModel.JunctionTableProjectAndAccount" />
+          <EntitySet Name="MultipleChoiceTables" EntityType="RegistrationModel.MultipleChoiceTable" />
+          <EntitySet Name="QuestionTables" EntityType="RegistrationModel.QuestionTable" />
+          <EntitySet Name="WaterfallTable2" EntityType="RegistrationModel.WaterfallTable2" />
         </EntityContainer>
         <EntityType Name="memberTableV2">
           <Key>
@@ -146,6 +181,35 @@
           <Property Name="AID" Type="Int32" />
           <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="PId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MultipleChoiceTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Response1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response2" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response3" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response4" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response5" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response6" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="QuestionTable">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionType" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WaterfallTable2">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -220,7 +284,39 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="MultipleChoiceTables">
+            <EntityTypeMapping TypeName="RegistrationModel.MultipleChoiceTable">
+              <MappingFragment StoreEntitySet="MultipleChoiceTable">
+                <ScalarProperty Name="Response6" ColumnName="Response6" />
+                <ScalarProperty Name="Response5" ColumnName="Response5" />
+                <ScalarProperty Name="Response4" ColumnName="Response4" />
+                <ScalarProperty Name="Response3" ColumnName="Response3" />
+                <ScalarProperty Name="Response2" ColumnName="Response2" />
+                <ScalarProperty Name="Response1" ColumnName="Response1" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionTables">
+            <EntityTypeMapping TypeName="RegistrationModel.QuestionTable">
+              <MappingFragment StoreEntitySet="QuestionTable">
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaterfallTable2">
+            <EntityTypeMapping TypeName="RegistrationModel.WaterfallTable2">
+              <MappingFragment StoreEntitySet="WaterfallTable2">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

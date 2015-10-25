@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WebApplication2.Models;
+﻿using WebApplication2.Models;
 using System.Web.Mvc;
 
 namespace WebApplication2.Controllers
 {
     public class ProjectController : Controller
-    {
+    { 
+
         // GET: Project
         public ActionResult ExistingProjects(Account User)
         {
@@ -31,5 +28,8 @@ namespace WebApplication2.Controllers
             //Needs to add the project to the tables and inform the user the project was entered successfully
             return View( );
         }
+
+
+
     }
 }

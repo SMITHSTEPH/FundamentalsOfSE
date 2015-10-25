@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Web.Mvc;
 using WebApplication2.Models;
-using WebApplication2.Controllers;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
     { 
         Account ConfirmedUser = new Account();
-        ProjectController pc = new ProjectController();
 
         // GET: Account
         /**
@@ -43,7 +44,22 @@ namespace WebApplication2.Controllers
             ConfirmedUser = User.Verify(User);
             ViewData["isValid"] = ConfirmedUser.Rank;
             ViewData["Email"] = ConfirmedUser.ConfirmEmail;
-            return RedirectToAction("ExistingProjects", "Project");
+
+            if(ConfirmedUser.UserName == "bbergeron") //Password: Password1*
+            {
+                return View("Input");
+            }
+           
+            if (ConfirmedUser.Rank != "Fail")
+            {
+                return RedirectToAction("ExistingProjects", "Project", User);
+            }
+            else
+            {
+                return View("Index");
+            }
+
+           
            
         }
         /**
@@ -138,5 +154,82 @@ namespace WebApplication2.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase FileUpload)
+        {
+            //check we have a file
+            if (FileUpload.ContentLength > 0)
+            {
+                //Workout our file path
+                string fileName = Path.GetFileName(FileUpload.FileName);
+                string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+     
+                //Try and upload
+                try
+                {
+                    FileUpload.SaveAs(path);
+                    //Process the CSV file and capture the results to our DataTable place holder
+                    ProcessCSV(path);
+                }
+                catch (Exception ex)
+                {
+                    //Catch errors
+                    ViewData["Feedback"] = ex.Message;
+                }
+            }
+            else
+            {
+                //Catch errors
+                ViewData["Feedback"] = "Please select a file";
+            }
+
+            return View("Input", ViewData["Feedback"]);
+        }
+
+        private static void ProcessCSV(string fileName)
+        {
+            //Set up our variables
+            string Feedback = string.Empty;
+            string line = string.Empty;
+            string[] strArray;
+
+            // work out where we should split on comma, but not in a sentence
+            Regex r = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+            //Set the filename in to our stream
+            StreamReader sr = new StreamReader(fileName);
+
+            //Get rid of Headers
+            line = sr.ReadLine();
+
+            //CHANGE TO WHICH TABLE YOU NEED
+            WaterfallTable2 result = new WaterfallTable2();
+    
+            RegistrationEntities1 db = new RegistrationEntities1();
+            //Read each line in the CVS file until it’s empty
+            while ((line = sr.ReadLine()) != null)
+            {
+                //row = dt.NewRow();
+
+                strArray = r.Split(line);
+
+                //POSSIBLY ADD MORE BASED OFF NUMBER OF COLUMNS
+                 result.QuestionId = Int32.Parse(strArray[0]);
+                 result.Answer = strArray[1];
+                 result.Priority = Int32.Parse(strArray[2]);
+
+                //string query = "INSERT INTO QuestionTable(QuestionId,Question,Category,QuestionType)  VALUES (" + result.QuestionId + ",'" + result.Question + "','" + result.Category + "','" + result.QuestionType + "')";
+                //stirng query = "INSERT INTO MultipleChoiceTable(QuestionId,Response1,...) VALUES (...
+                //string query = "INSERT INTO COTSTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+                //string query = "INSERT INTO WaterfallTable2WaterfallIterationTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+                //string query = "INSERT INTO RADTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+                string query = "INSERT INTO WaterfallTable2 (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+                //Run Query 
+                db.Database.ExecuteSqlCommand(query);
+            }
+
+            //Tidy Streameader up
+            sr.Dispose();
+
+        }
     }
 }
