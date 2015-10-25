@@ -18,6 +18,14 @@
     <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="COTSTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Answer" Type="nchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
   <EntityType Name="JunctionTableProjectAndAccount">
     <Key>
       <PropertyRef Name="JId" />
@@ -75,14 +83,30 @@
     <Property Name="Response5" Type="nchar" MaxLength="50" />
     <Property Name="Response6" Type="nchar" MaxLength="50" />
   </EntityType>
-  <EntityType Name="QuestionTable">
+  <EntityType Name="Questions2Table">
     <Key>
-      <PropertyRef Name="QuestionID" />
+      <PropertyRef Name="QuestionId" />
     </Key>
-    <Property Name="QuestionID" Type="int" Nullable="false" />
-    <Property Name="Question" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Question" Type="nchar" MaxLength="200" Nullable="false" />
     <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
-    <Property Name="QuestionType" Type="nchar" MaxLength="3" Nullable="false" />
+    <Property Name="QuestionType" Type="nchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RADTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Answer" Type="nchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
+  <EntityType Name="WaterfallIterationTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Answer" Type="nchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
   </EntityType>
   <EntityType Name="WaterfallTable2">
     <Key>
@@ -94,11 +118,14 @@
   </EntityType>
   <EntityContainer Name="RegistrationModelStoreContainer">
     <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COTSTable" EntityType="Self.COTSTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JunctionTableProjectAndAccount" EntityType="Self.JunctionTableProjectAndAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="QuestionTable" EntityType="Self.QuestionTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Questions2Table" EntityType="Self.Questions2Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RADTable" EntityType="Self.RADTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WaterfallIterationTable" EntityType="Self.WaterfallIterationTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WaterfallTable2" EntityType="Self.WaterfallTable2" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

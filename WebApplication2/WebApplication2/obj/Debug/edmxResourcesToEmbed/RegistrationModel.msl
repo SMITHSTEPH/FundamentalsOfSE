@@ -81,21 +81,48 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="QuestionTables">
-      <EntityTypeMapping TypeName="RegistrationModel.QuestionTable">
-        <MappingFragment StoreEntitySet="QuestionTable">
-          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
-          <ScalarProperty Name="Category" ColumnName="Category" />
-          <ScalarProperty Name="Question" ColumnName="Question" />
-          <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="WaterfallTable2">
       <EntityTypeMapping TypeName="RegistrationModel.WaterfallTable2">
         <MappingFragment StoreEntitySet="WaterfallTable2">
           <ScalarProperty Name="Priority" ColumnName="Priority" />
           <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COTSTables">
+      <EntityTypeMapping TypeName="RegistrationModel.COTSTable">
+        <MappingFragment StoreEntitySet="COTSTable">
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RADTables">
+      <EntityTypeMapping TypeName="RegistrationModel.RADTable">
+        <MappingFragment StoreEntitySet="RADTable">
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WaterfallIterationTables">
+      <EntityTypeMapping TypeName="RegistrationModel.WaterfallIterationTable">
+        <MappingFragment StoreEntitySet="WaterfallIterationTable">
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions2Table">
+      <EntityTypeMapping TypeName="RegistrationModel.Questions2Table">
+        <MappingFragment StoreEntitySet="Questions2Table">
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
           <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
         </MappingFragment>
       </EntityTypeMapping>

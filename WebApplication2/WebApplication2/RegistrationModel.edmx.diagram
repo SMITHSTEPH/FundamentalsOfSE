@@ -10,8 +10,11 @@
         <EntityTypeShape EntityType="RegistrationModel.leaderTableV2" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="RegistrationModel.JunctionTableProjectAndAccount" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="RegistrationModel.MultipleChoiceTable" Width="1.5" PointX="5.5" PointY="5.875" />
-        <EntityTypeShape EntityType="RegistrationModel.QuestionTable" Width="1.5" PointX="8.5" PointY="0.875" />
         <EntityTypeShape EntityType="RegistrationModel.WaterfallTable2" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="RegistrationModel.COTSTable" Width="1.5" PointX="8.375" PointY="3.75" />
+        <EntityTypeShape EntityType="RegistrationModel.RADTable" Width="1.5" PointX="8.375" PointY="6.75" />
+        <EntityTypeShape EntityType="RegistrationModel.WaterfallIterationTable" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="RegistrationModel.Questions2Table" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

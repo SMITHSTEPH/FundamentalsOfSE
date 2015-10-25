@@ -23,6 +23,14 @@
           <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="COTSTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
         <EntityType Name="JunctionTableProjectAndAccount">
           <Key>
             <PropertyRef Name="JId" />
@@ -80,14 +88,30 @@
           <Property Name="Response5" Type="nchar" MaxLength="50" />
           <Property Name="Response6" Type="nchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="QuestionTable">
+        <EntityType Name="Questions2Table">
           <Key>
-            <PropertyRef Name="QuestionID" />
+            <PropertyRef Name="QuestionId" />
           </Key>
-          <Property Name="QuestionID" Type="int" Nullable="false" />
-          <Property Name="Question" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Question" Type="nchar" MaxLength="200" Nullable="false" />
           <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="QuestionType" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="QuestionType" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RADTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityType Name="WaterfallIterationTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
         </EntityType>
         <EntityType Name="WaterfallTable2">
           <Key>
@@ -99,11 +123,14 @@
         </EntityType>
         <EntityContainer Name="RegistrationModelStoreContainer">
           <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COTSTable" EntityType="Self.COTSTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JunctionTableProjectAndAccount" EntityType="Self.JunctionTableProjectAndAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="QuestionTable" EntityType="Self.QuestionTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions2Table" EntityType="Self.Questions2Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RADTable" EntityType="Self.RADTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaterfallIterationTable" EntityType="Self.WaterfallIterationTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WaterfallTable2" EntityType="Self.WaterfallTable2" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -116,8 +143,11 @@
           <EntitySet Name="leaderTableV2" EntityType="RegistrationModel.leaderTableV2" />
           <EntitySet Name="JunctionTableProjectAndAccounts" EntityType="RegistrationModel.JunctionTableProjectAndAccount" />
           <EntitySet Name="MultipleChoiceTables" EntityType="RegistrationModel.MultipleChoiceTable" />
-          <EntitySet Name="QuestionTables" EntityType="RegistrationModel.QuestionTable" />
           <EntitySet Name="WaterfallTable2" EntityType="RegistrationModel.WaterfallTable2" />
+          <EntitySet Name="COTSTables" EntityType="RegistrationModel.COTSTable" />
+          <EntitySet Name="RADTables" EntityType="RegistrationModel.RADTable" />
+          <EntitySet Name="WaterfallIterationTables" EntityType="RegistrationModel.WaterfallIterationTable" />
+          <EntitySet Name="Questions2Table" EntityType="RegistrationModel.Questions2Table" />
         </EntityContainer>
         <EntityType Name="memberTableV2">
           <Key>
@@ -194,15 +224,6 @@
           <Property Name="Response5" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Response6" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
-        <EntityType Name="QuestionTable">
-          <Key>
-            <PropertyRef Name="QuestionID" />
-          </Key>
-          <Property Name="QuestionID" Type="Int32" Nullable="false" />
-          <Property Name="Question" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Category" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="QuestionType" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
-        </EntityType>
         <EntityType Name="WaterfallTable2">
           <Key>
             <PropertyRef Name="QuestionId" />
@@ -210,6 +231,39 @@
           <Property Name="QuestionId" Type="Int32" Nullable="false" />
           <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="COTSTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RADTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="WaterfallIterationTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Questions2Table">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Name="Category" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="QuestionType" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -297,21 +351,48 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="QuestionTables">
-            <EntityTypeMapping TypeName="RegistrationModel.QuestionTable">
-              <MappingFragment StoreEntitySet="QuestionTable">
-                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
-                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WaterfallTable2">
             <EntityTypeMapping TypeName="RegistrationModel.WaterfallTable2">
               <MappingFragment StoreEntitySet="WaterfallTable2">
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COTSTables">
+            <EntityTypeMapping TypeName="RegistrationModel.COTSTable">
+              <MappingFragment StoreEntitySet="COTSTable">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RADTables">
+            <EntityTypeMapping TypeName="RegistrationModel.RADTable">
+              <MappingFragment StoreEntitySet="RADTable">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaterfallIterationTables">
+            <EntityTypeMapping TypeName="RegistrationModel.WaterfallIterationTable">
+              <MappingFragment StoreEntitySet="WaterfallIterationTable">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions2Table">
+            <EntityTypeMapping TypeName="RegistrationModel.Questions2Table">
+              <MappingFragment StoreEntitySet="Questions2Table">
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
               </MappingFragment>
             </EntityTypeMapping>

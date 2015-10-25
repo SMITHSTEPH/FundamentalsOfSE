@@ -202,7 +202,7 @@ namespace WebApplication2.Controllers
             line = sr.ReadLine();
 
             //CHANGE TO WHICH TABLE YOU NEED
-            WaterfallTable2 result = new WaterfallTable2();
+            Questions2Table result = new Questions2Table();
     
             RegistrationEntities1 db = new RegistrationEntities1();
             //Read each line in the CVS file until it’s empty
@@ -212,17 +212,33 @@ namespace WebApplication2.Controllers
 
                 strArray = r.Split(line);
 
-                //POSSIBLY ADD MORE BASED OFF NUMBER OF COLUMNS
-                 result.QuestionId = Int32.Parse(strArray[0]);
-                 result.Answer = strArray[1];
-                 result.Priority = Int32.Parse(strArray[2]);
+                //for multiple choice table
+                //result.QuestionId = Int32.Parse(strArray[0]);
 
-                //string query = "INSERT INTO QuestionTable(QuestionId,Question,Category,QuestionType)  VALUES (" + result.QuestionId + ",'" + result.Question + "','" + result.Category + "','" + result.QuestionType + "')";
-                //stirng query = "INSERT INTO MultipleChoiceTable(QuestionId,Response1,...) VALUES (...
-                //string query = "INSERT INTO COTSTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-                //string query = "INSERT INTO WaterfallTable2WaterfallIterationTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-                //string query = "INSERT INTO RADTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-                string query = "INSERT INTO WaterfallTable2 (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+                 /*result.Response1 = strArray[1];
+                result.Response2 = strArray[2];
+                result.Response3 = strArray[3];
+                result.Response4 = strArray[4];
+                result.Response5 = strArray[5];
+                result.Response6 = strArray[6];*/
+
+                //for Process tables
+                /* result.QuestionId = Int32.Parse(strArray[0]);
+                 result.Answer = strArray[1];
+                 result.Priority = Int32.Parse(strArray[2]);*/
+
+                result.QuestionId = Int32.Parse(strArray[0]);
+                result.Question = strArray[1];
+                result.Category = strArray[2];
+                result.QuestionType = strArray[3];
+
+
+                string query = "INSERT INTO Questions2Table(QuestionId,Question,Category,QuestionType)  VALUES (" + result.QuestionId + ",'" + result.Question + "','" + result.Category + "','" + result.QuestionType + "')";
+                //string query = "INSERT INTO MultipleChoiceTable(QuestionId,Response1,Response2,Response3,Response4,Response5,Response6) VALUES (" + result.QuestionId + ",'" + result.Response1 + "','" + result.Response2 + "','" + result.Response3 + "','" + result.Response4 + "','" + result.Response5 + "','" + result.Response6 + "')";
+                //string query = "INSERT INTO COTSTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+                //string query = "INSERT INTO WaterfallIterationTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+                //string query = "INSERT INTO RADTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+                //string query = "INSERT INTO WaterfallTable2 (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
                 //Run Query 
                 db.Database.ExecuteSqlCommand(query);
             }
