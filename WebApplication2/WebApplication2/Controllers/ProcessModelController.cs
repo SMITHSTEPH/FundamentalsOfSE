@@ -14,6 +14,7 @@ namespace WebApplication2.Controllers
         // GET: ProcessModel
         public ActionResult Questions()
         {
+            ViewData["isValid"] = "true";
             Debug.Print("HEEELOOOO");
             return View();
         }
@@ -23,14 +24,22 @@ namespace WebApplication2.Controllers
             Debug.Print("Trying to print form");
             Debug.Print(form["Answer"]);
             string[] Answers = {null};
-            form.CopyTo(Answers, 0);
+            form.CopyTo(Answers, 1);
             Debug.Print("Length of form is: ");
             Debug.Print(Answers.Length.ToString());
+            if (PModel.IsValid())
+            {
 
-            PModel.ProcessAnswers(Answers);
-            PModel.EliminateProcessModels();
-            PModel.ChooseProcessModels();
-            return View();
+                PModel.ProcessAnswers(Answers);
+                PModel.EliminateProcessModels();
+                PModel.ChooseProcessModels();
+                return View();
+            }
+            else
+            {
+                ViewData["isValid"] = "false";
+                return View("Questions");
+            }
         }
     }
 }
