@@ -63,10 +63,43 @@
     <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="MultipleChoiceTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Response1" Type="nchar" MaxLength="50" />
+    <Property Name="Response2" Type="nchar" MaxLength="50" />
+    <Property Name="Response3" Type="nchar" MaxLength="50" />
+    <Property Name="Response4" Type="nchar" MaxLength="50" />
+    <Property Name="Response5" Type="nchar" MaxLength="50" />
+    <Property Name="Response6" Type="nchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="QuestionTable">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="int" Nullable="false" />
+    <Property Name="Question" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="QuestionType" Type="nchar" MaxLength="3" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WaterFallProcessModelTable">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="DesiredAnswer" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="Priority" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
   <EntityContainer Name="RegistrationModelStoreContainer">
     <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JunctionTableProjectAndAccount" EntityType="Self.JunctionTableProjectAndAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuestionTable" EntityType="Self.QuestionTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WaterFallProcessModelTable" EntityType="Self.WaterFallProcessModelTable" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

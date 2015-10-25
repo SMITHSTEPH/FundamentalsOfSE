@@ -5,6 +5,9 @@
     <EntitySet Name="administrationV2" EntityType="RegistrationModel.administrationV2" />
     <EntitySet Name="leaderTableV2" EntityType="RegistrationModel.leaderTableV2" />
     <EntitySet Name="JunctionTableProjectAndAccounts" EntityType="RegistrationModel.JunctionTableProjectAndAccount" />
+    <EntitySet Name="MultipleChoiceTables" EntityType="RegistrationModel.MultipleChoiceTable" />
+    <EntitySet Name="QuestionTables" EntityType="RegistrationModel.QuestionTable" />
+    <EntitySet Name="WaterFallProcessModelTables" EntityType="RegistrationModel.WaterFallProcessModelTable" />
   </EntityContainer>
   <EntityType Name="memberTableV2">
     <Key>
@@ -68,5 +71,35 @@
     <Property Name="AID" Type="Int32" />
     <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="PId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="MultipleChoiceTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="Int32" Nullable="false" />
+    <Property Name="Response1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Response2" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Response3" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Response4" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Response5" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Response6" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="QuestionTable">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="Int32" Nullable="false" />
+    <Property Name="Question" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Category" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="QuestionType" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="WaterFallProcessModelTable">
+    <Key>
+      <PropertyRef Name="QuestionID" />
+    </Key>
+    <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Question" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="DesiredAnswer" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Priority" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
   </EntityType>
 </Schema>

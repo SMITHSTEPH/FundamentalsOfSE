@@ -40,6 +40,10 @@ public partial class RegistrationEntities1 : DbContext
 
     public virtual DbSet<JunctionTableProjectAndAccount> JunctionTableProjectAndAccounts { get; set; }
 
+    public virtual DbSet<MultipleChoiceTable> MultipleChoiceTables { get; set; }
+
+    public virtual DbSet<QuestionTable> QuestionTables { get; set; }
+
 }
 
 }
