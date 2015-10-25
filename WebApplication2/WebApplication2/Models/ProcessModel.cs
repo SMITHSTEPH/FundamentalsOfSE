@@ -91,6 +91,11 @@ namespace WebApplication2.Models
             //if the arraylist is over a certain capactiy
             //remove largest outlier from the list
         }
+        public Boolean IsValid()
+        {
+            return true;
+            //make sure all of the fields are filled out
+        }
 
     }
 }
