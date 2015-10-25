@@ -1,10 +1,5 @@
 ﻿using WebApplication2.Models;
 using System.Web.Mvc;
-using System.Data;
-using System.Text.RegularExpressions;
-using System.IO;
-using System;
-using System.Web;
 
 namespace WebApplication2.Controllers
 {

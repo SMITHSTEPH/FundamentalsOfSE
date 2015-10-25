@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using WebApplication2.Models;
-using WebApplication2.Controllers;
-using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -12,7 +10,6 @@ namespace WebApplication2.Controllers
     public class AccountController : Controller
     { 
         Account ConfirmedUser = new Account();
-        ProjectController pc = new ProjectController();
 
         // GET: Account
         /**
@@ -160,23 +157,19 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase FileUpload)
         {
-            // Set up DataTable place holder
-            DataTable dt = new DataTable();
-
             //check we have a file
             if (FileUpload.ContentLength > 0)
             {
                 //Workout our file path
                 string fileName = Path.GetFileName(FileUpload.FileName);
                 string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-
+     
                 //Try and upload
                 try
                 {
                     FileUpload.SaveAs(path);
                     //Process the CSV file and capture the results to our DataTable place holder
                     ProcessCSV(path);
-
                 }
                 catch (Exception ex)
                 {
@@ -189,9 +182,6 @@ namespace WebApplication2.Controllers
                 //Catch errors
                 ViewData["Feedback"] = "Please select a file";
             }
-
-            //Tidy up
-            dt.Dispose();
 
             return View("Input", ViewData["Feedback"]);
         }
