@@ -11,6 +11,10 @@ namespace WebApplication2.Controllers
         ProjectController pc = new ProjectController();
 
         // GET: Account
+        /**
+        Called: when the user navigated to the web application
+        Routes to: the login page (called Index)
+        **/
         public ActionResult Index()
         {
             return View("Index");
@@ -20,26 +24,32 @@ namespace WebApplication2.Controllers
         {
             return View();
         }
-
+        /**
+        Called: after the user hits the 'Sign Up' button
+        Routes to: the view that correspond to the dropdown selection
+        **/
         [HttpPost]
         public ActionResult SignUp(String DropChoice)
         {
-
             return View(DropChoice);
         }
-
+        /**
+        Called: after the user hits the 'Sign In' button
+        Routes to: Index if invalid or Project if valid
+        **/
         [HttpPost]
-        public ActionResult SignIn(Account PossibleUser)
+        public ActionResult SignIn(Account User)
         {
-            ConfirmedUser = PossibleUser.Create(PossibleUser);
+            ConfirmedUser = User.Verify(User);
             ViewData["isValid"] = ConfirmedUser.Rank;
             ViewData["Email"] = ConfirmedUser.ConfirmEmail;
-
-
-            return RedirectToAction("ExistingProjects", "Project", ConfirmedUser);
-            // return View("Index", ConfirmedUser);
+            return RedirectToAction("ExistingProjects", "Project");
+           
         }
-        
+        /**
+        Called: after the user hits the 'Sign Up' button at the end of the sign up form
+        Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
+        **/
         [HttpPost]
         public ActionResult CreateMember(Member PossibleMem)
         {
@@ -59,7 +69,10 @@ namespace WebApplication2.Controllers
                 return View("EmailConfirmationPage");
             }
         }
-
+       /**
+       Called: after the user hits the 'Sign Up' button at the end of the sign up form
+       Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
+       **/
         [HttpPost]
         public ActionResult CreateLeader(Leader PossibleLead)
         {
@@ -79,7 +92,10 @@ namespace WebApplication2.Controllers
                 return View("EmailConfirmationPage");
             }
         }
-
+        /**
+        Called: after the user hits the 'Sign Up' button at the end of the sign up form
+        Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
+        **/
         [HttpPost]
         public ActionResult CreateAdmin(Administrator PossibleAdmin)
         {
@@ -99,14 +115,20 @@ namespace WebApplication2.Controllers
                 return View("EmailConfirmationPage");
             }
         }
-
+        /**
+        Called: after the user hits the 'Sign Up' button at the end of the sign up form
+        Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
+       **/
         public ActionResult Resend(Account PossibleUser)
         {
-            ConfirmedUser = PossibleUser.Create(PossibleUser);
+            ConfirmedUser = PossibleUser.Verify(PossibleUser);
             ConfirmedUser.sendEmail(ConfirmedUser.Email,ConfirmedUser.UserName);
             return View("EmailConfirmationPage");
         }
-
+         /**
+        Called: after the user hits the 'Sign Up' button at the end of the sign up form
+        Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
+        **/
         public ActionResult Verify( )
         {
             string UserName = (string) RouteData.Values["id"];

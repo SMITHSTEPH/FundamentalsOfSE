@@ -8,7 +8,7 @@ namespace WebApplication2.Models
 {
     public class Member : Account
     {
-        public string FirstName { get; set; } //define properties
+        public string FirstName { get; set; } //define properties for a Member
         public string LastName { get; set; }
         public string OptionalPhoneNumber { get; set; }
         public string MiddleName { get; set; }
@@ -17,6 +17,9 @@ namespace WebApplication2.Models
         public string Gender { get; set; }
         public string Birthdate { get; set; }
 
+        /****
+        Adding a row to the Memeber table in the Registration DB
+        ****/
         public virtual void Init(Member Table)
         {
                 db.memberTableV2.Add(new memberTableV2
