@@ -9,11 +9,9 @@
 
     <h2>ExistingProjects</h2>
     <div>
-        @Html.Label("Logged In as " + Model.UserName)
+        @Html.Label("You have Logged In as " + Model.UserName + ". Welcome!")
         <br />
-        @Html.Label("Your Rank is " + Model.Rank)
-        <br />
-        @Html.Label("Your Id is " + Model.AccountId)
+        @Html.Label("Your have the Rank: " + Model.Rank)
         <br />
 
         @if (Model.ProjectId[0] == 0)
@@ -22,21 +20,22 @@
         }
         else
         {
-            foreach (var id in Model.ProjectId)
+            var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
+
+            foreach (var entity in col)
             {
-                if (id != 0)
-                {
-                    @Html.Label("Your Project Ids are " + id)
-                    <br />
-                }
+                @Html.Label("Your in Project number " + entity.X + "which have the chosen process: " + entity.Y);
+                <br />
             }
         }
 
-        @if (Model.Rank == "Leader")
+        @if (Model.Rank == "Leader" || Model.Rank == "Admin")
         {
             using (Html.BeginForm("AddProjects", "Project", FormMethod.Post))
             {
-
+                <br />
+                @Html.Label("If you want to add other people to Projects")
+                <br />
                 <input type="submit" value="Add New Project">
             }
         }
