@@ -154,7 +154,7 @@ namespace WebApplication2.Controllers
         }
 
 
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult Upload(HttpPostedFileBase FileUpload)
         {
             //check we have a file
@@ -184,9 +184,9 @@ namespace WebApplication2.Controllers
             }
 
             return View("Input", ViewData["Feedback"]);
-        }
+        }*/
 
-        private static void ProcessCSV(string fileName)
+       /* private static void ProcessCSV(string fileName)
         {
             //Set up our variables
             string Feedback = string.Empty;
@@ -215,17 +215,17 @@ namespace WebApplication2.Controllers
                 //for multiple choice table
                 //result.QuestionId = Int32.Parse(strArray[0]);
 
-                 /*result.Response1 = strArray[1];
+                result.Response1 = strArray[1];
                 result.Response2 = strArray[2];
                 result.Response3 = strArray[3];
                 result.Response4 = strArray[4];
                 result.Response5 = strArray[5];
-                result.Response6 = strArray[6];*/
+                result.Response6 = strArray[6];
 
                 //for Process tables
-                /* result.QuestionId = Int32.Parse(strArray[0]);
+                result.QuestionId = Int32.Parse(strArray[0]);
                  result.Answer = strArray[1];
-                 result.Priority = Int32.Parse(strArray[2]);*/
+                 result.Priority = Int32.Parse(strArray[2]);
 
                 result.QuestionId = Int32.Parse(strArray[0]);
                 result.Question = strArray[1];
@@ -233,19 +233,19 @@ namespace WebApplication2.Controllers
                 result.QuestionType = strArray[3];
 
 
-                string query = "INSERT INTO Questions2Table(QuestionId,Question,Category,QuestionType)  VALUES (" + result.QuestionId + ",'" + result.Question + "','" + result.Category + "','" + result.QuestionType + "')";
+                //string query = "INSERT INTO Questions2Table(QuestionId,Question,Category,QuestionType)  VALUES (" + result.QuestionId + ",'" + result.Question + "','" + result.Category + "','" + result.QuestionType + "')";
                 //string query = "INSERT INTO MultipleChoiceTable(QuestionId,Response1,Response2,Response3,Response4,Response5,Response6) VALUES (" + result.QuestionId + ",'" + result.Response1 + "','" + result.Response2 + "','" + result.Response3 + "','" + result.Response4 + "','" + result.Response5 + "','" + result.Response6 + "')";
                 //string query = "INSERT INTO COTSTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
                 //string query = "INSERT INTO WaterfallIterationTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
                 //string query = "INSERT INTO RADTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
                 //string query = "INSERT INTO WaterfallTable2 (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
                 //Run Query 
-                db.Database.ExecuteSqlCommand(query);
-            }
+                //db.Database.ExecuteSqlCommand(query);
+            //}
 
             //Tidy Streameader up
-            sr.Dispose();
+            //sr.Dispose();
 
-        }
+        }*/
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,7 @@ namespace WebApplication2.Models
     {
         enum ProcessModels{Waterfall, IterativeWaterfall, RAD, Agile, COTS};
         ArrayList ProcessModelsList = new ArrayList();
-        private ProcessModels DB = new ProcessModels(); //instance of process model Database
+        private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
         /**
         These 6 Dictionaries give us insight on what a 'winning' process model looks like
         **/
@@ -30,6 +32,50 @@ namespace WebApplication2.Models
            {
                 ProcessModelsList.Add(processModel.ToString());
            }
+        }
+        public string[,] GetMultipleChoiceResponses()
+        {
+            return null;
+        }
+        /**
+        Load the entire Questions table into A 2D array so that is can be passed
+            off to the Questions View
+        **/
+        public string[,] GetProcessModelQuestions()
+        {
+            string[,] Test = new string[2, 4];
+            string QueryCount = "SELECT COUNT(*) FROM Questions2Table";
+            string QueryQ = "SELECT * FROM Questions2Table";
+            Debug.Print("Print Connection String");
+            SqlConnection Connection = new SqlConnection();
+            Connection.ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
+            SqlCommand Command = new SqlCommand(QueryCount, Connection);
+            Connection.Open();
+            SqlDataReader MyDataSet = Command.ExecuteReader();
+            MyDataSet.Read();
+            Debug.Print(MyDataSet.GetValue(0).ToString());
+            
+            //Debug.Print(MyDataSet.GetValue(0).ToString());
+            int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
+            string[,] Questions = new string[QNum, 4];
+
+            Command = new SqlCommand(QueryQ, Connection);
+            MyDataSet = Command.ExecuteReader();
+            int Rows = 0;
+            //int Columns = 0;
+            while (MyDataSet.Read())
+            {
+                //Debug.Print(Rows.ToString());
+                //Debug.Print(Rows.ToString() +  ": "+ MyDataSet.GetValue(1).ToString());
+                Questions[Rows, 0]= MyDataSet.GetValue(0).ToString();
+                Questions[Rows, 1]=MyDataSet.GetValue(1).ToString();
+                Questions[Rows, 2] = MyDataSet.GetValue(2).ToString();
+                Questions[Rows, 3] = MyDataSet.GetValue(2).ToString();
+                if (Rows<92){ Rows++; }
+           
+            }
+            Connection.Close();
+            return Questions;
         }
         /**
         Adds the submitted form to the answers databases
