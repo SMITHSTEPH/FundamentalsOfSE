@@ -42,9 +42,15 @@ public partial class RegistrationEntities1 : DbContext
 
     public virtual DbSet<MultipleChoiceTable> MultipleChoiceTables { get; set; }
 
-    public virtual DbSet<QuestionTable> QuestionTables { get; set; }
-
     public virtual DbSet<WaterfallTable2> WaterfallTable2 { get; set; }
+
+    public virtual DbSet<COTSTable> COTSTables { get; set; }
+
+    public virtual DbSet<RADTable> RADTables { get; set; }
+
+    public virtual DbSet<WaterfallIterationTable> WaterfallIterationTables { get; set; }
+
+    public virtual DbSet<Questions2Table> Questions2Table { get; set; }
 
 }
 

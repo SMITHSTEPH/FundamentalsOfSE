@@ -15,16 +15,14 @@ namespace WebApplication2
 using System;
     using System.Collections.Generic;
     
-public partial class QuestionTable
+public partial class COTSTable
 {
 
-    public int QuestionID { get; set; }
+    public int QuestionId { get; set; }
 
-    public string Question { get; set; }
+    public string Answer { get; set; }
 
-    public string Category { get; set; }
-
-    public string QuestionType { get; set; }
+    public Nullable<int> Priority { get; set; }
 
 }
 
