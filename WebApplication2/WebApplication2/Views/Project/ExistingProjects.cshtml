@@ -29,7 +29,7 @@
             }
         }
 
-        @if (Model.Rank == "Leader" || Model.Rank == "Admin")
+        @if (Model.Rank == "Leader")
         {
             using (Html.BeginForm("AddProjects", "Project", FormMethod.Post))
             {
