@@ -14,6 +14,8 @@ namespace WebApplication2.Models
         enum ProcessModels{Waterfall, IterativeWaterfall, RAD, Agile, COTS};
         ArrayList ProcessModelsList = new ArrayList();
         private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
+        private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
+        private SqlConnection Connection;
         /**
         These 6 Dictionaries give us insight on what a 'winning' process model looks like
         **/
@@ -31,11 +33,39 @@ namespace WebApplication2.Models
            foreach (ProcessModels processModel in Enum.GetValues(typeof(ProcessModels)))
            {
                 ProcessModelsList.Add(processModel.ToString());
-           }
+                Connection= new SqlConnection(ConnectionStr);
+            }
         }
         public string[,] GetMultipleChoiceResponses()
         {
-            return null;
+            int Rows = 0;
+            int Columns = 6;
+            string QueryCount = "SELECT COUNT(*) FROM MultipleChoiceTable";
+            Connection.Open();
+            SqlDataReader MyDataSet = ReadQuery(QueryCount);
+            MyDataSet.Read();
+            Debug.Print(MyDataSet.GetValue(0).ToString()); //test
+            int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
+
+            string QueryQ = "SELECT * FROM MultipleChoiceTable";
+            string[,] MultAnswers = new string[QNum, Columns];
+            MyDataSet = ReadQuery(QueryQ);
+            while (MyDataSet.Read())
+            {
+                for (int i = 0; i < Columns; i++)
+                {
+                    MultAnswers[Rows, i] = MyDataSet.GetValue(i).ToString(); //ID
+                }
+                if (Rows < QNum) { Rows++; }
+                
+            }
+            Connection.Close();
+            return MultAnswers;
+        }
+        private SqlDataReader ReadQuery(string query)
+        {
+            SqlCommand Command = new SqlCommand(query, Connection);
+            return Command.ExecuteReader();
         }
         /**
         Load the entire Questions table into A 2D array so that is can be passed
@@ -43,36 +73,26 @@ namespace WebApplication2.Models
         **/
         public string[,] GetProcessModelQuestions()
         {
-            string[,] Test = new string[2, 4];
-            string QueryCount = "SELECT COUNT(*) FROM Questions2Table";
-            string QueryQ = "SELECT * FROM Questions2Table";
-            Debug.Print("Print Connection String");
-            SqlConnection Connection = new SqlConnection();
-            Connection.ConnectionString = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
-            SqlCommand Command = new SqlCommand(QueryCount, Connection);
-            Connection.Open();
-            SqlDataReader MyDataSet = Command.ExecuteReader();
-            MyDataSet.Read();
-            Debug.Print(MyDataSet.GetValue(0).ToString());
-            
-            //Debug.Print(MyDataSet.GetValue(0).ToString());
-            int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
-            string[,] Questions = new string[QNum, 4];
-
-            Command = new SqlCommand(QueryQ, Connection);
-            MyDataSet = Command.ExecuteReader();
             int Rows = 0;
-            //int Columns = 0;
+            int Columns = 3;
+            string QueryCount = "SELECT COUNT(*) FROM Questions2Table";
+            Connection.Open();
+            SqlDataReader MyDataSet=ReadQuery(QueryCount);
+            MyDataSet.Read();
+            Debug.Print(MyDataSet.GetValue(0).ToString()); //test
+            int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
+
+            string QueryQ = "SELECT * FROM Questions2Table";
+            string[,] Questions = new string[QNum, Columns];
+            MyDataSet=ReadQuery(QueryQ);
             while (MyDataSet.Read())
             {
-                //Debug.Print(Rows.ToString());
-                //Debug.Print(Rows.ToString() +  ": "+ MyDataSet.GetValue(1).ToString());
-                Questions[Rows, 0]= MyDataSet.GetValue(0).ToString();
-                Questions[Rows, 1]=MyDataSet.GetValue(1).ToString();
-                Questions[Rows, 2] = MyDataSet.GetValue(2).ToString();
-                Questions[Rows, 3] = MyDataSet.GetValue(2).ToString();
-                if (Rows<92){ Rows++; }
-           
+                for (int i = 0; i < Columns; i++)
+                {
+                    //don't need to store QuestionIDs b/c it's just "Question's index-1"
+                    Questions[Rows, i] = MyDataSet.GetValue(i+1).ToString();
+                }
+                if (Rows<QNum){ Rows++; } //error prevention
             }
             Connection.Close();
             return Questions;
