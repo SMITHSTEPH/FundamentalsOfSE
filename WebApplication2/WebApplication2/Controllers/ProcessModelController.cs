@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,6 +15,25 @@ namespace WebApplication2.Controllers
         // GET: ProcessModel
         public ActionResult Questions()
         {
+            string[,] Questions=PModel.GetProcessModelQuestions();
+            string[,] MultAnswers = PModel.GetMultipleChoiceResponses();
+            for (int i = 0; i < Questions.GetLength(0); i++) //testing Questions Table
+            {
+               for(int j=0; j<Questions.GetLength(1); j++)
+                {
+                    Debug.Print(Questions[i,j]);
+                }
+            }
+            for (int i = 0; i < MultAnswers.GetLength(0); i++) //testing Questions Table
+            {
+                for (int j = 0; j < MultAnswers.GetLength(1); j++)
+                {
+                    Debug.Print(MultAnswers[i, j]);
+                }
+            }
+            ViewData["questions"] = Questions;
+            ViewData["multAnswers"] = MultAnswers;
+
             ViewData["isValid"] = "true";
             Debug.Print("HEEELOOOO");
             return View();
