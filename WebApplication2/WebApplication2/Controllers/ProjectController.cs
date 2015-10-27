@@ -7,6 +7,7 @@ namespace WebApplication2.Controllers
     { 
 
         // GET: Project
+        [HttpGet]
         public ActionResult ExistingProjects(Account User)
         {
             Project ListofProjects = new Project();
@@ -16,11 +17,12 @@ namespace WebApplication2.Controllers
             return View("ExistingProjects", ListofProjects);
         }
 
-        public ActionResult AddProjects(Project Projects)
+        
+        public ActionResult PasstoAdd(Project something)
         {
 
-            //Needs to go to the page that allows them to add a project
-            return View("AddProjects", Projects);
+            //Needs to go to the page that allows them to add projects 
+            return View("AddProjects", something);
         }
 
         public ActionResult SumbitProjet()

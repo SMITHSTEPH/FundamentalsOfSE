@@ -9,37 +9,45 @@
 
     <h2>ExistingProjects</h2>
     <div>
-        @Html.Label("You have Logged In as " + Model.UserName + ". Welcome!")
-        <br />
-        @Html.Label("Your have the Rank: " + Model.Rank)
-        <br />
-
-        @if (Model.ProjectId[0] == 0)
+        @using (Html.BeginForm("PasstoAdd", "Project", FormMethod.Post))
         {
-            @Html.Label("Not in any Projects")
-        }
-        else
-        {
-            var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
+            @Html.Label("Welcome: ")
+            @Html.DisplayFor(Model => Model.UserName)
+            @Html.HiddenFor(Model => Model.UserName)
+            <br />
+            @Html.Label("Your have the Rank: ")
+            @Html.DisplayFor(Model => Model.Rank)
+            @Html.HiddenFor(Model => Model.Rank)
+            <br />
 
-            foreach (var entity in col)
+            if (Model.ProjectId[0] == 0)
             {
-                @Html.Label("Your in Project number " + entity.X + "which have the chosen process: " + entity.Y);
-                <br />
+                @Html.Label("Not in any Projects")
             }
-        }
+            else
+            {
+                var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
 
-        @if (Model.Rank == "Leader")
-        {
-            using (Html.BeginForm("AddProjects", "Project", FormMethod.Post))
+                foreach (var entity in col)
+                {
+                    
+                    @Html.Label("Your in Project number is " + entity.X + ", which has the chosen process: " + entity.Y)
+                    <br />
+                }
+
+            }
+
+            if (Model.Rank == "Leader" || Model.Rank == "Admin")
             {
                 <br />
                 @Html.Label("If you want to add other people to Projects")
                 <br />
-                <input type="submit" value="Add New Project">
+                @Html.ActionLink("Add New Projet", "PasstoAdd", "WORK")
+                <br />
+                <input type="submit" value="Add New Project">      
             }
         }
-    </div>
+        </div>
 </body>
 </html>
 
