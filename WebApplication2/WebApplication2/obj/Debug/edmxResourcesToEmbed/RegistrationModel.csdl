@@ -11,7 +11,6 @@
     <EntitySet Name="RADTables" EntityType="RegistrationModel.RADTable" />
     <EntitySet Name="WaterfallIterationTables" EntityType="RegistrationModel.WaterfallIterationTable" />
     <EntitySet Name="Questions2Table" EntityType="RegistrationModel.Questions2Table" />
-    <EntitySet Name="ProjectTables" EntityType="RegistrationModel.ProjectTable" />
   </EntityContainer>
   <EntityType Name="memberTableV2">
     <Key>
@@ -128,12 +127,5 @@
     <Property Name="Question" Type="String" Nullable="false" MaxLength="200" FixedLength="true" Unicode="true" />
     <Property Name="Category" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
     <Property Name="QuestionType" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
-  </EntityType>
-  <EntityType Name="ProjectTable">
-    <Key>
-      <PropertyRef Name="ProjectId" />
-    </Key>
-    <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProcessModelChosen" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
   </EntityType>
 </Schema>

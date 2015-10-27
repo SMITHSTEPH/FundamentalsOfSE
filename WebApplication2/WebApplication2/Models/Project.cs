@@ -9,16 +9,14 @@ namespace WebApplication2.Models
         public string Rank { get; set; }
         public int AccountId { get; set; }
         public int[] ProjectId { get; set; }
-        public string[] ProjectProcess { get; set; }
 
-        private RegistrationEntities1 db = new RegistrationEntities1();
+        RegistrationEntities1 db = new RegistrationEntities1();
 
         public Project UsersProjects (Account User)
         {
             
 
             List<JunctionTableProjectAndAccount> projects = db.JunctionTableProjectAndAccounts.ToList();
-            List<ProjectTable> projectsProess = db.ProjectTables.ToList();
 
             Project UsersProjects = new Project();
             int j = 0;
@@ -39,29 +37,6 @@ namespace WebApplication2.Models
 
                 j++;
             }
-
-            int numberOfIds = UsersProjects.ProjectId.Length;
-
-            if(numberOfIds > 0)
-            {
-                UsersProjects.ProjectProcess = new string[numberOfIds];
-                int k = 0;
-                foreach (int id in UsersProjects.ProjectId)
-                {
-                    foreach (ProjectTable process in projectsProess)
-                    {
-
-                        if (id == process.ProjectId)
-                        {
-                            UsersProjects.ProjectProcess[k] = process.ProcessModelChosen;
-                        }
-
-                    }
-
-                    k++;
-                }
-            }
-            
             
             return UsersProjects;
         }
