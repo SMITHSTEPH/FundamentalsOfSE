@@ -24,12 +24,13 @@ namespace WebApplication2.Models
             int j = 0;
             UsersProjects.ProjectId = new int[projects.Count];
 
-            UsersProjects.UserName = User.UserName;
-            UsersProjects.Rank = User.Rank;
-            UsersProjects.AccountId = User.AccountId;
-
             foreach (JunctionTableProjectAndAccount project in projects)
             {
+
+                UsersProjects.UserName = User.UserName;
+                UsersProjects.Rank = User.Rank;
+                UsersProjects.AccountId = User.AccountId;
+
                 if (project.Role.Contains(User.Rank) && project.AID == User.AccountId)
                 {
                     UsersProjects.ProjectId[j] = new int();
