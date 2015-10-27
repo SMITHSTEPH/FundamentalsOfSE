@@ -19,10 +19,7 @@ namespace WebApplication2.Controllers
             string[,] MultAnswers = PModel.GetMultipleChoiceResponses();
             for (int i = 0; i < Questions.GetLength(0); i++) //testing Questions Table
             {
-               for(int j=0; j<Questions.GetLength(1); j++)
-                {
-                    Debug.Print(Questions[i,j]);
-                }
+              //(Questions[i, 0].ToString().Trim());
             }
             for (int i = 0; i < MultAnswers.GetLength(0); i++) //testing Questions Table
             {
@@ -33,9 +30,7 @@ namespace WebApplication2.Controllers
             }
             ViewData["questions"] = Questions;
             ViewData["multAnswers"] = MultAnswers;
-
             ViewData["isValid"] = "true";
-            Debug.Print("HEEELOOOO");
             return View();
         }
         [HttpPost]

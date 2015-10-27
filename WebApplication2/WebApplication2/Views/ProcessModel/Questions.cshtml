@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "RequiementQuestions";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html>
@@ -20,43 +20,89 @@
 <body>
 
     <ul>
-        <li><a href="#requirements">Requirements</a></li>
-        <li><a href="#money">Money</a></li>
-        <li><a href="#Size">Contact</a></li>
-        <li><a href="#Management">About</a></li>
+        <li><a href="#Requirements">Requirements</a></li>
+        <li><a href="#Customers">Customers</a></li>
+        <li><a href="#Team">Team</a></li>
+        <li><a href="#Software">Software</a></li>
+        <li><a href="#Management">Management</a></li>
+        <li><a href="#Money">Money</a></li>
+        <li><a href="#Size">Size</a></li>
+        <li><a href="#Risk">Risk</a></li>
+        <li><a href="#Planning">Planning</a></li>
+        <li><a href="#Process">Process</a></li>
     </ul>
-
-
-
-<h2 id="requirments">Requirements</h2>
+    <h1>Process Model Survey</h1>
 @using (Html.BeginForm("Result", "ProcessModel"))
 {
-    @Html.Label("The requirements are very well understood (T or F)");
-    <br>
-    @Html.Label("True");
-    @Html.RadioButton("Answer", "True");
-    @Html.Label("False");
-    @Html.RadioButton("Answer", "False");
-    <br>
-    @Html.Label("The requirements are easily defined (T or F)");
-    @Html.Label("True");
-    @Html.RadioButton("Answer2", "True");
-    @Html.Label("False");
-    @Html.RadioButton("Answer2", "False");
-    <br>
-    @Html.Label("The requirments frequently change (T of F");
-    <br>
-    @Html.Label("The requirements indicate a complex system (T or F)");
-    <br>
-    @Html.Label("The requirements will not change even if it takes your team 30-5070% longer than the estimated time to complete the project");
-    <br>
-    @Html.Label("The requirements are driven by a user interface");
-    <br>
-    @Html.Label("How can you gather requirements?");
-    <br>
-    @Html.Label("The project domain is completely understood");
-    <br>
-    <h2 id="money">Money</h2>
+    string[,] Questions = (string[,])ViewData["questions"];
+    string[,] MultAnswers = (string[,])ViewData["multAnswers"];
+    //System.Diagnostics.Debug.Print(Questions.GetLength(0).ToString());
+    System.Collections.ArrayList Categories = new System.Collections.ArrayList();
+
+    for (int i = 0; i < Questions.GetLength(0); i++)
+    {
+        if (!Categories.Contains(Questions[i, 1].ToString().Trim()))
+        {
+            <br/>
+            <br/>
+            <div id=@Questions[i, 1].ToString().Trim()></div>
+            <h2> @Questions[i, 1].ToString().Trim() </h2>
+            Categories.Add(Questions[i, 1].ToString().Trim());
+            <br />
+
+        }
+        //System.Diagnostics.Debug.Print(Questions[i, 2].ToString().Trim());
+        @Html.Label(Questions[i, 0].ToString().Trim());
+        if(Questions[i, 2].ToString().Trim().Equals("True or False"))
+        {
+            <br>
+            @Html.Label("True");
+            @Html.RadioButton("True", new { id=i});
+            @Html.Label("False");
+            @Html.RadioButton("False", new { id = i });
+            <br>
+        }
+        else if(Questions[i, 2].ToString().Trim().Equals("Short Answer"))
+        {
+            System.Diagnostics.Debug.Print("Short Answer");
+            <br>
+            @Html.Label("Short Answer");
+            @Html.TextArea("UserResponse");
+            <br>
+        }
+        else //multiple choice
+        {
+            <br />
+            int QuestionID = i + 1;
+            //System.Diagnostics.Debug.Print("MulT ID: "+ QuestionID.ToString());
+            System.Diagnostics.Debug.Print("Responses size!  "+ MultAnswers.GetLength(1).ToString());
+            for (int j = 0; j < MultAnswers.GetLength(0); j++)
+            {
+                if (QuestionID == Convert.ToInt32(MultAnswers[j, 0])) //the question ids are the same
+                {
+                    System.Diagnostics.Debug.Print("Mult ID: "+ MultAnswers[j, 0]);
+                    int m = 1;
+                    while (!MultAnswers[j, m].Trim().Equals("Empty") && m<5)
+                    {
+                        System.Diagnostics.Debug.Print("Index: " + m.ToString());
+                        @Html.Label(MultAnswers[j, m].Trim());
+                        @Html.RadioButton(MultAnswers[j, m].Trim(), new { id = m });
+                        m++;
+                        System.Diagnostics.Debug.Print("A: " + MultAnswers[j, m]);
+
+                    }
+
+                    break;
+                }
+
+            }
+            <br />
+
+        }
+        //@Html.Label(i.ToString()+" ");
+        //System.Diagnostics.Debug.Print(Questions[i, 0].ToString().Trim());
+
+    }
     <input type="submit" value="Submit">
 }
 </body>

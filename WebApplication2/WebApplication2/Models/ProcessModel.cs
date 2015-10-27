@@ -44,7 +44,7 @@ namespace WebApplication2.Models
             Connection.Open();
             SqlDataReader MyDataSet = ReadQuery(QueryCount);
             MyDataSet.Read();
-            Debug.Print(MyDataSet.GetValue(0).ToString()); //test
+            //Debug.Print(MyDataSet.GetValue(0).ToString()); //test
             int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
 
             string QueryQ = "SELECT * FROM MultipleChoiceTable";
@@ -79,7 +79,7 @@ namespace WebApplication2.Models
             Connection.Open();
             SqlDataReader MyDataSet=ReadQuery(QueryCount);
             MyDataSet.Read();
-            Debug.Print(MyDataSet.GetValue(0).ToString()); //test
+            //Debug.Print(MyDataSet.GetValue(0).ToString()); //test
             int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
 
             string QueryQ = "SELECT * FROM Questions2Table";
