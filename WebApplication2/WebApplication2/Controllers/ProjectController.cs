@@ -16,11 +16,11 @@ namespace WebApplication2.Controllers
             return View("ExistingProjects", ListofProjects);
         }
 
-        public ActionResult AddProjects(Project Projects)
+        public ActionResult AddProjects()
         {
 
             //Needs to go to the page that allows them to add a project
-            return View("AddProjects", Projects);
+            return View("AddProjects");
         }
 
         public ActionResult SumbitProjet()
