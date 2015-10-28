@@ -9,45 +9,38 @@
 
     <h2>ExistingProjects</h2>
     <div>
-        @using (Html.BeginForm("PasstoAdd", "Project", FormMethod.Post))
+        @Html.Label("Logged In as " + Model.UserName)
+        <br />
+        @Html.Label("Your Rank is " + Model.Rank)
+        <br />
+        @Html.Label("Your Id is " + Model.AccountId)
+        <br />
+
+        @if (Model.ProjectId[0] == 0)
         {
-            @Html.Label("Welcome: ")
-            @Html.DisplayFor(Model => Model.UserName)
-            @Html.HiddenFor(Model => Model.UserName)
-            <br />
-            @Html.Label("Your have the Rank: ")
-            @Html.DisplayFor(Model => Model.Rank)
-            @Html.HiddenFor(Model => Model.Rank)
-            <br />
-
-            if (Model.ProjectId[0] == 0)
+            @Html.Label("Not in any Projects")
+        }
+        else
+        {
+            foreach (var id in Model.ProjectId)
             {
-                @Html.Label("Not in any Projects")
-            }
-            else
-            {
-                var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
-
-                foreach (var entity in col)
+                if (id != 0)
                 {
-                    
-                    @Html.Label("Your in Project number is " + entity.X + ", which has the chosen process: " + entity.Y)
+                    @Html.Label("Your Project Ids are " + id)
                     <br />
                 }
-
-            }
-
-            if (Model.Rank == "Leader" || Model.Rank == "Admin")
-            {
-                <br />
-                @Html.Label("If you want to add other people to Projects")
-                <br />
-                @Html.ActionLink("Add New Projet", "PasstoAdd", "WORK")
-                <br />
-                <input type="submit" value="Add New Project">      
             }
         }
-        </div>
+
+        @if (Model.Rank == "Leader")
+        {
+            using (Html.BeginForm("AddProjects", "Project", FormMethod.Post))
+            {
+
+                <input type="submit" value="Add New Project">
+            }
+        }
+    </div>
 </body>
 </html>
 

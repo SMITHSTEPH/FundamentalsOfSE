@@ -16,6 +16,7 @@ namespace WebApplication2.Models
         private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
         private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
         private SqlConnection Connection;
+        public int QuestionSize { get; set; }
         /**
         These 6 Dictionaries give us insight on what a 'winning' process model looks like
         **/
@@ -81,7 +82,8 @@ namespace WebApplication2.Models
             MyDataSet.Read();
             //Debug.Print(MyDataSet.GetValue(0).ToString()); //test
             int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
-
+            QuestionSize = QNum;
+            Debug.Print("Question Size: " + QuestionSize);
             string QueryQ = "SELECT * FROM Questions2Table";
             string[,] Questions = new string[QNum, Columns];
             MyDataSet=ReadQuery(QueryQ);
@@ -96,16 +98,6 @@ namespace WebApplication2.Models
             }
             Connection.Close();
             return Questions;
-        }
-        /**
-        Adds the submitted form to the answers databases
-        **/
-        public void ProcessAnswers(Array answers)
-        {
-            for(int i=0; i<answers.Length; i++)
-            {
-                //DB.Account.Add(answers);
-            }
         }
         public void TrainData(string winner)
         {
@@ -125,19 +117,83 @@ namespace WebApplication2.Models
                 }
             }
         }
+        public Boolean ReadHighPriority(string query, string queryCount)
+        {
+            
+            int Columns = 3;
+            Connection.Open();
+            SqlDataReader MyDataSet = ReadQuery(queryCount);
+            MyDataSet.Read();
+            //int Count = 5;
+            //string val = MyDataSet.GetValue(0).ToString();
+            //Debug.Print("val is: " + val);
+            int Count = Convert.ToInt32( MyDataSet.GetValue(0).ToString());
+            string[,] PModel = new string[Count, Columns];
+            int Rows = 0;
+            Debug.Print("Count: " + Count);
+            MyDataSet = ReadQuery(query);
+            MyDataSet.Read();
+            while (MyDataSet.Read())
+            {
+                for (int i = 0; i < Columns; i++)
+                {
+                    PModel[Rows, i] = MyDataSet.GetValue(i).ToString();
+                    Debug.Print(PModel[Rows, i].ToString());
+                }
+                if (Rows < Count) { Rows++; } //error prevention
+            }
+            //now determine if any of the answers violate the priority
+            /*for(int i=0; i<PModel.GetLength(0); i++)
+            {
+                if(answers[i+1].Equals(PModel[i,1]))
+                {
+                    return true;
+                }
+            }*/
+            Connection.Close();
+            return false;
+        }
        public void EliminateProcessModels()
         {
-            foreach (ProcessModels processModel in Enum.GetValues(typeof(ProcessModels)))
-            {
+                /*for(int i=0; i< Answers.Length; i++)
+                {
+                    Debug.Print(i + ": " + Answers[i]);
+                }*/
+                int Columns = 3;
+
+                string QueryCount = "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5";
+           
+
+                string[,] Waterfall;
+                string[,] WaterfallIt = new string[QuestionSize, 3];
+                string[,] RAD = new string[QuestionSize, 3];
+                string[,] COTS = new string[QuestionSize, 3];
+
+                string QueryW = "SELECT * FROM WaterfallTable2 WHERE Priority=5";
+                string QueryWI = "SELECT * FROM WaterfallIterationTable WHERE Priority=5";
+                string QueryRAD = "SELECT * FROM RADTable WHERE Priority=5";
+                string QueryCOTS = "SELECT* FROM COTSTable WHERE Priority = 5";
+
+                ReadHighPriority(QueryW, QueryCount);
+               /* WaterfallIt = ReadHighPriority(WaterfallIt, QueryWI, Columns);
+                RAD = ReadHighPriority(RAD, QueryRAD, Columns);
+                COTS = ReadHighPriority(COTS, QueryCOTS, Columns);*/
+
+                
+                
+
+
+
+                
                 //join ProcessModelTable with Answer Table
                 //if selecting from this table where answer!=desired answer && priority==5 != NULL
                 //remove ProcessModel from the list
-            }
+            
         }
         public void ChooseProcessModels()
         {
             int[] ProcessPoints = new int[ProcessModelsList.Count];
-            int ProcessVal = 0;
+            
             for (int i=0; i<ProcessModelsList.Count; i++)
             {
                 //join ProcessModel Table With Answer Table
@@ -157,9 +213,13 @@ namespace WebApplication2.Models
             //if the arraylist is over a certain capactiy
             //remove largest outlier from the list
         }
-        public Boolean IsValid()
+        public Boolean IsValid(string[] answers)
         {
-            return true;
+            Debug.Print("answers: " + answers.Length);
+            if (answers.Length >= 92)
+                return true;
+            else
+                return false;
             //make sure all of the fields are filled out
         }
 

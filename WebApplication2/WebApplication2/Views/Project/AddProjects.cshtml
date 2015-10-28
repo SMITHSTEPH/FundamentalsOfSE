@@ -1,35 +1,8 @@
-﻿@model WebApplication2.Models.Project
-<!DOCTYPE html>
-<html>
-<head>
-    <title>@{ViewBag.Title = "AddProjects";}</title>
-    @{Layout = "~/Views/Shared/_Layout.cshtml";}
-</head>
-<body>
+﻿
+@{
+    ViewBag.Title = "AddProjects";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-    <h2>AddProjects</h2>
+<h2>AddProjects</h2>
 
-    <div>
-        @if (Model != null)
-        {
-            if (Model.ProjectId[0] == 0)
-            {
-                @Html.Label("Not in any Projects")
-            }
-            else
-            {
-                var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
-
-                foreach (var entity in col)
-                {
-                    @Html.Label(" Select Project: number" + entity.X + "which have the chosen process: " + entity.Y);
-                    @Html.Label("Click here to add project")
-                    <br />
-                }
-            }
-        }
-        
-
-    </div>
-</body>
-</html>
