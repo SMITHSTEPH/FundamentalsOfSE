@@ -11,12 +11,17 @@ namespace WebApplication2.Models
 {
     public class ProcessModel
     {
-        enum ProcessModels{Waterfall, IterativeWaterfall, RAD, Agile, COTS};
-        ArrayList ProcessModelsList = new ArrayList();
+        //fields
+        enum ProcessModels{Waterfall, IterativeWaterfall, RAD, Agile, COTS}; //holds all of the possible process models that we are using
         private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
         private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
         private SqlConnection Connection;
-        public int QuestionSize { get; set; }
+        ArrayList ProcessModelsList = new ArrayList();
+        //properties
+        public string[,] Questions { get; set; }
+        public string[,] MultipleChoiceAnswers { get; set; }
+        public string[] Answers { get; set; }
+
         /**
         These 6 Dictionaries give us insight on what a 'winning' process model looks like
         **/
@@ -33,61 +38,83 @@ namespace WebApplication2.Models
         {
            foreach (ProcessModels processModel in Enum.GetValues(typeof(ProcessModels)))
            {
-                ProcessModelsList.Add(processModel.ToString());
-                Connection= new SqlConnection(ConnectionStr);
-            }
-        }
-        public string[,] GetMultipleChoiceResponses()
-        {
-            int Rows = 0;
-            int Columns = 6;
-            string QueryCount = "SELECT COUNT(*) FROM MultipleChoiceTable";
-            Connection.Open();
-            SqlDataReader MyDataSet = ReadQuery(QueryCount);
-            MyDataSet.Read();
-            //Debug.Print(MyDataSet.GetValue(0).ToString()); //test
-            int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
+                ProcessModelsList.Add(processModel.ToString()); //adding all of the process models to the arraylist
+           }
+           Connection = new SqlConnection(ConnectionStr); //establishing a connection
 
-            string QueryQ = "SELECT * FROM MultipleChoiceTable";
-            string[,] MultAnswers = new string[QNum, Columns];
-            MyDataSet = ReadQuery(QueryQ);
-            while (MyDataSet.Read())
+           string[,] Size = ReadQuery("SELECT COUNT(*) FROM Questions2Table", 1, 1, 0); //return the size of the questions table
+           int Rows = Convert.ToInt32(Size[0, 0]);
+           Questions = new string[Rows, 3]; //initializing the size of the questions
+
+           Size = ReadQuery("SELECT COUNT(*) FROM MultipleChoiceTable", 1, 1, 0);
+           Rows = Convert.ToInt32(Size[0, 0]);
+           MultipleChoiceAnswers = new string[Rows, 6];
+        }
+        public void GetMultipleChoiceResponses()
+        {
+            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
+            /* int Rows = 0;
+             int Columns = 6;
+             string QueryCount = "SELECT COUNT(*) FROM MultipleChoiceTable";
+             Connection.Open();
+             SqlDataReader MyDataSet = ReadQuery(QueryCount);
+             MyDataSet.Read();
+             //Debug.Print(MyDataSet.GetValue(0).ToString()); //test
+             int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
+
+             string QueryQ = "SELECT * FROM MultipleChoiceTable";
+             string[,] MultAnswers = new string[QNum, Columns];
+             MyDataSet = ReadQuery(QueryQ);
+             while (MyDataSet.Read())
+             {
+                 for (int i = 0; i < Columns; i++)
+                 {
+                     MultAnswers[Rows, i] = MyDataSet.GetValue(i).ToString(); //ID
+                 }
+                 if (Rows < QNum) { Rows++; }
+
+             }
+             Connection.Close();*/
+            //return MultAnswers;
+        }
+        /**
+        performs the query and stores the results in a 2D array
+        **/
+        private string[,] ReadQuery(string query, int rows, int columns, int offset)
+        {
+            string[,] TableData=new string[rows, columns]; //where the data extracted from the table will be stored
+            Connection.Open();
+            SqlCommand Command = new SqlCommand(query, Connection);
+            SqlDataReader MyDataSet= Command.ExecuteReader();
+            int Rows = 0;
+            while(MyDataSet.Read()) //while there is data from the table left to read
             {
-                for (int i = 0; i < Columns; i++)
+                for (int i = 0; i < columns; i++)
                 {
-                    MultAnswers[Rows, i] = MyDataSet.GetValue(i).ToString(); //ID
+                    TableData[Rows, i] = MyDataSet.GetValue(i+offset).ToString();
                 }
-                if (Rows < QNum) { Rows++; }
-                
+                if (Rows < rows) { Rows++; } //error prevention
             }
             Connection.Close();
-            return MultAnswers;
-        }
-        private SqlDataReader ReadQuery(string query)
-        {
-            SqlCommand Command = new SqlCommand(query, Connection);
-            return Command.ExecuteReader();
+            return TableData;
         }
         /**
         Load the entire Questions table into A 2D array so that is can be passed
             off to the Questions View
         **/
-        public string[,] GetProcessModelQuestions()
+        public void GetProcessModelQuestions()
         {
-            int Rows = 0;
-            int Columns = 3;
-            string QueryCount = "SELECT COUNT(*) FROM Questions2Table";
-            Connection.Open();
-            SqlDataReader MyDataSet=ReadQuery(QueryCount);
-            MyDataSet.Read();
+            Questions=ReadQuery("SELECT * FROM Questions2Table", Questions.GetLength(0), Questions.GetLength(1), 1);
+            //string QueryCount = "SELECT COUNT(*) FROM Questions2Table";
+
             //Debug.Print(MyDataSet.GetValue(0).ToString()); //test
-            int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
-            QuestionSize = QNum;
-            Debug.Print("Question Size: " + QuestionSize);
-            string QueryQ = "SELECT * FROM Questions2Table";
-            string[,] Questions = new string[QNum, Columns];
-            MyDataSet=ReadQuery(QueryQ);
-            while (MyDataSet.Read())
+            //int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
+            //QuestionSize = QNum;
+            //Debug.Print("Question Size: " + QuestionSize);
+            //string QueryQ = "SELECT * FROM Questions2Table";
+            //string[,] Questions = new string[QNum, Columns];
+            //MyDataSet=ReadQuery(QueryQ);
+            /*while (MyDataSet.Read())
             {
                 for (int i = 0; i < Columns; i++)
                 {
@@ -96,8 +123,8 @@ namespace WebApplication2.Models
                 }
                 if (Rows<QNum){ Rows++; } //error prevention
             }
-            Connection.Close();
-            return Questions;
+            Connection.Close();*/
+
         }
         public void TrainData(string winner)
         {
@@ -119,8 +146,17 @@ namespace WebApplication2.Models
         }
         public Boolean ReadHighPriority(string query, string queryCount)
         {
-            
-            int Columns = 3;
+            string[,] Size=ReadQuery(queryCount, 1, 1, 0);
+            int Rows = Convert.ToInt32(Size[0, 0]);
+
+            string[,] PModel = new string[Rows, 3];
+
+            PModel = ReadQuery(query, PModel.GetLength(0), PModel.GetLength(1), 0);
+            for(int i=0; i<PModel.GetLength(0); i++)
+            {
+                return Answers[i + 1].Equals(PModel[i, 1]) ? true : false;
+            }
+            /*int Columns = 3;
             Connection.Open();
             SqlDataReader MyDataSet = ReadQuery(queryCount);
             MyDataSet.Read();
@@ -149,46 +185,48 @@ namespace WebApplication2.Models
                 {
                     return true;
                 }
-            }*/
-            Connection.Close();
+            }
+            Connection.Close();*/
             return false;
         }
        public void EliminateProcessModels()
         {
-                /*for(int i=0; i< Answers.Length; i++)
-                {
-                    Debug.Print(i + ": " + Answers[i]);
-                }*/
-                int Columns = 3;
 
-                string QueryCount = "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5";
-           
-
-                string[,] Waterfall;
-                string[,] WaterfallIt = new string[QuestionSize, 3];
-                string[,] RAD = new string[QuestionSize, 3];
-                string[,] COTS = new string[QuestionSize, 3];
-
-                string QueryW = "SELECT * FROM WaterfallTable2 WHERE Priority=5";
-                string QueryWI = "SELECT * FROM WaterfallIterationTable WHERE Priority=5";
-                string QueryRAD = "SELECT * FROM RADTable WHERE Priority=5";
-                string QueryCOTS = "SELECT* FROM COTSTable WHERE Priority = 5";
-
-                ReadHighPriority(QueryW, QueryCount);
-               /* WaterfallIt = ReadHighPriority(WaterfallIt, QueryWI, Columns);
-                RAD = ReadHighPriority(RAD, QueryRAD, Columns);
-                COTS = ReadHighPriority(COTS, QueryCOTS, Columns);*/
-
-                
-                
-
-
-
-                
-                //join ProcessModelTable with Answer Table
-                //if selecting from this table where answer!=desired answer && priority==5 != NULL
-                //remove ProcessModel from the list
             
+            /*for(int i=0; i< Answers.Length; i++)
+            {
+                Debug.Print(i + ": " + Answers[i]);
+            }*/
+            /*int Columns = 3;
+
+            string QueryCount = "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5";
+
+
+            string[,] Waterfall;
+            string[,] WaterfallIt = new string[QuestionSize, 3];
+            string[,] RAD = new string[QuestionSize, 3];
+            string[,] COTS = new string[QuestionSize, 3];
+
+            string QueryW = "SELECT * FROM WaterfallTable2 WHERE Priority=5";
+            string QueryWI = "SELECT * FROM WaterfallIterationTable WHERE Priority=5";
+            string QueryRAD = "SELECT * FROM RADTable WHERE Priority=5";
+            string QueryCOTS = "SELECT* FROM COTSTable WHERE Priority = 5";
+
+            ReadHighPriority(QueryW, QueryCount);
+           /* WaterfallIt = ReadHighPriority(WaterfallIt, QueryWI, Columns);
+            RAD = ReadHighPriority(RAD, QueryRAD, Columns);
+            COTS = ReadHighPriority(COTS, QueryCOTS, Columns);*/
+
+
+
+
+
+
+
+            //join ProcessModelTable with Answer Table
+            //if selecting from this table where answer!=desired answer && priority==5 != NULL
+            //remove ProcessModel from the list
+
         }
         public void ChooseProcessModels()
         {

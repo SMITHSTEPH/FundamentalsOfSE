@@ -16,8 +16,8 @@ namespace WebApplication2.Controllers
        
         public ActionResult Questions()
         {
-            string[,] Questions=PModel.GetProcessModelQuestions();
-            string[,] MultAnswers = PModel.GetMultipleChoiceResponses();
+            string[,] Questions=PModel.Questions;
+            string[,] MultAnswers = PModel.MultipleChoiceAnswers;
             /*for (int i = 0; i < Questions.GetLength(0); i++) //testing Questions Table
             {
               //(Questions[i, 0].ToString().Trim());
@@ -40,7 +40,7 @@ namespace WebApplication2.Controllers
             Debug.Print("Trying to print form");
             Debug.Print(form["Answer"]);
             Debug.Print("Form Count is: "+ form.Count.ToString());
-            Debug.Print("Question Size: " + PModel.QuestionSize); //this is always 0 and I don't know why
+            //Debug.Print("Question Size: " + PModel.QuestionSize); //this is always 0 and I don't know why
             string[] Answers = new string[form.Count]; //for now hard code it
             form.CopyTo(Answers, 0);
             Debug.Print("Length of form is: ");
@@ -58,10 +58,10 @@ namespace WebApplication2.Controllers
             }
             else
             {
-                string[,] Questions = PModel.GetProcessModelQuestions();
-                string[,] MultAnswers = PModel.GetMultipleChoiceResponses();
-                ViewData["questions"] = Questions;
-                ViewData["multAnswers"] = MultAnswers;
+                //string[,] Questions = PModel.GetProcessModelQuestions();
+                //string[,] MultAnswers = PModel.GetMultipleChoiceResponses();
+                //iewData["questions"] = Questions;
+                //ViewData["multAnswers"] = MultAnswers;
                 Debug.Print("In else");
                 ModelState.AddModelError("Name", "Name is required");
                 ViewData["isValid"] = "false";
