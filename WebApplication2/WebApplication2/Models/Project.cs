@@ -18,7 +18,7 @@ namespace WebApplication2.Models
             
 
             List<JunctionTableProjectAndAccount> projects = db.JunctionTableProjectAndAccounts.ToList();
-            List<ProjectTable> projectsProess = db.ProjectTables.ToList();
+            //List<ProjectTable> projectsProess = db.ProjectTables.ToList();
 
             Project UsersProjects = new Project();
             int j = 0;
@@ -48,7 +48,7 @@ namespace WebApplication2.Models
                 int k = 0;
                 foreach (int id in UsersProjects.ProjectId)
                 {
-                    foreach (ProjectTable process in projectsProess)
+                    /*foreach (ProjectTable process in projectsProess)
                     {
 
                         if (id == process.ProjectId)
@@ -58,7 +58,7 @@ namespace WebApplication2.Models
 
                     }
 
-                    k++;
+                    k++;*/
                 }
             }
             

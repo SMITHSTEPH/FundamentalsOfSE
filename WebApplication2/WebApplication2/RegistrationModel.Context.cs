@@ -52,7 +52,7 @@ public partial class RegistrationEntities1 : DbContext
 
     public virtual DbSet<Questions2Table> Questions2Table { get; set; }
 
-    public virtual DbSet<ProjectTable> ProjectTables { get; set; }
+    //public virtual DbSet<ProjectTable> ProjectTables { get; set; }
 
 }
 

@@ -32,8 +32,15 @@
         <li><a href="#Process">Process</a></li>
     </ul>
     <h1>Process Model Survey</h1>
+
+
 @using (Html.BeginForm("Result", "ProcessModel"))
 {
+    if (ViewData["isValid"].Equals("false"))
+    {   <br />
+        @Html.Label("Did Not answer all of the fields");
+        <br />
+    }
     string[,] Questions = (string[,])ViewData["questions"];
     string[,] MultAnswers = (string[,])ViewData["multAnswers"];
     //System.Diagnostics.Debug.Print(Questions.GetLength(0).ToString());
@@ -57,14 +64,14 @@
         {
             <br>
             @Html.Label("True");
-            @Html.RadioButton("True", new { id=i});
+            @Html.RadioButton(@Questions[i, 0].ToString().Trim(), "Yes");
             @Html.Label("False");
-            @Html.RadioButton("False", new { id = i });
+            @Html.RadioButton(@Questions[i, 0].ToString().Trim(), "No");
             <br>
         }
         else if(Questions[i, 2].ToString().Trim().Equals("Short Answer"))
         {
-            System.Diagnostics.Debug.Print("Short Answer");
+            //System.Diagnostics.Debug.Print("Short Answer");
             <br>
             @Html.Label("Short Answer");
             @Html.TextArea("UserResponse");
@@ -75,20 +82,20 @@
             <br />
             int QuestionID = i + 1;
             //System.Diagnostics.Debug.Print("MulT ID: "+ QuestionID.ToString());
-            System.Diagnostics.Debug.Print("Responses size!  "+ MultAnswers.GetLength(1).ToString());
+           // System.Diagnostics.Debug.Print("Responses size!  "+ MultAnswers.GetLength(1).ToString());
             for (int j = 0; j < MultAnswers.GetLength(0); j++)
             {
                 if (QuestionID == Convert.ToInt32(MultAnswers[j, 0])) //the question ids are the same
                 {
-                    System.Diagnostics.Debug.Print("Mult ID: "+ MultAnswers[j, 0]);
+                    //System.Diagnostics.Debug.Print("Mult ID: "+ MultAnswers[j, 0]);
                     int m = 1;
                     while (!MultAnswers[j, m].Trim().Equals("Empty") && m<5)
                     {
-                        System.Diagnostics.Debug.Print("Index: " + m.ToString());
+                        //System.Diagnostics.Debug.Print("Index: " + m.ToString());
                         @Html.Label(MultAnswers[j, m].Trim());
-                        @Html.RadioButton(MultAnswers[j, m].Trim(), new { id = m });
+                        @Html.RadioButton(MultAnswers[j, 0].Trim(), MultAnswers[j, m].Trim());
                         m++;
-                        System.Diagnostics.Debug.Print("A: " + MultAnswers[j, m]);
+                        //System.Diagnostics.Debug.Print("A: " + MultAnswers[j, m]);
 
                     }
 
