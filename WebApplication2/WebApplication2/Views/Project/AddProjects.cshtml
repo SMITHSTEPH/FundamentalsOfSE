@@ -18,11 +18,15 @@
             }
             else
             {
+                @Html.Label("User: " + Model.UserName)
+                <br />
+
                 var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
 
                 foreach (var entity in col)
                 {
-                    @Html.Label("Select Project: number" + entity.X + "which have the chosen process: " + entity.Y);
+                    @Html.Label("Select Project: number " + entity.X + " which has the chosen process: " + entity.Y);
+                    <br />
                     @Html.Label("Click here to add project")
                     <br />
                 }
