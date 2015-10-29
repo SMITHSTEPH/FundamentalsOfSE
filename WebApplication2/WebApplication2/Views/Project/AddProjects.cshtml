@@ -1,4 +1,4 @@
-﻿@model WebApplication2.Models.Project
+﻿@model dynamic
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,34 +6,24 @@
     @{Layout = "~/Views/Shared/_Layout.cshtml";}
 </head>
 <body>
-
+    
     <h2>AddProjects</h2>
 
     <div>
-        @if (Model != null)
+        @Html.Label("Your Account Number is " + ViewData["AccountId"])
+        @Html.Label("With a rank of " + ViewData["Rank"])
+        <br />
+
+
+        @foreach(ProjectTable proj in Model.ProjectTable)
         {
-            if (Model.ProjectId[0] == 0)
-            {
-                @Html.Label("Not in any Projects")
-            }
-            else
-            {
-                @Html.Label("User: " + Model.UserName)
-                <br />
+            @Html.Label("You can join these projects: ")
+            @proj.ProjectId
+            
+            @Html.ActionLink(" Click to Add", "AddtoTable", new {id=proj.ProjectId} )
 
-                var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
-
-                foreach (var entity in col)
-                {
-                    @Html.Label("Select Project: number " + entity.X + " which has the chosen process: " + entity.Y);
-                    <br />
-                    @Html.Label("Click here to add project")
-                    <br />
-                }
-            }
+            <br />
         }
-
-
     </div>
 </body>
 </html>
