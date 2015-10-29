@@ -45,6 +45,7 @@ namespace WebApplication2.Controllers
                 PModel.Answers = Answers;
                 //PModel.EliminateProcessModels();
                 PModel.ChooseProcessModels();
+                ViewData["result"] = PModel.Result;
                 return View();
             }
             else

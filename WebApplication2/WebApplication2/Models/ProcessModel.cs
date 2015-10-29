@@ -27,6 +27,7 @@ namespace WebApplication2.Models
         public string[,] MultipleChoiceAnswers { get; set; }
         public string[] Answers { get; set; }
         public string[] AnswersTest { get; set; }
+        public string  Result { get; set; }
         /**
         Constructor populates an ArrayList with all of the ProcessModel tables in the database
         **/
@@ -47,6 +48,7 @@ namespace WebApplication2.Models
            Rows = Convert.ToInt32(Size[0, 0]);
            MultipleChoiceAnswers = new string[Rows, 6];
            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
+
 
             //test
             AnswersTest = new string[Questions.GetLength(0)];
@@ -193,10 +195,18 @@ namespace WebApplication2.Models
             Max = Math.Max(Max, COTSPoints);
             Max = Math.Max(Max, RADPoints);
 
-            if (Max == WaterfallPoints) { Debug.Print("Waterfall is max with: " + WaterfallPoints); }
-            else if (Max == IterativeWaterfallPoints){ Debug.Print("IterativeWaterfall is max with: " + IterativeWaterfallPoints); }
-            else if (Max==COTSPoints) { Debug.Print("COTS is max with: " + COTSPoints); }
-            else { Debug.Print("RAD is max with: " + RADPoints); } 
+            if (Max == WaterfallPoints) {
+                Result = "Waterfall";
+                Debug.Print("Waterfall is max with: " + WaterfallPoints); }
+            else if (Max == IterativeWaterfallPoints) {
+                Result = "Iterative Waterfall";
+                Debug.Print("IterativeWaterfall is max with: " + IterativeWaterfallPoints); }
+            else if (Max == COTSPoints) { 
+                Result = "COTS";
+                Debug.Print("COTS is max with: " + COTSPoints); }
+            else { 
+                Result="RAD";
+                 Debug.Print("RAD is max with: " + RADPoints); } 
 
             //WHAT WE NEED TO ACTUALLY DO:
             //see if waterfall score lies within range of waterfall points
