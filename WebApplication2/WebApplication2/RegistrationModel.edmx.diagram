@@ -15,6 +15,7 @@
         <EntityTypeShape EntityType="RegistrationModel.RADTable" Width="1.5" PointX="8.375" PointY="6.75" />
         <EntityTypeShape EntityType="RegistrationModel.WaterfallIterationTable" Width="1.5" PointX="3.375" PointY="9.75" />
         <EntityTypeShape EntityType="RegistrationModel.Questions2Table" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RegistrationModel.ProjectTable" Width="1.5" PointX="5.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
