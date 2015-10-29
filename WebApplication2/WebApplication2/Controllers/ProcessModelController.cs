@@ -35,8 +35,8 @@ namespace WebApplication2.Controllers
             Debug.Print(Answers.Length.ToString());
             for (int i = 0; i < Answers.Length; i++)
             {
-                System.Console.Write(Answers[i] + ",");
-                //Debug.Print(Answers[i] +",");
+                //System.Console.Write(Answers[i] + ",");
+                Debug.Write(Answers[i] +",");
             }
             if (PModel.IsValid(Answers))
             {
