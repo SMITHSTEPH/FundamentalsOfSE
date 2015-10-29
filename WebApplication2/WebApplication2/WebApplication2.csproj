@@ -291,6 +291,7 @@
     <Content Include="Views\ProcessModel\Questions.cshtml" />
     <Content Include="Views\ProcessModel\Result.cshtml" />
     <Content Include="Views\Account\Input.cshtml" />
+    <Content Include="Views\Project\SuccessPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

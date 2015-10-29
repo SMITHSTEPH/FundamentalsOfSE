@@ -9,39 +9,54 @@
 
     <h2>ExistingProjects</h2>
     <div>
-        @using (Html.BeginForm("AddProjects", "Project", FormMethod.Post))
+        @using (Html.BeginForm("AddProjects", "Project", FormMethod.Get))
         {
-            @Html.Label("Logged In as ")
-            @Html.LabelFor(Model => Model.UserName)
-            @Html.HiddenFor(Model => Model.UserName)
-            <br />
-            @Html.Label("Your have the Rank: ")
-            @Html.LabelFor(Model => Model.Rank)
-            @Html.HiddenFor(Model => Model.Rank)
+                @Html.Label("Logged In as " + Model.UserName)
+                @Html.HiddenFor(Model => Model.UserName)
 
-            if (Model.ProjectId[0] == 0)
-            {
-                @Html.Label("Not in any Projects")
-            }
-            else
-            {
-                int k = 0;
+                <br />
+                @Html.Label("Your have the Rank: " + Model.Rank)
+                @Html.HiddenFor(Model => Model.Rank)
+                <br />
 
-                for (k = 0; k < Model.ProjectId.Length; k++)
+                if (Model.ProjectId[0] == 0)
                 {
-                    @Html.Label("Your in Project number ")
-                    @Html.LabelFor(Model => Model.ProjectId[k])
-                    @Html.HiddenFor(Model => Model.ProjectId[k])
-                    @Html.Label("which have the chosen process: ")
-                    @Html.LabelFor(Model => Model.ProjectProcess[k])
-                    @Html.HiddenFor(Model => Model.ProjectProcess[k])
+                    @Html.Label("Not in any Projects")
                 }
-            }
+                else
+                {
+                        int k = 0;
 
-            if (Model.Rank == "Leader" || Model.Rank == "Admin")
+                        for (k = 0; k < Model.ProjectId.Length; k++)
+                        {
+                            @Html.HiddenFor(Model => Model.ProjectId[k])
+                            @Html.HiddenFor(Model => Model.ProjectProcess[k])
+                        }
+
+                    var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
+
+                    foreach (var entity in col)
+                    {
+                        @Html.Label("Your in Project number " + entity.X + ", which has the chosen process: " + entity.Y);
+                        <br />
+                    }
+                }
+
+        
+            if (Model.Rank == "Admin" || Model.Rank == "Member")
             {
                 <br />
-                @Html.Label("If you want to add other people to Projects")
+                @Html.Label("If you want to join a new project")
+                <br />
+                <input type="submit" value="Join Project">
+            }
+        }
+        @using (Html.BeginForm("Questions", "ProcessModel", FormMethod.Get))
+        {
+            if (Model.Rank == "Leader")
+            {
+                <br />
+                @Html.Label("If you want to create a new project")
                 <br />
                 <input type="submit" value="Add New Project">
             }
