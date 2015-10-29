@@ -9,34 +9,40 @@
 
     <h2>ExistingProjects</h2>
     <div>
-        @Html.Label("Logged In as " + Model.UserName)
-        <br />
-        @Html.Label("Your Rank is " + Model.Rank)
-        <br />
-        @Html.Label("Your Id is " + Model.AccountId)
-        <br />
+        @using (Html.BeginForm("AddProjects", "Project", FormMethod.Post))
+        {
+            @Html.Label("Logged In as ")
+            @Html.LabelFor(Model => Model.UserName)
+            @Html.HiddenFor(Model => Model.UserName)
+            <br />
+            @Html.Label("Your have the Rank: ")
+            @Html.LabelFor(Model => Model.Rank)
+            @Html.HiddenFor(Model => Model.Rank)
 
-        @if (Model.ProjectId[0] == 0)
-        {
-            @Html.Label("Not in any Projects")
-        }
-        else
-        {
-            foreach (var id in Model.ProjectId)
+            if (Model.ProjectId[0] == 0)
             {
-                if (id != 0)
+                @Html.Label("Not in any Projects")
+            }
+            else
+            {
+                int k = 0;
+
+                for (k = 0; k < Model.ProjectId.Length; k++)
                 {
-                    @Html.Label("Your Project Ids are " + id)
-                    <br />
+                    @Html.Label("Your in Project number ")
+                    @Html.LabelFor(Model => Model.ProjectId[k])
+                    @Html.HiddenFor(Model => Model.ProjectId[k])
+                    @Html.Label("which have the chosen process: ")
+                    @Html.LabelFor(Model => Model.ProjectProcess[k])
+                    @Html.HiddenFor(Model => Model.ProjectProcess[k])
                 }
             }
-        }
 
-        @if (Model.Rank == "Leader")
-        {
-            using (Html.BeginForm("AddProjects", "Project", FormMethod.Post))
+            if (Model.Rank == "Leader" || Model.Rank == "Admin")
             {
-
+                <br />
+                @Html.Label("If you want to add other people to Projects")
+                <br />
                 <input type="submit" value="Add New Project">
             }
         }
