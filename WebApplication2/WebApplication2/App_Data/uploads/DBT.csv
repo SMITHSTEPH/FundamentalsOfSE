@@ -3,36 +3,36 @@ Question Id,Question,Category,Question Type
 2,Are the requirements easily defined,Requirements,True or False
 3,Will the requirements frequently change,Requirements,True or False
 4,Do the requirements indicate a complex system,Requirements,True or False
-5,The requirements wont change even if it takes your team (30-50-75%) longer than the estimated time to complete the project,Requirements,True or False
+5,The requirements wont change even if it takes your team longer than the estimated time to complete the project,Requirements,True or False
 6,The requirements driven by a user interface,Requirements,True or False
 7,How can you gather requirements?,Requirements,Short Answer
 8,You fully understand the projects domain,Requirements,True or False
 9,You are a consulting for another company,Customers,True or False
-10,"How much is the user involved? (very little, average amount, a lot)",Customers,Multiple Choice
+10,How much is the user involved?,Customers,Multiple Choice
 11,The user participates in all phases,Customers,True or False
 12,Users/customers unable or unwilling to evaluate early delivery of solution increments,Customers,True or False
-13,"How often do the customers want to see the product? (at the end, 1-3 months, 1-3 weeks)",Customers,Multiple Choice
-14,"How much time do the users have to interact with the project? (very little to no time, one meeting every iteration, interacting in the majority of the phases)",Customers,Multiplce Choice
+13,How often do the customers want to see the product?,Customers,Multiple Choice
+14,How much time do the users have to interact with the project? ,Customers,Multiplce Choice
 15,You making the project for your own company,Customers,True or False
 16,You have worked with this Customer before.,Customers,True or False
 17,Is the Customer looking for Quality or does he want it fast? ,Customers,Multiple Choice
-18,You are working with another team.,Customers,True or False
+18,You are working with another team,Customers,True or False
 19,How much time do you have for the whole project?,Customers,Multiple Choice
-20,Your customer wants reports often.,Customers,True or False
+20,Your customer wants reports often,Customers,True or False
 21,How often over the course of the project?,Customers,Multiple Choice
 22,How often do you need to meet with your Customer and update them? ,Customers,Multiple Choice
 23,You are doing some outsourcing ,Customers,True or False
-24,You are just developing the system and not maintaining it too.,Customers,True or False
+24,You are just developing the system and not maintaining it too,Customers,True or False
 25,You are teaching people to maintain it,Customers,True or False
-26,"How secure is you team? (very, average, not secure)",Team,Multiple Choice
+26,How secure is you team? ,Team,Multiple Choice
 27,Your testing and developer teams are divided,Team,True or False
-28,"How experienced are the designers and analysts? (very, average, not secure)",Team,Multiple Choice
-29,There is no value in helping our teams learn better software engineering practices driven by agile. (True or False),Team,True or False
+28,How experienced are the designers and analysts?,Team,Multiple Choice
+29,There is no value in helping our teams learn better software engineering practices driven by agile,Team,True or False
 30,Someone on the team has good resource allocation skills,Team,True or False
-31,"How diverse is your team? (very, average, little)",Team,Multiple Choice
-32,"How skilled is your team? (very, average, little)",Team,Multiple Choice
-33,"How often can you speak with your team? (often, average amount, very little)",Team,Multiple Choice
-34,"What is the size of the team? (like it, love it, gotta have it)",Team,Multiple Choice
+31,How diverse is your team?,Team,Multiple Choice
+32,How skilled is your team? ,Team,Multiple Choice
+33,How often can you speak with your team? ,Team,Multiple Choice
+34,What is the size of the team? ,Team,Multiple Choice
 35,The team has worked together before,Team,True or False
 36,Is the team in the same area or spread out across country?,Team,Multiple Choice
 37,What is the average amount of experience for each person on the team? ,Team,Multiple Choice
