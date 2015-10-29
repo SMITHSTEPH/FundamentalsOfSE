@@ -88,6 +88,13 @@
           <Property Name="Response5" Type="nchar" MaxLength="50" />
           <Property Name="Response6" Type="nchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="ProjectTable">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcessModelChosen" Type="nchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Questions2Table">
           <Key>
             <PropertyRef Name="QuestionId" />
@@ -128,6 +135,7 @@
           <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectTable" EntityType="Self.ProjectTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions2Table" EntityType="Self.Questions2Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RADTable" EntityType="Self.RADTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WaterfallIterationTable" EntityType="Self.WaterfallIterationTable" Schema="dbo" store:Type="Tables" />
@@ -148,6 +156,7 @@
           <EntitySet Name="RADTables" EntityType="RegistrationModel.RADTable" />
           <EntitySet Name="WaterfallIterationTables" EntityType="RegistrationModel.WaterfallIterationTable" />
           <EntitySet Name="Questions2Table" EntityType="RegistrationModel.Questions2Table" />
+          <EntitySet Name="ProjectTables" EntityType="RegistrationModel.ProjectTable" />
         </EntityContainer>
         <EntityType Name="memberTableV2">
           <Key>
@@ -264,6 +273,13 @@
           <Property Name="Question" Type="String" Nullable="false" MaxLength="200" FixedLength="true" Unicode="true" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="QuestionType" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProjectTable">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessModelChosen" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -394,6 +410,14 @@
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTables">
+            <EntityTypeMapping TypeName="RegistrationModel.ProjectTable">
+              <MappingFragment StoreEntitySet="ProjectTable">
+                <ScalarProperty Name="ProcessModelChosen" ColumnName="ProcessModelChosen" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

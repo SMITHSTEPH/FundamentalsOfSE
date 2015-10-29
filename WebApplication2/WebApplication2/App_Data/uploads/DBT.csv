@@ -1,0 +1,93 @@
+Question Id,Question,Category,Question Type
+1,How well are the requirements understood,Requirements,True or False
+2,Are the requirements easily defined,Requirements,True or False
+3,Will the requirements frequently change,Requirements,True or False
+4,Do the requirements indicate a complex system,Requirements,True or False
+5,The requirements wont change even if it takes your team (30-50-75%) longer than the estimated time to complete the project,Requirements,True or False
+6,The requirements driven by a user interface,Requirements,True or False
+7,How can you gather requirements?,Requirements,Short Answer
+8,You fully understand the projects domain,Requirements,True or False
+9,You are a consulting for another company,Customers,True or False
+10,"How much is the user involved? (very little, average amount, a lot)",Customers,Multiple Choice
+11,The user participates in all phases.,Customers,True or False
+12,Users/customers unable or unwilling to evaluate early delivery of solution increments,Customers,True or False
+13,"How often do the customers want to see the product? (at the end, 1-3 months, 1-3 weeks)",Customers,Multiple Choice
+14,"How much time do the users have to interact with the project? (very little to no time, one meeting every iteration, interacting in the majority of the phases)",Customers,Multiplce Choice
+15,You making the project for your own company,Customers,True or False
+16,You have worked with this Customer before.,Customers,True or False
+17,Is the Customer looking for Quality or does he want it fast? ,Customers,Multiple Choice
+18,You are working with another team.,Customers,True or False
+19,How much time do you have for the whole project?,Customers,Multiple Choice
+20,Your customer wants reports often.,Customers,True or False
+21,How often over the course of the project?,Customers,Multiple Choice
+22,How often do you need to meet with your Customer and update them? ,Customers,Multiple Choice
+23,You are doing some outsourcing. ,Customers,True or False
+24,You are just developing the system and not maintaining it too.,Customers,True or False
+25,You are teaching people to maintain it.,Customers,True or False
+26,"How secure is you team? (very, average, not secure)",Team,Multiple Choice
+27,Your testing and developer teams are divided.,Team,True or False
+28,"How experienced are the designers and analysts? (very, average, not secure)",Team,Multiple Choice
+29,There is no value in helping our teams learn better software engineering practices driven by agile. (True or False),Team,True or False
+30,Someone on the team has good resource allocation skills.,Team,True or False
+31,"How diverse is your team? (very, average, little)",Team,Multiple Choice
+32,"How skilled is your team? (very, average, little)",Team,Multiple Choice
+33,"How often can you speak with your team? (often, average amount, very little)",Team,Multiple Choice
+34,"What is the size of the team? (like it, love it, gotta have it)",Team,Multiple Choice
+35,The team has worked together before.,Team,True or False
+36,Is the team in the same area or spread out across country?,Team,Multiple Choice
+37,What is the average amount of experience for each person on the team? ,Team,Multiple Choice
+38,How many years experience does the team leader have?,Team,Multiple Choice
+39,Is the Team good at handling judgement on their code?,Team,True or False
+40,Does your team have experience making User Requirements Documents? ,Team,True or False
+41,Does your team have experience making Software Requirements Documents?,Team,True or False
+42,Does your team have experience making Writing Reviews?,Team,True or False
+43,Do you have an Architecture lead? ,Team,True or False
+44,How many years Experience does the Architecture lead have?,Team,Multiple Choice
+45,Do the Architecture lead have experience making Architectural Documents?,Team,True or False
+46,How many levels of Hierarchy are there?,Team,Multiple Choice
+47,Can you reuse lots of software components?,Software,True or False
+48,Is the technology understood well? ,Software,True or False
+49,Are you starting completely from scratch? ,Software,True or False
+50,Do you own the License to use this software or is it open source?,Software,Multiple Choice
+51,How much initial software do you already have?,Software,Multiple Choice
+52,Are you going to buy more software? ,Software,True or False
+53,Do you have a plan to Integrate the Software? ,Software,True or False
+54,Do you have a detailed is this plan to Integrate the Software? ,Software,True or False
+55,What is the level of Quality for this software?,Software,Multiple Choice
+56,Is there any Customer support for this software?,Software,True or False
+57,Do you have any access to this softwares source code? ,Software,True or False
+58,Do you have a guide to or manual of some kind on how to use this software?,Software,True or False
+59,Does anyone on the development team have experience with this software?,Software,True or False
+60,Do you know if the software is compatible with each other?,Software,True or False
+61,Is the software getting updated often or is it old and completed?,Software,Multiple Choice
+62,Have you debugged all of the software?,Software,True or False
+63,Have you run any Tests on this Software?,Software,True or False
+64,Is management very structured on your team?,Management,True or False
+65,How much money do you have initially invested? ,Money,Multiple Choice
+66,How much money do you have per iteration?,Money,Multiple Choice
+67,How much money do you have over the whole project?,Money,Multiple Choice
+68,What is the max amount of money you can spend?,Money,Multiple Choice
+69,Could there be a change in budget? ,Money,True or False
+70,Can you afford designers on your team?,Money,True or False
+71,Can you afford reusable components?,Money,True or False
+72,What is the size of the project?  ,Size,Multiple Choice
+73,Is the project short?,Size,True or False
+74,Do you have room for some risk and uncertainty? ,Risk,True or False
+75,What will be the consequences if you defer testing until the end?,Risk,Multiple Choice
+76,Is there are resource rotation plan?,Planning,True or False
+77,Can resources be allocated in steps?,Planning,True or False
+78,Can you clearly picture your software’s system design?,Planning,True or False
+79,Can you clearly picture how to implement your software?,Planning,True or False
+80,Can you clearly picture how to test your software?,Planning,True or False
+81,Can you clearly picture how to deploy your software?,Planning,True or False
+82,Can you clearly picture how to maintain your software?,Planning,True or False
+83,Can you construct a rigidly paced schedule?,Planning,True or False
+84,Can your product system be modularized? ,Planning,True or False
+85,Is the project object oriented?,Process,True or False
+86,Do you need feedback?,Process,True or False
+87,Is it okay to throw out features?,Process,True or False
+88,Is it okay to add features later in the process?,Process,True or False
+89,Do you want to base your design off prototypes and continuously reengineer these prototypes? ,Process,True or False
+90,Do you want to focus on a few features at a time?,Process,True or False
+91,Do you want to work on continuously refining the project?,Process,True or False
+92,Are there going to be a continous integration of features?,Process,True or False
