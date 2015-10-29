@@ -25,9 +25,25 @@ namespace WebApplication2.Controllers
         {
             dynamic myModel = new ExpandoObject();
             myModel.ProjectTable = possibleProjects();
-            ViewData["AccountId"] = ListofProjects.AccountId;
-            ViewData["Rank"] = ListofProjects.Rank;
 
+            /*if(ListofProjects.Rank == "Admin")
+            {
+                myModel.administrationV2 = possibleAdmins(ListofProjects.AccountId);
+
+            }
+            else
+            {
+                myModel.memberTableV2 = possibleMembers(ListofProjects.AccountId);
+            }*/
+
+            //ViewData["Rank"] = ListofProjects.Rank;
+
+            JunctionTableProjectAndAccount table = new JunctionTableProjectAndAccount();
+            List<JunctionTableProjectAndAccount> output = new List<JunctionTableProjectAndAccount>();
+            table.AID = ListofProjects.AccountId;
+            table.Role = ListofProjects.Rank;
+            output.Add(table);
+            myModel.JunctionTableProjectAndAccount = table;
 
             //Needs to go to the page that allows them to add a project
             return View("AddProjects", myModel);
@@ -40,29 +56,57 @@ namespace WebApplication2.Controllers
             return View( );
         }
 
-        public ActionResult AddtoTable(int id)
+        public ActionResult AddtoTable(int id, string role, int Aid)
         {
             string result;
-            int AID = ViewBag.AccountId;
-            string Role = ViewBag.Rank;
+            int AID = Aid;
+            string Role = role;
             result = AddAccount(AID, Role, id);
             ViewData["Output"] = result;
             return View("SuccessPage");
         }
 
 
-        public List<administrationV2> possibleAdmins()
+        public List<administrationV2> possibleAdmins(int AId)
         {
 
             List<administrationV2> possibleAdmins = db.administrationV2.ToList();
+            List<administrationV2> outputProjects = new List<administrationV2>();
+
+            foreach(administrationV2 poss in possibleAdmins)
+            {
+                
+                    if (poss.Id == AId)
+                    {
+                        administrationV2 input = new administrationV2();
+                        input = poss;
+                        outputProjects.Add(input);
+                    }
+                
+                
+            }
 
             return possibleAdmins;
 
         }
 
-        public List<memberTableV2> possibleMembers()
+        public List<memberTableV2> possibleMembers(int AId)
         {
             List<memberTableV2> possibleMembers = db.memberTableV2.ToList();
+            List<memberTableV2> outputProjects = new List<memberTableV2>();
+
+            foreach (memberTableV2 poss in possibleMembers)
+            {
+
+                if (poss.Id == AId)
+                {
+                    memberTableV2 input = new memberTableV2();
+                    input = poss;
+                    outputProjects.Add(input);
+                }
+
+
+            }
 
             return possibleMembers;
         }

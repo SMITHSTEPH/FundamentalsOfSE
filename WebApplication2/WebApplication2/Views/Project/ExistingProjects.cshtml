@@ -17,6 +17,7 @@
                 <br />
                 @Html.Label("Your have the Rank: " + Model.Rank)
                 @Html.HiddenFor(Model => Model.Rank)
+                @Html.HiddenFor(Model => Model.AccountId)
                 <br />
 
                 if (Model.ProjectId[0] == 0)
