@@ -27,6 +27,7 @@ namespace WebApplication2.Models
         public string[,] MultipleChoiceAnswers { get; set; }
         public string[] Answers { get; set; }
         public string[] AnswersTest { get; set; }
+        public string  Result { get; set; }
         /**
         Constructor populates an ArrayList with all of the ProcessModel tables in the database
         **/
@@ -47,6 +48,7 @@ namespace WebApplication2.Models
            Rows = Convert.ToInt32(Size[0, 0]);
            MultipleChoiceAnswers = new string[Rows, 6];
            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
+
 
             //test
             AnswersTest = new string[Questions.GetLength(0)];
@@ -148,34 +150,39 @@ namespace WebApplication2.Models
 
             string[,] PModel = new string[Rows, 3]; //hard coding the number of columns for now
             PModel = ReadQuery(query, PModel.GetLength(0), PModel.GetLength(1), 0);
-
+            Debug.Print("Pmodel legnth: " + PModel.GetLength(0).ToString());
             for (int i = 0; i < PModel.GetLength(0); i++)
             {
-                Score += AnswersTest[i].Equals(PModel[i, 1].Trim()) ? Convert.ToInt32(PModel[i, 3].Trim()) : -1 * Convert.ToInt32(PModel[i, 3].Trim());
+                Debug.Print("Score is: "+ Score);
+                Score += AnswersTest[i].Equals(PModel[i, 1].Trim()) ? Convert.ToInt32(PModel[i, 2].Trim()) : -1 * Convert.ToInt32(PModel[i, 2].Trim());
             }
             return Score;
             
         }
         public void ChooseProcessModels()
         {
+            Debug.Print("In ChooseProcessModels");
             // int[] ProcessPoints = new int[ProcessModelsList.Count];
             int WaterfallPoints = 0;
             int IterativeWaterfallPoints = 0;
             int RADPoints = 0;
             int COTSPoints = 0;
             IEnumerator e = ProcessModelsList.GetEnumerator();
-            while(e.MoveNext())
+            for(int i=0; i<ProcessModelsList.Count; i++)
             {
-                if(e.Current.Equals(ProcessModels.Waterfall)){ WaterfallPoints= ComputeScore("SELECT * FROM WaterfallTable2", "SELECT COUNT(*) FROM WaterfallTable2");}
-                else if(e.Current.Equals(ProcessModels.IterativeWaterfall))
+                Debug.Print("In while");
+                Debug.Print(ProcessModelsList[i].ToString());
+                if(ProcessModelsList[i].ToString().Equals(ProcessModels.Waterfall.ToString())){ WaterfallPoints= ComputeScore("SELECT * FROM WaterfallTable2", "SELECT COUNT(*) FROM WaterfallTable2");}
+                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.IterativeWaterfall.ToString()))
                 {
+                    Debug.Print("In if");
                     IterativeWaterfallPoints=ComputeScore("SELECT * FROM WaterfallIterationTable", "SELECT COUNT(*) FROM WaterfallIterationTable");
                 }
-                else if(e.Current.Equals(ProcessModels.RAD))
+                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.RAD.ToString()))
                 {
                     RADPoints = ComputeScore("SELECT * FROM RADTable", "SELECT COUNT(*) FROM RADTable");
                 }
-                else if(e.Current.Equals(ProcessModels.COTS))
+                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.COTS.ToString()))
                 {
                     COTSPoints = ComputeScore("SELECT * FROM COTSTable", "SELECT COUNT(*) FROM COTSTable");
                 }
@@ -188,10 +195,18 @@ namespace WebApplication2.Models
             Max = Math.Max(Max, COTSPoints);
             Max = Math.Max(Max, RADPoints);
 
-            if (Max == WaterfallPoints) { Debug.Print("Waterfall is max with: " + WaterfallPoints); }
-            else if (Max == IterativeWaterfallPoints){ Debug.Print("IterativeWaterfall is max with: " + IterativeWaterfallPoints); }
-            else if (Max==COTSPoints) { Debug.Print("COTS is max with: " + COTSPoints); }
-            else { Debug.Print("RAD is max with: " + RADPoints); } 
+            if (Max == WaterfallPoints) {
+                Result = "Waterfall";
+                Debug.Print("Waterfall is max with: " + WaterfallPoints); }
+            else if (Max == IterativeWaterfallPoints) {
+                Result = "Iterative Waterfall";
+                Debug.Print("IterativeWaterfall is max with: " + IterativeWaterfallPoints); }
+            else if (Max == COTSPoints) { 
+                Result = "COTS";
+                Debug.Print("COTS is max with: " + COTSPoints); }
+            else { 
+                Result="RAD";
+                 Debug.Print("RAD is max with: " + RADPoints); } 
 
             //WHAT WE NEED TO ACTUALLY DO:
             //see if waterfall score lies within range of waterfall points
