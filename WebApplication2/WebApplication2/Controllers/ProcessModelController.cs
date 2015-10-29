@@ -43,8 +43,8 @@ namespace WebApplication2.Controllers
             if (PModel.IsValid(PModel.AnswersTest))
             {
                 PModel.Answers = Answers;
-                PModel.EliminateProcessModels();
-                //PModel.ChooseProcessModels();
+                //PModel.EliminateProcessModels();
+                PModel.ChooseProcessModels();
                 return View();
             }
             else
