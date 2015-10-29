@@ -19,6 +19,7 @@ namespace WebApplication2.Controllers
         public ActionResult AddProjects(Project ListofProjects)
         {
 
+
             //Needs to go to the page that allows them to add a project
             return View("AddProjects", ListofProjects);
         }
