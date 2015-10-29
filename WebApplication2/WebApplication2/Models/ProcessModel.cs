@@ -44,38 +44,13 @@ namespace WebApplication2.Models
 
            string[,] Size = ReadQuery("SELECT COUNT(*) FROM Questions2Table", 1, 1, 0); //return the size of the questions table
            int Rows = Convert.ToInt32(Size[0, 0]);
+           Debug.Print("Rows are: " + Rows);
            Questions = new string[Rows, 3]; //initializing the size of the questions
-
+           Questions = ReadQuery("SELECT * FROM Questions2Table", Questions.GetLength(0), Questions.GetLength(1), 1);
            Size = ReadQuery("SELECT COUNT(*) FROM MultipleChoiceTable", 1, 1, 0);
            Rows = Convert.ToInt32(Size[0, 0]);
            MultipleChoiceAnswers = new string[Rows, 6];
-        }
-        public void GetMultipleChoiceResponses()
-        {
-            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
-            /* int Rows = 0;
-             int Columns = 6;
-             string QueryCount = "SELECT COUNT(*) FROM MultipleChoiceTable";
-             Connection.Open();
-             SqlDataReader MyDataSet = ReadQuery(QueryCount);
-             MyDataSet.Read();
-             //Debug.Print(MyDataSet.GetValue(0).ToString()); //test
-             int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
-
-             string QueryQ = "SELECT * FROM MultipleChoiceTable";
-             string[,] MultAnswers = new string[QNum, Columns];
-             MyDataSet = ReadQuery(QueryQ);
-             while (MyDataSet.Read())
-             {
-                 for (int i = 0; i < Columns; i++)
-                 {
-                     MultAnswers[Rows, i] = MyDataSet.GetValue(i).ToString(); //ID
-                 }
-                 if (Rows < QNum) { Rows++; }
-
-             }
-             Connection.Close();*/
-            //return MultAnswers;
+           MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
         }
         /**
         performs the query and stores the results in a 2D array
@@ -102,30 +77,7 @@ namespace WebApplication2.Models
         Load the entire Questions table into A 2D array so that is can be passed
             off to the Questions View
         **/
-        public void GetProcessModelQuestions()
-        {
-            Questions=ReadQuery("SELECT * FROM Questions2Table", Questions.GetLength(0), Questions.GetLength(1), 1);
-            //string QueryCount = "SELECT COUNT(*) FROM Questions2Table";
-
-            //Debug.Print(MyDataSet.GetValue(0).ToString()); //test
-            //int QNum = Convert.ToInt32(MyDataSet.GetValue(0));
-            //QuestionSize = QNum;
-            //Debug.Print("Question Size: " + QuestionSize);
-            //string QueryQ = "SELECT * FROM Questions2Table";
-            //string[,] Questions = new string[QNum, Columns];
-            //MyDataSet=ReadQuery(QueryQ);
-            /*while (MyDataSet.Read())
-            {
-                for (int i = 0; i < Columns; i++)
-                {
-                    //don't need to store QuestionIDs b/c it's just "Question's index-1"
-                    Questions[Rows, i] = MyDataSet.GetValue(i+1).ToString();
-                }
-                if (Rows<QNum){ Rows++; } //error prevention
-            }
-            Connection.Close();*/
-
-        }
+        
         public void TrainData(string winner)
         {
 
@@ -149,83 +101,36 @@ namespace WebApplication2.Models
             string[,] Size=ReadQuery(queryCount, 1, 1, 0);
             int Rows = Convert.ToInt32(Size[0, 0]);
 
-            string[,] PModel = new string[Rows, 3];
-
+            string[,] PModel = new string[Rows, 3]; //hard coding the number of columns for now
             PModel = ReadQuery(query, PModel.GetLength(0), PModel.GetLength(1), 0);
+            
             for(int i=0; i<PModel.GetLength(0); i++)
             {
-                return Answers[i + 1].Equals(PModel[i, 1]) ? true : false;
+                if(Answers[i + 1].Equals(PModel[i, 1])) { return true; }
             }
-            /*int Columns = 3;
-            Connection.Open();
-            SqlDataReader MyDataSet = ReadQuery(queryCount);
-            MyDataSet.Read();
-            //int Count = 5;
-            //string val = MyDataSet.GetValue(0).ToString();
-            //Debug.Print("val is: " + val);
-            int Count = Convert.ToInt32( MyDataSet.GetValue(0).ToString());
-            string[,] PModel = new string[Count, Columns];
-            int Rows = 0;
-            Debug.Print("Count: " + Count);
-            MyDataSet = ReadQuery(query);
-            MyDataSet.Read();
-            while (MyDataSet.Read())
-            {
-                for (int i = 0; i < Columns; i++)
-                {
-                    PModel[Rows, i] = MyDataSet.GetValue(i).ToString();
-                    Debug.Print(PModel[Rows, i].ToString());
-                }
-                if (Rows < Count) { Rows++; } //error prevention
-            }
-            //now determine if any of the answers violate the priority
-            /*for(int i=0; i<PModel.GetLength(0); i++)
-            {
-                if(answers[i+1].Equals(PModel[i,1]))
-                {
-                    return true;
-                }
-            }
-            Connection.Close();*/
             return false;
         }
        public void EliminateProcessModels()
-        {
+       {
+           string[,] Waterfall = new string[Questions.GetLength(0), 3];
+           string[,] WaterfallIt = new string[Questions.GetLength(0), 3];
+           string[,] RAD = new string[Questions.GetLength(0), 3];
+           string[,] COTS = new string[Questions.GetLength(0), 3];
 
-            
-            /*for(int i=0; i< Answers.Length; i++)
-            {
-                Debug.Print(i + ": " + Answers[i]);
-            }*/
-            /*int Columns = 3;
+           string QueryW = "SELECT * FROM WaterfallTable2 WHERE Priority=5";
+           string QueryWI = "SELECT * FROM WaterfallIterationTable WHERE Priority=5";
+           string QueryRAD = "SELECT * FROM RADTable WHERE Priority=5";
+           string QueryCOTS = "SELECT* FROM COTSTable WHERE Priority = 5";
 
-            string QueryCount = "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5";
+           string QueryCountW = "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5";
+           string QueryCountWI = "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5";
+           string QueryCountRAD = "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5";
+           string QueryCountCOTS = "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5";
 
-
-            string[,] Waterfall;
-            string[,] WaterfallIt = new string[QuestionSize, 3];
-            string[,] RAD = new string[QuestionSize, 3];
-            string[,] COTS = new string[QuestionSize, 3];
-
-            string QueryW = "SELECT * FROM WaterfallTable2 WHERE Priority=5";
-            string QueryWI = "SELECT * FROM WaterfallIterationTable WHERE Priority=5";
-            string QueryRAD = "SELECT * FROM RADTable WHERE Priority=5";
-            string QueryCOTS = "SELECT* FROM COTSTable WHERE Priority = 5";
-
-            ReadHighPriority(QueryW, QueryCount);
-           /* WaterfallIt = ReadHighPriority(WaterfallIt, QueryWI, Columns);
-            RAD = ReadHighPriority(RAD, QueryRAD, Columns);
-            COTS = ReadHighPriority(COTS, QueryCOTS, Columns);*/
-
-
-
-
-
-
-
-            //join ProcessModelTable with Answer Table
-            //if selecting from this table where answer!=desired answer && priority==5 != NULL
-            //remove ProcessModel from the list
+           if(!ReadHighPriority(QueryW, QueryCountW)) {ProcessModelsList.Remove(ProcessModels.Waterfall);}
+           if(!ReadHighPriority(QueryWI, QueryCountWI)){ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
+           if(!ReadHighPriority(QueryRAD, QueryCountRAD)){ProcessModelsList.Remove(ProcessModels.RAD);}
+           if(!ReadHighPriority(QueryCOTS, QueryCountCOTS)){ ProcessModelsList.Remove(ProcessModels.COTS);}
 
         }
         public void ChooseProcessModels()
@@ -252,13 +157,8 @@ namespace WebApplication2.Models
             //remove largest outlier from the list
         }
         public Boolean IsValid(string[] answers)
-        {
-            Debug.Print("answers: " + answers.Length);
-            if (answers.Length >= 92)
-                return true;
-            else
-                return false;
-            //make sure all of the fields are filled out
+        { 
+            return answers.Length == Questions.GetLength(0) ? true : false;
         }
 
     }
