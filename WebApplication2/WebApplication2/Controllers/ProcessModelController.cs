@@ -18,17 +18,7 @@ namespace WebApplication2.Controllers
         {
             string[,] Questions=PModel.Questions;
             string[,] MultAnswers = PModel.MultipleChoiceAnswers;
-            /*for (int i = 0; i < Questions.GetLength(0); i++) //testing Questions Table
-            {
-              //(Questions[i, 0].ToString().Trim());
-            }
-            for (int i = 0; i < MultAnswers.GetLength(0); i++) //testing Questions Table
-            {
-                for (int j = 0; j < MultAnswers.GetLength(1); j++)
-                {
-                    Debug.Print(MultAnswers[i, j]);
-                }
-            }*/
+            //do model-view binding instead
             ViewData["questions"] = Questions;
             ViewData["multAnswers"] = MultAnswers;
             ViewData["isValid"] = "true";
@@ -37,10 +27,10 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult Result(FormCollection form)
         {
-            Debug.Print("Trying to print form");
+            /*Debug.Print("Trying to print form");
             Debug.Print(form["Answer"]);
             Debug.Print("Form Count is: "+ form.Count.ToString());
-            //Debug.Print("Question Size: " + PModel.QuestionSize); //this is always 0 and I don't know why
+            //Debug.Print("Question Size: " + PModel.QuestionSize); //this is always 0 and I don't know why*/
             string[] Answers = new string[form.Count]; //for now hard code it
             form.CopyTo(Answers, 0);
             Debug.Print("Length of form is: ");
@@ -51,19 +41,18 @@ namespace WebApplication2.Controllers
             }*/
             if (PModel.IsValid(Answers))
             {
-                
                 PModel.EliminateProcessModels();
                 PModel.ChooseProcessModels();
                 return View();
             }
             else
             {
-                //string[,] Questions = PModel.GetProcessModelQuestions();
-                //string[,] MultAnswers = PModel.GetMultipleChoiceResponses();
-                //iewData["questions"] = Questions;
-                //ViewData["multAnswers"] = MultAnswers;
-                Debug.Print("In else");
-                ModelState.AddModelError("Name", "Name is required");
+                string[,] Questions = PModel.Questions;
+                string[,] MultAnswers = PModel.MultipleChoiceAnswers;
+                ViewData["questions"] = Questions;
+                ViewData["multAnswers"] = MultAnswers;
+                //Debug.Print("In else");
+                //ModelState.AddModelError("Name", "Name is required");
                 ViewData["isValid"] = "false";
                 return View("Questions");
             }
