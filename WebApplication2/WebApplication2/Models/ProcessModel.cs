@@ -26,6 +26,7 @@ namespace WebApplication2.Models
         public string[,] Questions { get; set; }
         public string[,] MultipleChoiceAnswers { get; set; }
         public string[] Answers { get; set; }
+        public string[] AnswersTest { get; set; }
         /**
         These 6 Dictionaries give us insight on what a 'winning' process model looks like
         **/
@@ -55,6 +56,12 @@ namespace WebApplication2.Models
            Rows = Convert.ToInt32(Size[0, 0]);
            MultipleChoiceAnswers = new string[Rows, 6];
            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
+
+            AnswersTest = new string[Questions.GetLength(0)];
+            for (int i = 0; i < AnswersTest.Length; i++)
+            {
+                AnswersTest[i] = "Yes"; //most of the answers are true of false so this will work for nows
+            }
         }
         /**
         performs the query and stores the results in a 2D array
@@ -109,24 +116,23 @@ namespace WebApplication2.Models
             
             for(int i=0; i<PModel.GetLength(0); i++)
             {
-                if(Answers[i + 1].Equals(PModel[i, 1])) {
-                    return true; }
+                if (AnswersTest[i].Equals(PModel[i, 1].Trim())) {return true; }
             }
             return false;
         }
        public void EliminateProcessModels()
        {
-           if(!ReadHighPriority("SELECT * FROM WaterfallTable2 WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")) {
+           if(ReadHighPriority("SELECT * FROM WaterfallTable2 WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")) {
                 Debug.Print("Removed waterfall");
                 ProcessModelsList.Remove(ProcessModels.Waterfall);}
-           if(!ReadHighPriority("SELECT * FROM WaterfallIterationTable WHERE Priority=5", "SELECT * FROM WaterfallIterationTable WHERE Priority=5")){
+           if(ReadHighPriority("SELECT * FROM WaterfallIterationTable WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallIterationTable WHERE Priority=5")){
                 Debug.Print("Removed Iterative waterfall");
                 ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
-           if(!ReadHighPriority("SELECT * FROM RADTable WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
+           if(ReadHighPriority("SELECT * FROM RADTable WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
                 Debug.Print("Removed RAD");
                 ProcessModelsList.Remove(ProcessModels.RAD);}
-           if(!ReadHighPriority("SELECT* FROM COTSTable WHERE Priority = 5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
-                Debug.Print("Removed");
+           if(ReadHighPriority("SELECT* FROM COTSTable WHERE Priority = 5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
+                Debug.Print("Removed COTS");
                 ProcessModelsList.Remove(ProcessModels.COTS);}
         }
         public void ChooseProcessModels()

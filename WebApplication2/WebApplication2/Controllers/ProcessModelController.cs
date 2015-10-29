@@ -35,10 +35,12 @@ namespace WebApplication2.Controllers
             Debug.Print(Answers.Length.ToString());
             for (int i = 0; i < Answers.Length; i++)
             {
+                //Debug.Print("Test");
                 //System.Console.Write(Answers[i] + ",");
                 Debug.Write(Answers[i] +",");
             }
-            if (PModel.IsValid(Answers))
+            Debug.Print("Test length: " + PModel.AnswersTest.Length);
+            if (PModel.IsValid(PModel.AnswersTest))
             {
                 PModel.Answers = Answers;
                 PModel.EliminateProcessModels();
