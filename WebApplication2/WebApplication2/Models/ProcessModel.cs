@@ -15,10 +15,10 @@ namespace WebApplication2.Models
         private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
 
         //STEPHS STRING
-        //private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
+        private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
 
         //BRADS STRING
-        private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Brad\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
+        //private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Brad\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
 
         private SqlConnection Connection;
         ArrayList ProcessModelsList = new ArrayList();
@@ -26,15 +26,7 @@ namespace WebApplication2.Models
         public string[,] Questions { get; set; }
         public string[,] MultipleChoiceAnswers { get; set; }
         public string[] Answers { get; set; }
-        /**
-        These 6 Dictionaries give us insight on what a 'winning' process model looks like
-        **/
-        Dictionary<int, Array> WaterfallData = new Dictionary<int, Array>();
-        Dictionary<int, Array> IterativeWaterfallData = new Dictionary<int, Array>();
-        Dictionary<int, Array> RADData = new Dictionary<int, Array>();
-        Dictionary<int, Array> AgileData = new Dictionary<int, Array>();
-        Dictionary<int, Array> COTSDAta= new Dictionary<int, Array>();
-        //mystery
+        public string[] AnswersTest { get; set; }
         /**
         Constructor populates an ArrayList with all of the ProcessModel tables in the database
         **/
@@ -55,6 +47,13 @@ namespace WebApplication2.Models
            Rows = Convert.ToInt32(Size[0, 0]);
            MultipleChoiceAnswers = new string[Rows, 6];
            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
+
+            //test
+            AnswersTest = new string[Questions.GetLength(0)];
+            for (int i = 0; i < AnswersTest.Length; i++)
+            {
+                AnswersTest[i] = "Yes"; //most of the answers are true of false so this will work for nows
+            }
         }
         /**
         performs the query and stores the results in a 2D array
@@ -77,6 +76,24 @@ namespace WebApplication2.Models
             Connection.Close();
             return TableData;
         }
+        private int ComputeRange(ArrayList pModel)
+        {
+            pModel.Sort();
+            return Convert.ToInt32(pModel[pModel.Count - 1]) - Convert.ToInt32(pModel[0]);
+
+        }
+        private int ComputeMedian(ArrayList pModel)
+        {
+            pModel.Sort();
+            if(pModel.Count%2==0)
+            {
+                return (Convert.ToInt32(pModel[pModel.Count / 2 - 1]) + Convert.ToInt32(pModel[pModel.Count / 2])) / 2;
+            }
+            else
+            {
+                return Convert.ToInt32(pModel[pModel.Count / 2]);
+            }
+        }
         /**
         Load the entire Questions table into A 2D array so that is can be passed
             off to the Questions View
@@ -86,17 +103,12 @@ namespace WebApplication2.Models
 
             EliminateProcessModels();
             if(!ProcessModelsList.Contains(winner))
-            {
-                Debug.Print("You did selected incorrectly!!");
+            { 
+                Debug.Print("You selected incorrectly!!");
             }
             else
             {
-                for (int i = 0; i < ProcessModelsList.Count; i++)
-                {
-                    //join answer table and winner table
-                    //accumulate process model points
-                    //add it to the appropriate arrayList
-                }
+               //call compute score and add it to the PMdatabase
             }
         }
         public Boolean ReadHighPriority(string query, string queryCount)
@@ -109,48 +121,90 @@ namespace WebApplication2.Models
             
             for(int i=0; i<PModel.GetLength(0); i++)
             {
-                if(Answers[i + 1].Equals(PModel[i, 1])) {
-                    return true; }
+                if (AnswersTest[i].Equals(PModel[i, 1].Trim())) {return true;}
             }
             return false;
         }
        public void EliminateProcessModels()
        {
-           if(!ReadHighPriority("SELECT * FROM WaterfallTable2 WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")) {
+           if(ReadHighPriority("SELECT * FROM WaterfallTable2 WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")) {
                 Debug.Print("Removed waterfall");
                 ProcessModelsList.Remove(ProcessModels.Waterfall);}
-           if(!ReadHighPriority("SELECT * FROM WaterfallIterationTable WHERE Priority=5", "SELECT * FROM WaterfallIterationTable WHERE Priority=5")){
+           if(ReadHighPriority("SELECT * FROM WaterfallIterationTable WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallIterationTable WHERE Priority=5")){
                 Debug.Print("Removed Iterative waterfall");
                 ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
-           if(!ReadHighPriority("SELECT * FROM RADTable WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
+           if(ReadHighPriority("SELECT * FROM RADTable WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
                 Debug.Print("Removed RAD");
                 ProcessModelsList.Remove(ProcessModels.RAD);}
-           if(!ReadHighPriority("SELECT* FROM COTSTable WHERE Priority = 5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
-                Debug.Print("Removed");
+           if(ReadHighPriority("SELECT* FROM COTSTable WHERE Priority = 5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
+                Debug.Print("Removed COTS");
                 ProcessModelsList.Remove(ProcessModels.COTS);}
+        }
+        int ComputeScore(string query, string queryCount)
+        {
+            int Score = 0;
+            string[,] Size = ReadQuery(queryCount, 1, 1, 0);
+            int Rows = Convert.ToInt32(Size[0, 0]);
+
+            string[,] PModel = new string[Rows, 3]; //hard coding the number of columns for now
+            PModel = ReadQuery(query, PModel.GetLength(0), PModel.GetLength(1), 0);
+
+            for (int i = 0; i < PModel.GetLength(0); i++)
+            {
+                Score += AnswersTest[i].Equals(PModel[i, 1].Trim()) ? Convert.ToInt32(PModel[i, 3].Trim()) : -1 * Convert.ToInt32(PModel[i, 3].Trim());
+            }
+            return Score;
+            
         }
         public void ChooseProcessModels()
         {
-            int[] ProcessPoints = new int[ProcessModelsList.Count];
-            
-            for (int i=0; i<ProcessModelsList.Count; i++)
+            // int[] ProcessPoints = new int[ProcessModelsList.Count];
+            int WaterfallPoints = 0;
+            int IterativeWaterfallPoints = 0;
+            int RADPoints = 0;
+            int COTSPoints = 0;
+            IEnumerator e = ProcessModelsList.GetEnumerator();
+            while(e.MoveNext())
             {
-                //join ProcessModel Table With Answer Table
-                //join ProcessModelTable With Answer Table
-                //if when selecting where answer!=desired answer
-                    //Priorty=Priorty*-1
-                //else
-                    //add normal priority
-                //ProcessPoints[i] += 0;
+                if(e.Current.Equals(ProcessModels.Waterfall)){ WaterfallPoints= ComputeScore("SELECT * FROM WaterfallTable2", "SELECT COUNT(*) FROM WaterfallTable2");}
+                else if(e.Current.Equals(ProcessModels.IterativeWaterfall))
+                {
+                    IterativeWaterfallPoints=ComputeScore("SELECT * FROM WaterfallIterationTable", "SELECT COUNT(*) FROM WaterfallIterationTable");
+                }
+                else if(e.Current.Equals(ProcessModels.RAD))
+                {
+                    RADPoints = ComputeScore("SELECT * FROM RADTable", "SELECT COUNT(*) FROM RADTable");
+                }
+                else if(e.Current.Equals(ProcessModels.COTS))
+                {
+                    COTSPoints = ComputeScore("SELECT * FROM COTSTable", "SELECT COUNT(*) FROM COTSTable");
+                }
             }
-            for(int i=0; i<ProcessModelsList.Count; i++)
-            {
-                //if mean of processModel is closer to processVal than the previous process model
-                //select this process model
-            }
-            //add the selected process to the array list
-            //if the arraylist is over a certain capactiy
-            //remove largest outlier from the list
+            Debug.Print("Waterfall Points: " + WaterfallPoints);
+
+            //because we have no training data we will do this for now
+            //determine max out of all of these
+            int Max=Math.Max(WaterfallPoints, IterativeWaterfallPoints);
+            Max = Math.Max(Max, COTSPoints);
+            Max = Math.Max(Max, RADPoints);
+
+            if (Max == WaterfallPoints) { Debug.Print("Waterfall is max with: " + WaterfallPoints); }
+            else if (Max == IterativeWaterfallPoints){ Debug.Print("IterativeWaterfall is max with: " + IterativeWaterfallPoints); }
+            else if (Max==COTSPoints) { Debug.Print("COTS is max with: " + COTSPoints); }
+            else { Debug.Print("RAD is max with: " + RADPoints); } 
+
+            //WHAT WE NEED TO ACTUALLY DO:
+            //see if waterfall score lies within range of waterfall points
+                //if yes, calcuate range waterfall score and median point
+                //store median value in dictionary
+            //do the same for the rest of the PModels
+
+            //iterating over the dictionary values
+                //entry with min value is the winner
+           
+
+
+           
         }
         public Boolean IsValid(string[] answers)
         { 
