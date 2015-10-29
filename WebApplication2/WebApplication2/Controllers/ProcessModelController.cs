@@ -22,38 +22,37 @@ namespace WebApplication2.Controllers
             ViewData["questions"] = Questions;
             ViewData["multAnswers"] = MultAnswers;
             ViewData["isValid"] = "true";
+           
             return View();
         }
         [HttpPost]
         public ActionResult Result(FormCollection form)
         {
-            /*Debug.Print("Trying to print form");
-            Debug.Print(form["Answer"]);
-            Debug.Print("Form Count is: "+ form.Count.ToString());
-            //Debug.Print("Question Size: " + PModel.QuestionSize); //this is always 0 and I don't know why*/
+           
             string[] Answers = new string[form.Count]; //for now hard code it
             form.CopyTo(Answers, 0);
             Debug.Print("Length of form is: ");
             Debug.Print(Answers.Length.ToString());
-            /*for (int i = 0; i < Answers.Length; i++)
+            for (int i = 0; i < Answers.Length; i++)
             {
-                Debug.Print(i + ": " + Answers[i]);
-            }*/
+                System.Console.Write(Answers[i] + ",");
+                //Debug.Print(Answers[i] +",");
+            }
             if (PModel.IsValid(Answers))
             {
+                PModel.Answers = Answers;
                 PModel.EliminateProcessModels();
-                PModel.ChooseProcessModels();
+                //PModel.ChooseProcessModels();
                 return View();
             }
             else
             {
-                string[,] Questions = PModel.Questions;
+                string[,] Questions = PModel.Questions; //goal is to replace this with model/view
                 string[,] MultAnswers = PModel.MultipleChoiceAnswers;
                 ViewData["questions"] = Questions;
                 ViewData["multAnswers"] = MultAnswers;
-                //Debug.Print("In else");
-                //ModelState.AddModelError("Name", "Name is required");
                 ViewData["isValid"] = "false";
+
                 return View("Questions");
             }
            
