@@ -1,7 +1,7 @@
-﻿
-@{
-    ViewBag.Title = "RequiementQuestions";
-    //Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@model WebApplication2.Models.ProcessModel
+@{ 
+    ViewBag.Title = "Questions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
 <html>
@@ -61,9 +61,9 @@
         {
             <br>
             @Html.Label("True");
-            @Html.RadioButton(@Questions[i, 0].ToString().Trim(), "Yes");
+            @Html.RadioButtonFor(model=>model.UserForm[i], "Yes");
             @Html.Label("False");
-            @Html.RadioButton(@Questions[i, 0].ToString().Trim(), "No");
+            @Html.RadioButtonFor(model=>model.UserForm[i], "No");
             <br>
         }
         else if(Questions[i, 2].ToString().Trim().Equals("Short Answer"))
@@ -71,7 +71,7 @@
             //System.Diagnostics.Debug.Print("Short Answer");
             <br>
             @Html.Label("Short Answer");
-            @Html.TextArea("UserResponse");
+            @Html.TextAreaFor(model => model.UserForm[i]);
             <br>
         }
         else //multiple choice
@@ -90,7 +90,7 @@
                     {
                         //System.Diagnostics.Debug.Print("Index: " + m.ToString());
                         @Html.Label(MultAnswers[j, m].Trim());
-                        @Html.RadioButton(MultAnswers[j, 0].Trim(), MultAnswers[j, m].Trim());
+                        @Html.RadioButtonFor(model=>model.UserForm[i], MultAnswers[j, m].Trim());
                         m++;
                         //System.Diagnostics.Debug.Print("A: " + MultAnswers[j, m]);
 

@@ -12,6 +12,7 @@ namespace WebApplication2.Controllers
     public class ProcessModelController : Controller
     {
         ProcessModel PModel = new ProcessModel();
+     
         // GET: ProcessModel
        
         public ActionResult Questions()
@@ -26,11 +27,18 @@ namespace WebApplication2.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Result(FormCollection form)
+        public ActionResult Result(ProcessModel Pmodel)
         {
+            //Debug.Print(form.Count.ToString());
+            //Debug.Print(PModel.Answers.Length.ToString());
+            
+            Debug.Print(PModel.UserForm.Count.ToString());
+            Debug.Print(PModel.UserForm[2]);
+            //Debug.Print(answers.Ans[100]);
+            /*string[] Answers = new string[92];
            
-            string[] Answers = new string[form.Count]; //for now hard code it
-            form.CopyTo(Answers, 0);
+            //string[] Answers = new string[form.Count]; //for now hard code it
+            //form.CopyTo(Answers, 0);
             Debug.Print("Length of form is: ");
             Debug.Print(Answers.Length.ToString());
             for (int i = 0; i < Answers.Length; i++)
@@ -57,8 +65,14 @@ namespace WebApplication2.Controllers
                 ViewData["isValid"] = "false";
 
                 return View("Questions");
-            }
-           
+            }*/
+            string[,] Questions = PModel.Questions; //goal is to replace this with model/view
+            string[,] MultAnswers = PModel.MultipleChoiceAnswers;
+            ViewData["questions"] = Questions;
+            ViewData["multAnswers"] = MultAnswers;
+            ViewData["isValid"] = "false";
+            return View("Questions");
+
         }
         
     }
