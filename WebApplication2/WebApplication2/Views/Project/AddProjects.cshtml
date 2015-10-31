@@ -10,19 +10,20 @@
     <h2>AddProjects</h2>
 
     <div>
-        @Html.Label("Your Account Number is " + ViewData["AccountId"])
-        @Html.Label("With a rank of " + ViewData["Rank"])
-        <br />
 
 
-        @foreach(ProjectTable proj in Model.ProjectTable)
+        @foreach (ProjectTable proj in Model.ProjectTable)
         {
-            @Html.Label("You can join these projects: ")
-            @proj.ProjectId
-            
-            @Html.ActionLink(" Click to Add", "AddtoTable", new {id=proj.ProjectId} )
+            //foreach (JunctionTableProjectAndAccount juc in Model.JunctionTableProjectAndAccount)
+            //{
+                @Html.Label("You can join these projects: ")
+                @proj.ProjectId
 
-            <br />
+                @Html.ActionLink(" Click to Add", "AddtoTable", new { id = proj.ProjectId, role = Model.JunctionTableProjectAndAccount.Role, Aid = Model.JunctionTableProjectAndAccount.AID })
+
+                <br />
+            //}
+
         }
     </div>
 </body>

@@ -47,10 +47,10 @@ namespace WebApplication2.Controllers
             ViewData["isValid"] = ConfirmedUser.Rank;
             ViewData["Email"] = ConfirmedUser.ConfirmEmail;
 
-            if(ConfirmedUser.UserName == "bbergeron") //Password: Password1*
-            {
-                return View("Input");
-            }
+            //if(ConfirmedUser.UserName == "bbergeron") //Password: Password1*
+            //{
+            //    return View("Input");
+            //}
            
             if (ConfirmedUser.Rank != "Fail")
             {
