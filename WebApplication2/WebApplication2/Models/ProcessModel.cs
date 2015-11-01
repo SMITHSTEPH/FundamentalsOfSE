@@ -26,6 +26,8 @@ namespace WebApplication2.Models
         public string[,] Questions { get; set; }
         public string[,] MultipleChoiceAnswers { get; set; }
         public string[] Answers { get; set; }
+        public string Answer { get; set;  }
+        public Dictionary<int, string> UserForm {get; set;}
         public string[] AnswersTest { get; set; }
         public string  Result { get; set; }
         /**
@@ -48,7 +50,12 @@ namespace WebApplication2.Models
            Rows = Convert.ToInt32(Size[0, 0]);
            MultipleChoiceAnswers = new string[Rows, 6];
            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
-
+            UserForm = new Dictionary<int, string>();
+            for(int i = 0; i < Questions.GetLength(0); i++)
+            {
+                UserForm.Add(i, "Test");
+            }
+            //Debug.Print(UserForm.Count.ToString());
 
             //test
             AnswersTest = new string[Questions.GetLength(0)];
