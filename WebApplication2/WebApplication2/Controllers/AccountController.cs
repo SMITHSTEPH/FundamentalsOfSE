@@ -52,7 +52,7 @@ namespace WebApplication2.Controllers
             //    return View("Input");
             //}
            
-            if (ConfirmedUser.Rank != "Fail")
+            if (ConfirmedUser.Rank != "Fail" && ConfirmedUser.ConfirmEmail == true)
             {
                 return RedirectToAction("ExistingProjects", "Project", User);
                 //return View("Index");
