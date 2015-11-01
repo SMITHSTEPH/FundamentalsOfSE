@@ -20,36 +20,43 @@
                 @Html.HiddenFor(Model => Model.AccountId)
                 <br />
 
-                if (Model.ProjectId[0] == 0)
-                {
+            if (Model.ProjectId[0] == 0)
+            {
                     @Html.Label("Not in any Projects")
-                }
-                else
-                {
-                        int k = 0;
+            }
+            else
+            {
+                int k = 0;
 
-                        for (k = 0; k < Model.ProjectId.Length; k++)
-                        {
+                for (k = 0; k < Model.ProjectId.Length; k++)
+                {
                             @Html.HiddenFor(Model => Model.ProjectId[k])
                             @Html.HiddenFor(Model => Model.ProjectProcess[k])
-                        }
+                }
 
-                    var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
+                var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
 
-                    foreach (var entity in col)
+                foreach (var entity in col)
+                {
+                    if (entity.X == 0)
+                    {
+
+                    }
+                    else
                     {
                         @Html.Label("Your in Project number " + entity.X + ", which has the chosen process: " + entity.Y);
                         <br />
                     }
                 }
 
-        
-            if (Model.Rank == "Admin" || Model.Rank == "Member")
-            {
-                <br />
-                @Html.Label("If you want to join a new project")
-                <br />
-                <input type="submit" value="Join Project">
+
+                if (Model.Rank == "Admin" || Model.Rank == "Member")
+                {
+                    <br />
+                    @Html.Label("If you want to join a new project")
+                    <br />
+                    <input type="submit" value="Join Project">
+                }
             }
         }
         @using (Html.BeginForm("Questions", "ProcessModel", FormMethod.Get))

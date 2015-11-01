@@ -35,9 +35,9 @@ namespace WebApplication2.Models
                 {
                     UsersProjects.ProjectId[j] = new int();
                     UsersProjects.ProjectId[j] = (int) project.PId;
+                    j++;
                 }
 
-                j++;
             }
 
             int numberOfIds = UsersProjects.ProjectId.Length;

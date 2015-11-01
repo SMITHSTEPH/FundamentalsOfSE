@@ -53,6 +53,7 @@ namespace WebApplication2.Controllers
             if (ConfirmedUser.Rank != "Fail")
             {
                 return RedirectToAction("ExistingProjects", "Project", User);
+                //return View("Index");
             }
             else
             {
