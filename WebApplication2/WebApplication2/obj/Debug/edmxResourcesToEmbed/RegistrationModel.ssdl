@@ -26,7 +26,7 @@
     <Property Name="Answer" Type="nchar" MaxLength="50" />
     <Property Name="Priority" Type="int" />
   </EntityType>
-  <EntityType Name="JunctionTableProjectAndAccount">
+  <EntityType Name="JunctionTableProjectAndAccountV2">
     <Key>
       <PropertyRef Name="JId" />
     </Key>
@@ -34,6 +34,7 @@
     <Property Name="AID" Type="int" />
     <Property Name="Role" Type="nchar" MaxLength="10" />
     <Property Name="PId" Type="int" />
+    <Property Name="Responsibilities" Type="nchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="leaderTableV2">
     <Key>
@@ -126,7 +127,7 @@
   <EntityContainer Name="RegistrationModelStoreContainer">
     <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="COTSTable" EntityType="Self.COTSTable" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="JunctionTableProjectAndAccount" EntityType="Self.JunctionTableProjectAndAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JunctionTableProjectAndAccountV2" EntityType="Self.JunctionTableProjectAndAccountV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />

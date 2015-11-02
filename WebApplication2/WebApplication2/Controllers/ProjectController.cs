@@ -26,20 +26,8 @@ namespace WebApplication2.Controllers
             dynamic myModel = new ExpandoObject();
             myModel.ProjectTable = possibleProjects();
 
-            /*if(ListofProjects.Rank == "Admin")
-            {
-                myModel.administrationV2 = possibleAdmins(ListofProjects.AccountId);
-
-            }
-            else
-            {
-                myModel.memberTableV2 = possibleMembers(ListofProjects.AccountId);
-            }*/
-
-            //ViewData["Rank"] = ListofProjects.Rank;
-
-            JunctionTableProjectAndAccount table = new JunctionTableProjectAndAccount();
-            List<JunctionTableProjectAndAccount> output = new List<JunctionTableProjectAndAccount>();
+            JunctionTableProjectAndAccountV2 table = new JunctionTableProjectAndAccountV2();
+            List<JunctionTableProjectAndAccountV2> output = new List<JunctionTableProjectAndAccountV2>();
             table.AID = ListofProjects.AccountId;
             table.Role = ListofProjects.Rank;
             output.Add(table);
@@ -47,6 +35,11 @@ namespace WebApplication2.Controllers
 
             //Needs to go to the page that allows them to add a project
             return View("AddProjects", myModel);
+        }
+
+        public ActionResult AddPeople(Project ListofProjects)
+        {
+
         }
 
         public ActionResult SumbitProjet()
@@ -66,70 +59,9 @@ namespace WebApplication2.Controllers
             return View("SuccessPage");
         }
 
-
-        public List<administrationV2> possibleAdmins(int AId)
-        {
-
-            List<administrationV2> possibleAdmins = db.administrationV2.ToList();
-            List<administrationV2> outputProjects = new List<administrationV2>();
-
-            foreach(administrationV2 poss in possibleAdmins)
-            {
-                
-                    if (poss.Id == AId)
-                    {
-                        administrationV2 input = new administrationV2();
-                        input = poss;
-                        outputProjects.Add(input);
-                    }
-                
-                
-            }
-
-            return possibleAdmins;
-
-        }
-
-        public List<memberTableV2> possibleMembers(int AId)
-        {
-            List<memberTableV2> possibleMembers = db.memberTableV2.ToList();
-            List<memberTableV2> outputProjects = new List<memberTableV2>();
-
-            foreach (memberTableV2 poss in possibleMembers)
-            {
-
-                if (poss.Id == AId)
-                {
-                    memberTableV2 input = new memberTableV2();
-                    input = poss;
-                    outputProjects.Add(input);
-                }
-
-
-            }
-
-            return possibleMembers;
-        }
-
         public List<ProjectTable> possibleProjects()
         {
             List<ProjectTable> possibleProjects = db.ProjectTables.ToList();
-            //List<ProjectTable> outputProjects = new List<ProjectTable>();
-
-            /*foreach(ProjectTable poss in possibleProjects)
-            {
-                for(int k = 0; k < Search.ProjectId.Length; k++)
-                {
-                    if (poss.ProjectId == Search.ProjectId[k])
-                    {
-                        ProjectTable input = new ProjectTable();
-                        input.ProjectId = poss.ProjectId;
-                        input.ProcessModelChosen = poss.ProcessModelChosen;
-                        outputProjects.Add(input);
-                    }
-                }
-                
-            }*/
 
             return possibleProjects;
         }
@@ -139,7 +71,7 @@ namespace WebApplication2.Controllers
         {
             try
             {
-                db.JunctionTableProjectAndAccounts.Add(new JunctionTableProjectAndAccount
+                db.JunctionTableProjectAndAccountV2.Add(new JunctionTableProjectAndAccountV2
                 {
                     AID = id,
                     Role = Rank,

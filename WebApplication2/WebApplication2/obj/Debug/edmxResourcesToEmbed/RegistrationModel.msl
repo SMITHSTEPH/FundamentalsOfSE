@@ -58,16 +58,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="JunctionTableProjectAndAccounts">
-      <EntityTypeMapping TypeName="RegistrationModel.JunctionTableProjectAndAccount">
-        <MappingFragment StoreEntitySet="JunctionTableProjectAndAccount">
-          <ScalarProperty Name="PId" ColumnName="PId" />
-          <ScalarProperty Name="Role" ColumnName="Role" />
-          <ScalarProperty Name="AID" ColumnName="AID" />
-          <ScalarProperty Name="JId" ColumnName="JId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MultipleChoiceTables">
       <EntityTypeMapping TypeName="RegistrationModel.MultipleChoiceTable">
         <MappingFragment StoreEntitySet="MultipleChoiceTable">
@@ -132,6 +122,17 @@
         <MappingFragment StoreEntitySet="ProjectTable">
           <ScalarProperty Name="ProcessModelChosen" ColumnName="ProcessModelChosen" />
           <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JunctionTableProjectAndAccountV2">
+      <EntityTypeMapping TypeName="RegistrationModel.JunctionTableProjectAndAccountV2">
+        <MappingFragment StoreEntitySet="JunctionTableProjectAndAccountV2">
+          <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+          <ScalarProperty Name="PId" ColumnName="PId" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="AID" ColumnName="AID" />
+          <ScalarProperty Name="JId" ColumnName="JId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

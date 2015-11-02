@@ -15,7 +15,7 @@ namespace WebApplication2
 using System;
     using System.Collections.Generic;
     
-public partial class JunctionTableProjectAndAccount
+public partial class JunctionTableProjectAndAccountV2
 {
 
     public int JId { get; set; }
@@ -25,6 +25,8 @@ public partial class JunctionTableProjectAndAccount
     public string Role { get; set; }
 
     public Nullable<int> PId { get; set; }
+
+    public string Responsibilities { get; set; }
 
 }
 
