@@ -18,6 +18,9 @@ namespace WebApplication2
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional }
             );
+
+            //routes.MapRoute("ActionOnly", "Project/", new { controller = "Home", action = "Index" });
+
         }
     }
 }

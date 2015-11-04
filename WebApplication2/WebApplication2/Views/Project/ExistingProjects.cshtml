@@ -45,7 +45,6 @@
                     else
                     {
                         @Html.Label("Your in Project number " + entity.X + ", which has the chosen process: " + entity.Y);
-                        @Html.ActionLink(" Click to Add", "AddtoTable", new {  })
                         <br />
                     }
                 }
@@ -59,6 +58,27 @@
                     <input type="submit" value="Join Project">
              }
            
+        }
+        @using (Html.BeginForm("AddPeople", "Project", FormMethod.Get))
+        {
+            
+            @Html.HiddenFor(Model => Model.UserName)
+            @Html.HiddenFor(Model => Model.Rank)
+            @Html.HiddenFor(Model => Model.AccountId)
+            int k = 0;
+            for (k = 0; k < Model.ProjectId.Length; k++)
+            {
+                @Html.HiddenFor(Model => Model.ProjectId[k])
+                @Html.HiddenFor(Model => Model.ProjectProcess[k])
+            }
+            if (Model.Rank == "Leader")
+            {
+                <br />
+                    @Html.Label("If you want to edit the people in your projects")
+                    <br />
+                    <input type="submit" value="Edit Projects">
+            }
+
         }
         @using (Html.BeginForm("Questions", "ProcessModel", FormMethod.Get))
         {

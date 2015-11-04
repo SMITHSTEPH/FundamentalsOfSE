@@ -17,15 +17,12 @@
 
         @foreach (ProjectTable proj in Model.ProjectTable)
         {
-            //foreach (JunctionTableProjectAndAccount juc in Model.JunctionTableProjectAndAccount)
-            //{
                 @Html.Label("Projet Number: ")
                 @proj.ProjectId
 
                 @Html.ActionLink(" Click to Add", "AddtoTable", new { id = proj.ProjectId, role = Model.JunctionTableProjectAndAccount.Role, Aid = Model.JunctionTableProjectAndAccount.AID })
 
                 <br />
-            //}
 
         }
     </div>

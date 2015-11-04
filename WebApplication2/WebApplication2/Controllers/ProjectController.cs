@@ -27,10 +27,8 @@ namespace WebApplication2.Controllers
             myModel.ProjectTable = possibleProjects();
 
             JunctionTableProjectAndAccountV2 table = new JunctionTableProjectAndAccountV2();
-            List<JunctionTableProjectAndAccountV2> output = new List<JunctionTableProjectAndAccountV2>();
             table.AID = ListofProjects.AccountId;
             table.Role = ListofProjects.Rank;
-            output.Add(table);
             myModel.JunctionTableProjectAndAccount = table;
 
             //Needs to go to the page that allows them to add a project
@@ -39,7 +37,19 @@ namespace WebApplication2.Controllers
 
         public ActionResult AddPeople(Project ListofProjects)
         {
+            return View("AddPeople", ListofProjects);
+        }
 
+        public ActionResult ApplyProjects(int id)
+        {
+            dynamic myModel = new ExpandoObject();
+            myModel.MemberTableAdd = possibleMembersAdd(id);
+            myModel.MemberTableRemove = possibleMembersRemove(id);
+            ProjectTable table = new ProjectTable();
+            table.ProjectId = id;
+            myModel.ProjectTable = table;
+
+            return View("ApplyProjects", myModel);
         }
 
         public ActionResult SumbitProjet()
@@ -59,11 +69,69 @@ namespace WebApplication2.Controllers
             return View("SuccessPage");
         }
 
+        public ActionResult RemoveTable(int id, string role, int Aid)
+        {
+            
+            int AID = Aid;
+            string Role = role;
+            JunctionTableProjectAndAccountV2 toRemove = new JunctionTableProjectAndAccountV2();
+            toRemove.AID = Aid;
+
+            string query = "SELECT * FROM JunctionTableProjectAndAccountV2 WHERE AID= " + Aid + " AND Role= '" + Role + "' AND PId = " + id;
+            JunctionTableProjectAndAccountV2 JT = db.JunctionTableProjectAndAccountV2.SqlQuery(query).SingleOrDefault();
+            
+            db.JunctionTableProjectAndAccountV2.Remove(JT);
+            db.SaveChanges();
+            
+            return View("SuccessPage");
+        }
+
+
+
         public List<ProjectTable> possibleProjects()
         {
             List<ProjectTable> possibleProjects = db.ProjectTables.ToList();
 
             return possibleProjects;
+        }
+
+        public List<memberTableV2> possibleMembersAdd(int id)
+        {
+            List<memberTableV2> possibleMembers = db.memberTableV2.ToList();
+
+
+            foreach(memberTableV2 member in db.memberTableV2)
+            {
+                foreach(JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)
+                {
+                    if(member.Id == junc.AID && junc.Role.Contains("Member") && id == junc.PId)
+                    {
+                        possibleMembers.Remove(member);
+                    }
+                }
+            }
+            return possibleMembers;
+        }
+
+        public List<memberTableV2> possibleMembersRemove(int id)
+        {
+            List<memberTableV2> possibleMembers = db.memberTableV2.ToList();
+            List<memberTableV2> membersInProject = new List<memberTableV2>();
+
+            foreach (memberTableV2 member in db.memberTableV2)
+            {
+                foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)
+                {
+                    if (member.Id == junc.AID && junc.Role.Contains("Member") && id == junc.PId)
+                    {
+                        
+                        membersInProject.Add(member);
+                    }
+                }
+            }
+
+
+            return membersInProject;
         }
 
 
@@ -75,7 +143,8 @@ namespace WebApplication2.Controllers
                 {
                     AID = id,
                     Role = Rank,
-                    PId = projId
+                    PId = projId,
+                    Responsibilities = "Member"
 
                 });
                 db.SaveChanges();
