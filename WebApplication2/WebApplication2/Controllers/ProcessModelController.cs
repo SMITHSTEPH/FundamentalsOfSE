@@ -27,13 +27,13 @@ namespace WebApplication2.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Result(ProcessModel Pmodel)
+        public ActionResult Result(ProcessModel form)
         {
             //Debug.Print(form.Count.ToString());
             //Debug.Print(PModel.Answers.Length.ToString());
             
-            Debug.Print(PModel.UserForm.Count.ToString());
-            Debug.Print(PModel.UserForm[2]);
+            Debug.Print(form.UserForm.Count.ToString());
+            //Debug.Print(form.UserForm[2]);
             //Debug.Print(answers.Ans[100]);
             /*string[] Answers = new string[92];
            
@@ -71,7 +71,7 @@ namespace WebApplication2.Controllers
             ViewData["questions"] = Questions;
             ViewData["multAnswers"] = MultAnswers;
             ViewData["isValid"] = "false";
-            return View("Questions");
+            return View("Questions", form);
 
         }
         
