@@ -42,17 +42,11 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult SignIn(Account User)
         {
-            //Debug.Print(User.UserName);
             ConfirmedUser = User.Verify(User);
             ViewData["isValid"] = ConfirmedUser.Rank;
             ViewData["Email"] = ConfirmedUser.ConfirmEmail;
-
-            //if(ConfirmedUser.UserName == "bbergeron") //Password: Password1*
-            //{
-            //    return View("Input");
-            //}
            
-            if (ConfirmedUser.Rank != "Fail")
+            if (ConfirmedUser.Rank != "Fail" && ConfirmedUser.ConfirmEmail == true)
             {
                 return RedirectToAction("ExistingProjects", "Project", User);
             }

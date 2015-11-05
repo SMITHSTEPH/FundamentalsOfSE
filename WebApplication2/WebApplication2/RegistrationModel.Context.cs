@@ -38,8 +38,6 @@ public partial class RegistrationEntities1 : DbContext
 
     public virtual DbSet<leaderTableV2> leaderTableV2 { get; set; }
 
-    public virtual DbSet<JunctionTableProjectAndAccount> JunctionTableProjectAndAccounts { get; set; }
-
     public virtual DbSet<MultipleChoiceTable> MultipleChoiceTables { get; set; }
 
     public virtual DbSet<WaterfallTable2> WaterfallTable2 { get; set; }
@@ -53,6 +51,8 @@ public partial class RegistrationEntities1 : DbContext
     public virtual DbSet<Questions2Table> Questions2Table { get; set; }
 
     public virtual DbSet<ProjectTable> ProjectTables { get; set; }
+
+    public virtual DbSet<JunctionTableProjectAndAccountV2> JunctionTableProjectAndAccountV2 { get; set; }
 
 }
 

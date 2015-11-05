@@ -31,7 +31,7 @@
           <Property Name="Answer" Type="nchar" MaxLength="50" />
           <Property Name="Priority" Type="int" />
         </EntityType>
-        <EntityType Name="JunctionTableProjectAndAccount">
+        <EntityType Name="JunctionTableProjectAndAccountV2">
           <Key>
             <PropertyRef Name="JId" />
           </Key>
@@ -39,6 +39,7 @@
           <Property Name="AID" Type="int" />
           <Property Name="Role" Type="nchar" MaxLength="10" />
           <Property Name="PId" Type="int" />
+          <Property Name="Responsibilities" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="leaderTableV2">
           <Key>
@@ -131,7 +132,7 @@
         <EntityContainer Name="RegistrationModelStoreContainer">
           <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COTSTable" EntityType="Self.COTSTable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="JunctionTableProjectAndAccount" EntityType="Self.JunctionTableProjectAndAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JunctionTableProjectAndAccountV2" EntityType="Self.JunctionTableProjectAndAccountV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
@@ -149,7 +150,6 @@
           <EntitySet Name="memberTableV2" EntityType="RegistrationModel.memberTableV2" />
           <EntitySet Name="administrationV2" EntityType="RegistrationModel.administrationV2" />
           <EntitySet Name="leaderTableV2" EntityType="RegistrationModel.leaderTableV2" />
-          <EntitySet Name="JunctionTableProjectAndAccounts" EntityType="RegistrationModel.JunctionTableProjectAndAccount" />
           <EntitySet Name="MultipleChoiceTables" EntityType="RegistrationModel.MultipleChoiceTable" />
           <EntitySet Name="WaterfallTable2" EntityType="RegistrationModel.WaterfallTable2" />
           <EntitySet Name="COTSTables" EntityType="RegistrationModel.COTSTable" />
@@ -157,6 +157,7 @@
           <EntitySet Name="WaterfallIterationTables" EntityType="RegistrationModel.WaterfallIterationTable" />
           <EntitySet Name="Questions2Table" EntityType="RegistrationModel.Questions2Table" />
           <EntitySet Name="ProjectTables" EntityType="RegistrationModel.ProjectTable" />
+          <EntitySet Name="JunctionTableProjectAndAccountV2" EntityType="RegistrationModel.JunctionTableProjectAndAccountV2" />
         </EntityContainer>
         <EntityType Name="memberTableV2">
           <Key>
@@ -211,15 +212,6 @@
           <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="BirthDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
-        <EntityType Name="JunctionTableProjectAndAccount">
-          <Key>
-            <PropertyRef Name="JId" />
-          </Key>
-          <Property Name="JId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AID" Type="Int32" />
-          <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="PId" Type="Int32" />
         </EntityType>
         <EntityType Name="MultipleChoiceTable">
           <Key>
@@ -281,6 +273,16 @@
           <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProcessModelChosen" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
+        <EntityType Name="JunctionTableProjectAndAccountV2">
+          <Key>
+            <PropertyRef Name="JId" />
+          </Key>
+          <Property Name="JId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AID" Type="Int32" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PId" Type="Int32" />
+          <Property Name="Responsibilities" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -341,16 +343,6 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="JunctionTableProjectAndAccounts">
-            <EntityTypeMapping TypeName="RegistrationModel.JunctionTableProjectAndAccount">
-              <MappingFragment StoreEntitySet="JunctionTableProjectAndAccount">
-                <ScalarProperty Name="PId" ColumnName="PId" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="AID" ColumnName="AID" />
-                <ScalarProperty Name="JId" ColumnName="JId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -418,6 +410,17 @@
               <MappingFragment StoreEntitySet="ProjectTable">
                 <ScalarProperty Name="ProcessModelChosen" ColumnName="ProcessModelChosen" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JunctionTableProjectAndAccountV2">
+            <EntityTypeMapping TypeName="RegistrationModel.JunctionTableProjectAndAccountV2">
+              <MappingFragment StoreEntitySet="JunctionTableProjectAndAccountV2">
+                <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="AID" ColumnName="AID" />
+                <ScalarProperty Name="JId" ColumnName="JId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

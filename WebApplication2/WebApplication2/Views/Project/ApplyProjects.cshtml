@@ -1,0 +1,48 @@
+﻿@model dynamic
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "ApplyProjects";}</title>
+    @{Layout = "~/Views/Shared/_Layout.cshtml";}
+</head>
+<body>
+    
+    <h2>Add Projects</h2>
+
+    <div>
+
+        @Html.Label("You can add these people to project: ")
+        @Model.ProjectTable.ProjectId
+        <br />
+        <br />
+
+        @foreach (memberTableV2 member in Model.MemberTableAdd)
+        {
+                @Html.Label("Member:  ")
+                @member.UserName
+                @Html.ActionLink(" Click to Add", "AddtoTable", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id})
+
+                <br />
+
+        }
+
+        @Html.Label("You can remove these people in the project: ")
+        @Model.ProjectTable.ProjectId
+        <br />
+        <br />
+
+        @foreach (memberTableV2 member in Model.MemberTableRemove)
+        {
+            @Html.Label("Member:  ")
+            @member.UserName
+            @Html.ActionLink(" Click to Remove", "RemoveTable", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id })
+
+            <br />
+
+        }
+
+
+    </div>
+</body>
+</html>
+

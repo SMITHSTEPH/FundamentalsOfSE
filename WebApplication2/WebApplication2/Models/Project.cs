@@ -17,14 +17,14 @@ namespace WebApplication2.Models
         {
             
 
-            List<JunctionTableProjectAndAccount> projects = db.JunctionTableProjectAndAccounts.ToList();
+            List<JunctionTableProjectAndAccountV2> projects = db.JunctionTableProjectAndAccountV2.ToList();
             List<ProjectTable> projectsProess = db.ProjectTables.ToList();
 
             Project UsersProjects = new Project();
             int j = 0;
             UsersProjects.ProjectId = new int[projects.Count];
 
-            foreach (JunctionTableProjectAndAccount project in projects)
+            foreach (JunctionTableProjectAndAccountV2 project in projects)
             {
 
                 UsersProjects.UserName = User.UserName;
@@ -35,9 +35,9 @@ namespace WebApplication2.Models
                 {
                     UsersProjects.ProjectId[j] = new int();
                     UsersProjects.ProjectId[j] = (int) project.PId;
+                    j++;
                 }
 
-                j++;
             }
 
             int numberOfIds = UsersProjects.ProjectId.Length;

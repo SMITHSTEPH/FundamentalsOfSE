@@ -7,22 +7,22 @@
 </head>
 <body>
     
-    <h2>AddProjects</h2>
+    <h2>Add Projects</h2>
 
     <div>
 
+        @Html.Label("You can join these projects: ")
+        <br />
+        <br />
 
         @foreach (ProjectTable proj in Model.ProjectTable)
         {
-            //foreach (JunctionTableProjectAndAccount juc in Model.JunctionTableProjectAndAccount)
-            //{
-                @Html.Label("You can join these projects: ")
+                @Html.Label("Projet Number: ")
                 @proj.ProjectId
 
                 @Html.ActionLink(" Click to Add", "AddtoTable", new { id = proj.ProjectId, role = Model.JunctionTableProjectAndAccount.Role, Aid = Model.JunctionTableProjectAndAccount.AID })
 
                 <br />
-            //}
 
         }
     </div>
