@@ -57,10 +57,13 @@
         }
         //System.Diagnostics.Debug.Print(Questions[i, 2].ToString().Trim());
         @Html.Label(Questions[i, 0].ToString().Trim());
-        if(Questions[i, 2].ToString().Trim().Equals("True or False"))
+        if (Questions[i, 2].ToString().Trim().Equals("True or False"))
         {
             <br>
-            @Html.Label("True");
+            //if (@model.UserForm[i] != null) { System.Diagnostics.Debug.Print(Model.UserForm[i]); }
+            //System.Diagnostics.Debug.Print(Model.UserForm[i]);
+
+            @Html.LabelFor(model=>model.UserForm[i]);
             @Html.RadioButtonFor(model=>model.UserForm[i], "Yes");
             @Html.Label("False");
             @Html.RadioButtonFor(model=>model.UserForm[i], "No");
