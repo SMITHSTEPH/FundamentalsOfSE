@@ -150,7 +150,7 @@ namespace WebApplication2.Controllers
         }
 
 
-       [HttpPost]
+       /*[HttpPost]
         public ActionResult Upload(HttpPostedFileBase FileUpload)
         {
             //check we have a file
@@ -222,7 +222,7 @@ namespace WebApplication2.Controllers
                  //result.Answer = strArray[1];
                  //result.Priority = Int32.Parse(strArray[2]);
 
-                result.QuestionId = Int32.Parse(strArray[0]);
+                /*result.QuestionId = Int32.Parse(strArray[0]);
                 result.Question = strArray[1];
                 result.Category = strArray[2];
                 result.QuestionType = strArray[3];
@@ -241,6 +241,6 @@ namespace WebApplication2.Controllers
             //Tidy Streameader up
             //sr.Dispose();
 
-        }
+        }*/
     }
 }
