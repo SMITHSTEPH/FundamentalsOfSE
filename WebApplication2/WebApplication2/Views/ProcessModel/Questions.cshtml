@@ -63,10 +63,10 @@
             //if (@model.UserForm[i] != null) { System.Diagnostics.Debug.Print(Model.UserForm[i]); }
             //System.Diagnostics.Debug.Print(Model.UserForm[i]);
 
-            @Html.LabelFor(model=>model.UserForm[i]);
-            @Html.RadioButtonFor(model=>model.UserForm[i], "Yes");
+            @Html.Label("True");
+            @Html.RadioButtonFor(model=>model.Ans[i], "Yes");
             @Html.Label("False");
-            @Html.RadioButtonFor(model=>model.UserForm[i], "No");
+            @Html.RadioButtonFor(model=>model.Ans[i], "No");
             <br>
         }
         else if(Questions[i, 2].ToString().Trim().Equals("Short Answer"))
@@ -74,7 +74,7 @@
             //System.Diagnostics.Debug.Print("Short Answer");
             <br>
             @Html.Label("Short Answer");
-            @Html.TextAreaFor(model => model.UserForm[i]);
+            @Html.TextAreaFor(model => model.Ans[i]);
             <br>
         }
         else //multiple choice
@@ -93,7 +93,7 @@
                     {
                         //System.Diagnostics.Debug.Print("Index: " + m.ToString());
                         @Html.Label(MultAnswers[j, m].Trim());
-                        @Html.RadioButtonFor(model=>model.UserForm[i], MultAnswers[j, m].Trim());
+                        @Html.RadioButtonFor(model=>model.Ans[i], MultAnswers[j, m].Trim());
                         m++;
                         //System.Diagnostics.Debug.Print("A: " + MultAnswers[j, m]);
 

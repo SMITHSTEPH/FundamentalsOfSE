@@ -27,7 +27,7 @@ namespace WebApplication2.Controllers
             //Debug.Print(form.Count.ToString());
             //Debug.Print(PModel.Answers.Length.ToString());
             
-            Debug.Print(form.UserForm.Count.ToString());
+            Debug.Print(form.Ans.Count.ToString());
             //Debug.Print(form.UserForm[2]);
             //Debug.Print(answers.Ans[100]);
             /*string[] Answers = new string[92];

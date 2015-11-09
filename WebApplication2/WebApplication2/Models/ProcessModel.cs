@@ -28,6 +28,7 @@ namespace WebApplication2.Models
         public string[] Answers { get; set; }
         public string Answer { get; set;  }
         public Dictionary<int, string> UserForm {get; set;}
+        public List<Answers> Ans { get; set; }
         public string[] AnswersTest { get; set; }
         public string  Result { get; set; }
         /**
@@ -51,10 +52,15 @@ namespace WebApplication2.Models
            MultipleChoiceAnswers = new string[Rows, 6];
            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
             UserForm = new Dictionary<int, string>();
+            Answers[] AnsArr = new Answers[92];
             for(int i = 0; i < Questions.GetLength(0); i++)
             {
-                UserForm.Add(i, "Test");
+                //UserForm.Add(i, "Test");
+                Debug.Print("i is: " + i.ToString());
+                AnsArr[i]= new Answers { AnswerID = i, Text = "test" };
             }
+            Ans = AnsArr.ToList<Answers>();
+            Debug.Print("ANS Count: " + Ans.Count);
             //Debug.Print(UserForm.Count.ToString());
 
             //test
@@ -63,6 +69,7 @@ namespace WebApplication2.Models
             {
                 AnswersTest[i] = "Yes"; //most of the answers are true of false so this will work for nows
             }
+            Debug.Print(UserForm.Count.ToString());
         }
         /**
         performs the query and stores the results in a 2D array

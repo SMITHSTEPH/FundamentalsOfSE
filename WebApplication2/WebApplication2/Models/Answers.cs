@@ -8,17 +8,13 @@ namespace WebApplication2.Models
 {
     public class Answers
     {
-        public Dictionary<int, string> Ans { get; set; }
+        public int AnswerID { get; set;}
+        public string Text { get;  set;}
 
-        public Answers()
+       /* public Answers(int id, string text)
         {
-            Ans = new Dictionary<int, string>();
-            for(int i=0; i<92; i++)
-            {
-                Ans.Add(i, "test");
-            }
-
-        }
-
+            AnswerID = id;
+            Text = text;
+        }*/
     }
 }
