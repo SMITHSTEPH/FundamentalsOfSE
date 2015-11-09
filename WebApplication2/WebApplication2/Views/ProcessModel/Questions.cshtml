@@ -1,5 +1,6 @@
-﻿@model WebApplication2.Models.ProcessModel
-@{ 
+﻿@model WebApplication2.Models.Answers
+
+@{
     ViewBag.Title = "Questions";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -32,6 +33,7 @@
         <li><a href="#Process">Process</a></li>
     </ul>
     <h1>Process Model Survey</h1>
+    
 
 
 @using (Html.BeginForm("Result", "ProcessModel"))
@@ -43,6 +45,7 @@
     }
     string[,] Questions = (string[,])ViewData["questions"];
     string[,] MultAnswers = (string[,])ViewData["multAnswers"];
+    Dictionary<int, string> UserAnswers = (Dictionary<int, string>)ViewData["userAnswers"];
     System.Collections.ArrayList Categories = new System.Collections.ArrayList();
 
     for (int i = 0; i < Questions.GetLength(0); i++)
@@ -64,9 +67,11 @@
             //System.Diagnostics.Debug.Print(Model.UserForm[i]);
 
             @Html.Label("True");
-            @Html.RadioButtonFor(model=>model.Ans[i], "Yes");
+            //Model.Ans[i].AnswerID = i;
+
+            @Html.RadioButtonFor(model=> model.Ans[i], "Yes");
             @Html.Label("False");
-            @Html.RadioButtonFor(model=>model.Ans[i], "No");
+            @Html.RadioButtonFor(model => model.Ans[i] , "No");
             <br>
         }
         else if(Questions[i, 2].ToString().Trim().Equals("Short Answer"))
@@ -74,6 +79,7 @@
             //System.Diagnostics.Debug.Print("Short Answer");
             <br>
             @Html.Label("Short Answer");
+            //Model.Ans[i].AnswerID = i;
             @Html.TextAreaFor(model => model.Ans[i]);
             <br>
         }
@@ -93,6 +99,7 @@
                     {
                         //System.Diagnostics.Debug.Print("Index: " + m.ToString());
                         @Html.Label(MultAnswers[j, m].Trim());
+                       // Model.Ans[i].AnswerID = i;
                         @Html.RadioButtonFor(model=>model.Ans[i], MultAnswers[j, m].Trim());
                         m++;
                         //System.Diagnostics.Debug.Print("A: " + MultAnswers[j, m]);

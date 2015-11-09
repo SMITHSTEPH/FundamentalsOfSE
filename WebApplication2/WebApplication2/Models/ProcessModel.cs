@@ -29,6 +29,7 @@ namespace WebApplication2.Models
         public string Answer { get; set;  }
         public Dictionary<int, string> UserForm {get; set;}
         public List<Answers> Ans { get; set; }
+        public ArrayList Test { get; set;}
         public string[] AnswersTest { get; set; }
         public string  Result { get; set; }
         /**
@@ -53,11 +54,13 @@ namespace WebApplication2.Models
            MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
             UserForm = new Dictionary<int, string>();
             Answers[] AnsArr = new Answers[92];
+            Test = new ArrayList(93);
             for(int i = 0; i < Questions.GetLength(0); i++)
             {
-                //UserForm.Add(i, "Test");
+                UserForm.Add(i, "Test");
                 Debug.Print("i is: " + i.ToString());
-                AnsArr[i]= new Answers { AnswerID = i, Text = "test" };
+                Test.Add("Test");
+                //AnsArr[i]= new Answers { AnswerID = i, Text = "test" };
             }
             Ans = AnsArr.ToList<Answers>();
             Debug.Print("ANS Count: " + Ans.Count);

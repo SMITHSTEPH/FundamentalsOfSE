@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Web.Mvc;
 using WebApplication2.Models;
 
@@ -7,27 +8,33 @@ namespace WebApplication2.Controllers
     public class ProcessModelController : Controller
     {
         ProcessModel PModel = new ProcessModel();
-     
+        Answers answers = new Answers();
+
         // GET: ProcessModel
-       
+
         public ActionResult Questions()
         {
             string[,] Questions=PModel.Questions;
             string[,] MultAnswers = PModel.MultipleChoiceAnswers;
-            //do model-view binding instead
-            ViewData["questions"] = Questions;
-            ViewData["multAnswers"] = MultAnswers;
-            ViewData["isValid"] = "true";
+            Dictionary<int, string> UserAnswers = PModel.UserForm;
+           //do model-view binding instead
+           ViewData["questions"] = Questions;
+           ViewData["multAnswers"] = MultAnswers;
+           ViewData["isValid"] = "true";
+           ViewData["userAnswers"] = UserAnswers;
            
             return View();
         }
         [HttpPost]
-        public ActionResult Result(ProcessModel form)
+        public ActionResult Result(Answers answers) 
         {
             //Debug.Print(form.Count.ToString());
             //Debug.Print(PModel.Answers.Length.ToString());
-            
-            Debug.Print(form.Ans.Count.ToString());
+            Debug.Print("ANS COUNT IN CONTROLLER");
+            //Debug.Print(form.Test.Count.ToString());
+            //Debug.Print(form.ToString());
+            Debug.Print(answers.Ans.Length.ToString());
+
             //Debug.Print(form.UserForm[2]);
             //Debug.Print(answers.Ans[100]);
             /*string[] Answers = new string[92];
@@ -66,7 +73,7 @@ namespace WebApplication2.Controllers
             ViewData["questions"] = Questions;
             ViewData["multAnswers"] = MultAnswers;
             ViewData["isValid"] = "false";
-            return View("Questions", form);
+            return View("Questions");
 
         }
         
