@@ -12,6 +12,7 @@ namespace WebApplication2.Models
     {
         //fields
         enum ProcessModels{Waterfall, IterativeWaterfall, RAD, Agile, COTS}; //holds all of the possible process models that we are using
+        //enum ProcessTableNames: string { Waterfall="WaterfallTable2", IterativeWaterfall("WaterfallIterationTable") };
         private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
 
         //STEPHS STRING
@@ -26,13 +27,12 @@ namespace WebApplication2.Models
         public string[,] Questions { get; set; }
         public string[,] MultipleChoiceAnswers { get; set; }
         public string[] Answers { get; set; }
-        //public string Answer { get; set;  }
-        //public Dictionary<int, string> UserForm {get; set;}
-        //public ArrayList Test { get; set;}
         public string[] AnswersTest { get; set; }
         public string  Result { get; set; }
         /**
-        Constructor populates an ArrayList with all of the ProcessModel tables in the database
+        Constructor populates an ArrayList with all of the ProcessModel tables in the database,
+        Establishes an SQL Connection, and
+        Reads in all of the Process Model questions and multiple choice answers and stores them each in array
         **/
         public ProcessModel()
         {
@@ -42,25 +42,26 @@ namespace WebApplication2.Models
            }
            Connection = new SqlConnection(ConnectionStr); //establishing a connection
 
-           string[,] Size = ReadQuery("SELECT COUNT(*) FROM Questions2Table", 1, 1, 0); //return the size of the questions table
+           string[,] Size = ReadQuery("SELECT COUNT(*) FROM "+ TableName.PModelQuestions.ToString(), 1, 1, 0); //return the size of the questions table
            int Rows = Convert.ToInt32(Size[0, 0]);
            Debug.Print("Rows are: " + Rows);
            Questions = new string[Rows, 3]; //initializing the size of the questions
-           Questions = ReadQuery("SELECT * FROM Questions2Table", Questions.GetLength(0), Questions.GetLength(1), 1);
-           Size = ReadQuery("SELECT COUNT(*) FROM MultipleChoiceTable", 1, 1, 0);
+           Questions = ReadQuery("SELECT * FROM " + TableName.PModelQuestions.ToString(), Questions.GetLength(0), Questions.GetLength(1), 1);
+           Size = ReadQuery("SELECT COUNT(*) FROM " + TableName.MultipleChoiceAnswers.ToString(), 1, 1, 0);
            Rows = Convert.ToInt32(Size[0, 0]);
            MultipleChoiceAnswers = new string[Rows, 6];
-           MultipleChoiceAnswers = ReadQuery("SELECT * FROM MultipleChoiceTable", MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
-          
-            AnswersTest = new string[Questions.GetLength(0)];
-            for (int i = 0; i < AnswersTest.Length; i++)
-            {
-                AnswersTest[i] = "Yes"; //most of the answers are true of false so this will work for nows
-            }
+           MultipleChoiceAnswers = ReadQuery("SELECT * FROM " + TableName.MultipleChoiceAnswers.ToString(), MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
+           //for testing!
+           AnswersTest = new string[Questions.GetLength(0)];
+           for (int i = 0; i < AnswersTest.Length; i++)
+           {
+               AnswersTest[i] = "Yes"; //most of the answers are true of false so this will work for nows
+           }
            
-        }
+        } //end of constructor
         /**
         performs the query and stores the results in a 2D array
+        maybe this should be in its own class?
         **/
         private string[,] ReadQuery(string query, int rows, int columns, int offset)
         {
@@ -84,7 +85,6 @@ namespace WebApplication2.Models
         {
             pModel.Sort();
             return Convert.ToInt32(pModel[pModel.Count - 1]) - Convert.ToInt32(pModel[0]);
-
         }
         private int ComputeMedian(ArrayList pModel)
         {
@@ -112,7 +112,7 @@ namespace WebApplication2.Models
             }
             else
             {
-               //call compute score and add it to the PMdatabase
+                ComputeScore("SELECT * FROM " + TableName.IterativeWaterfallPModel.ToString(), "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString());
             }
         }
         public Boolean ReadHighPriority(string query, string queryCount)
@@ -131,16 +131,16 @@ namespace WebApplication2.Models
         }
        public void EliminateProcessModels()
        {
-           if(ReadHighPriority("SELECT * FROM WaterfallTable2 WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")) {
+           if(ReadHighPriority("SELECT * FROM " + TableName.WaterFallPModel.ToString() + "WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.WaterFallPModel.ToString() + "WHERE Priority=5")) {
                 Debug.Print("Removed waterfall");
                 ProcessModelsList.Remove(ProcessModels.Waterfall);}
-           if(ReadHighPriority("SELECT * FROM WaterfallIterationTable WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallIterationTable WHERE Priority=5")){
+           if(ReadHighPriority("SELECT * FROM"  + TableName.IterativeWaterfallPModel.ToString() + "WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString() + "WHERE Priority=5")){
                 Debug.Print("Removed Iterative waterfall");
                 ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
-           if(ReadHighPriority("SELECT * FROM RADTable WHERE Priority=5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
+           if(ReadHighPriority("SELECT * FROM " + TableName.RADTablePModel.ToString() + "WHERE Priority=5", "SELECT COUNT(*) FROM "+ TableName.RADTablePModel.ToString() + "WHERE Priority=5")){
                 Debug.Print("Removed RAD");
                 ProcessModelsList.Remove(ProcessModels.RAD);}
-           if(ReadHighPriority("SELECT* FROM COTSTable WHERE Priority = 5", "SELECT COUNT(*) FROM WaterfallTable2 WHERE Priority=5")){
+           if(ReadHighPriority("SELECT* FROM" + TableName.COTSTablePModel.ToString() + "WHERE Priority = 5", "SELECT COUNT(*) FROM" + TableName.COTSTablePModel.ToString() + "WHERE Priority=5")){
                 Debug.Print("Removed COTS");
                 ProcessModelsList.Remove(ProcessModels.COTS);}
         }
@@ -169,7 +169,7 @@ namespace WebApplication2.Models
             int IterativeWaterfallPoints = 0;
             int RADPoints = 0;
             int COTSPoints = 0;
-            IEnumerator e = ProcessModelsList.GetEnumerator();
+           
             for(int i=0; i<ProcessModelsList.Count; i++)
             {
                 Debug.Print("In while");
@@ -177,16 +177,18 @@ namespace WebApplication2.Models
                 if(ProcessModelsList[i].ToString().Equals(ProcessModels.Waterfall.ToString())){ WaterfallPoints= ComputeScore("SELECT * FROM WaterfallTable2", "SELECT COUNT(*) FROM WaterfallTable2");}
                 else if(ProcessModelsList[i].ToString().Equals(ProcessModels.IterativeWaterfall.ToString()))
                 {
-                    Debug.Print("In if");
-                    IterativeWaterfallPoints=ComputeScore("SELECT * FROM WaterfallIterationTable", "SELECT COUNT(*) FROM WaterfallIterationTable");
+                    Debug.Print("In if Iterative");
+                    IterativeWaterfallPoints=ComputeScore("SELECT * FROM " + TableName.IterativeWaterfallPModel.ToString(), "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString());
                 }
                 else if(ProcessModelsList[i].ToString().Equals(ProcessModels.RAD.ToString()))
                 {
-                    RADPoints = ComputeScore("SELECT * FROM RADTable", "SELECT COUNT(*) FROM RADTable");
+                    Debug.Print("In if RAD");
+                    RADPoints = ComputeScore("SELECT * FROM " + TableName.RADTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.RADTablePModel.ToString());
                 }
                 else if(ProcessModelsList[i].ToString().Equals(ProcessModels.COTS.ToString()))
                 {
-                    COTSPoints = ComputeScore("SELECT * FROM COTSTable", "SELECT COUNT(*) FROM COTSTable");
+                    Debug.Print("In if COTS");
+                    COTSPoints = ComputeScore("SELECT * FROM " + TableName.COTSTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString());
                 }
             }
             Debug.Print("Waterfall Points: " + WaterfallPoints);

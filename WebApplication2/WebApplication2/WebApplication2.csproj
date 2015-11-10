@@ -238,6 +238,7 @@
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\TableName.cs" />
     <Compile Include="Models\Verifcation.cs" />
     <Compile Include="MultipleChoiceTable.cs">
       <DependentUpon>RegistrationModel.tt</DependentUpon>
@@ -294,9 +295,6 @@
     <Content Include="Views\Project\SuccessPage.cshtml" />
     <Content Include="Views\Project\AddPeople.cshtml" />
     <Content Include="Views\Project\ApplyProjects.cshtml" />
-    <Content Include="Views\Project\EditPeople.cshtml" />
-    <Content Include="Views\Project\LeaderExchange.cshtml" />
-    <Content Include="Views\Project\FindLeaderInProject.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
