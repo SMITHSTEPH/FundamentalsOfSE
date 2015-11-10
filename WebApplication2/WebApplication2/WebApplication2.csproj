@@ -234,7 +234,6 @@
     </Compile>
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Administrator.cs" />
-    <Compile Include="Models\Answers.cs" />
     <Compile Include="Models\Leader.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\ProcessModel.cs" />
