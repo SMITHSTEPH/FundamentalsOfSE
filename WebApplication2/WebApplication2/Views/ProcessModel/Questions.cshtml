@@ -1,4 +1,4 @@
-﻿@model WebApplication2.Models.Answers
+﻿
 
 @{
     ViewBag.Title = "Questions";
@@ -38,6 +38,8 @@
 
 @using (Html.BeginForm("Result", "ProcessModel"))
 {
+    bool IsCheckedTrue = false;
+    bool IsCheckedFalse = false;
     if (ViewData["isValid"].Equals("false"))
     {   <br />
         @Html.Label("Did Not answer all of the fields");
@@ -45,11 +47,23 @@
     }
     string[,] Questions = (string[,])ViewData["questions"];
     string[,] MultAnswers = (string[,])ViewData["multAnswers"];
+    string[] Answers = (string[])ViewData["answers"];
+    /*if ((string[])ViewData["answers"] == "test")
+    {
+        System.Diagnostics.Debug.Print("In answers if");
+        Answers = new string[1] { "test" };
+    }
+    else
+    {
+        System.Diagnostics.Debug.Print("In answers else");
+        Answers = (string[])ViewData["answers"];
+    }*/
     Dictionary<int, string> UserAnswers = (Dictionary<int, string>)ViewData["userAnswers"];
     System.Collections.ArrayList Categories = new System.Collections.ArrayList();
 
     for (int i = 0; i < Questions.GetLength(0); i++)
     {
+
         if (!Categories.Contains(Questions[i, 1].ToString().Trim()))
         {
             <br/>
@@ -62,16 +76,26 @@
         @Html.Label(Questions[i, 0].ToString().Trim());
         if (Questions[i, 2].ToString().Trim().Equals("True or False"))
         {
+            if (Answers[0]!="test" && Array.Exists(Answers, element => element == i.ToString() + "True"))
+            {
+                IsCheckedTrue = true;
+            }
+            else if (Answers[0]!="test" && Array.Exists(Answers, element => element == i.ToString() + "False"))
+            {
+                IsCheckedFalse = true;
+            }
             <br>
             //if (@model.UserForm[i] != null) { System.Diagnostics.Debug.Print(Model.UserForm[i]); }
             //System.Diagnostics.Debug.Print(Model.UserForm[i]);
 
             @Html.Label("True");
             //Model.Ans[i].AnswerID = i;
-
-            @Html.RadioButtonFor(model=> model.Ans[i], "Yes");
+           
+            @Html.RadioButton("answer["+i+"]", i+"True", IsCheckedTrue);
             @Html.Label("False");
-            @Html.RadioButtonFor(model => model.Ans[i] , "No");
+            @Html.RadioButton("answer["+i+"]", i+"False", IsCheckedFalse);
+            IsCheckedTrue = false;
+            IsCheckedFalse = false;
             <br>
         }
         else if(Questions[i, 2].ToString().Trim().Equals("Short Answer"))
@@ -80,7 +104,7 @@
             <br>
             @Html.Label("Short Answer");
             //Model.Ans[i].AnswerID = i;
-            @Html.TextAreaFor(model => model.Ans[i]);
+            @Html.TextArea("answer[" + i + "]");
             <br>
         }
         else //multiple choice
@@ -99,8 +123,8 @@
                     {
                         //System.Diagnostics.Debug.Print("Index: " + m.ToString());
                         @Html.Label(MultAnswers[j, m].Trim());
-                       // Model.Ans[i].AnswerID = i;
-                        @Html.RadioButtonFor(model=>model.Ans[i], MultAnswers[j, m].Trim());
+                        // Model.Ans[i].AnswerID = i;
+                        @Html.RadioButton("answer[" + i + "]", MultAnswers[j, m].Trim(), IsCheckedTrue);
                         m++;
                         //System.Diagnostics.Debug.Print("A: " + MultAnswers[j, m]);
 

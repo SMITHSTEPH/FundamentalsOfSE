@@ -10,10 +10,8 @@ namespace WebApplication2.Models
     public class Answers
     {
         //public Dictionary<int, string> Ans { get; set; }
-        public string[] Ans { get; set; }
-        public Answers()
-        {
-            Ans = new string[92];
-        }
+        public string Text { get; set; }
+        //public int AnswerID { get; set; }
+
     }
 }

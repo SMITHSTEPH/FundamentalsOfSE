@@ -9,6 +9,7 @@ namespace WebApplication2.Controllers
     {
         ProcessModel PModel = new ProcessModel();
         Answers answers = new Answers();
+        Dictionary<int, string> answers2 = new Dictionary<int, string>();
 
         // GET: ProcessModel
 
@@ -22,25 +23,27 @@ namespace WebApplication2.Controllers
            ViewData["multAnswers"] = MultAnswers;
            ViewData["isValid"] = "true";
            ViewData["userAnswers"] = UserAnswers;
-           
-            return View();
+
+            ViewData["answers"] = new string[1] { "test" };
+
+            return View(answers2);
         }
         [HttpPost]
-        public ActionResult Result(Answers answers) 
+        public ActionResult Result(FormCollection form) 
         {
             //Debug.Print(form.Count.ToString());
             //Debug.Print(PModel.Answers.Length.ToString());
             Debug.Print("ANS COUNT IN CONTROLLER");
             //Debug.Print(form.Test.Count.ToString());
             //Debug.Print(form.ToString());
-            Debug.Print(answers.Ans.Length.ToString());
+            //Debug.Print(answers2.Count.ToString());
 
             //Debug.Print(form.UserForm[2]);
             //Debug.Print(answers.Ans[100]);
-            /*string[] Answers = new string[92];
+            //string[] Answers = new string[92];
            
-            //string[] Answers = new string[form.Count]; //for now hard code it
-            //form.CopyTo(Answers, 0);
+            string[] Answers = new string[form.Count]; //for now hard code it
+            form.CopyTo(Answers, 0);
             Debug.Print("Length of form is: ");
             Debug.Print(Answers.Length.ToString());
             for (int i = 0; i < Answers.Length; i++)
@@ -49,30 +52,31 @@ namespace WebApplication2.Controllers
                 //System.Console.Write(Answers[i] + ",");
                 Debug.Write(Answers[i] +",");
             }
-            Debug.Print("Test length: " + PModel.AnswersTest.Length);
+            //Debug.Print("Test length: " + PModel.AnswersTest.Length);
             if (PModel.IsValid(PModel.AnswersTest))
             {
-                PModel.Answers = Answers;
+                /*PModel.Answers = Answers;
                 //PModel.EliminateProcessModels();
                 PModel.ChooseProcessModels();
                 ViewData["result"] = PModel.Result;
-                return View();
+                return View();*/
             }
             else
             {
-                string[,] Questions = PModel.Questions; //goal is to replace this with model/view
+                /*string[,] Questions = PModel.Questions; //goal is to replace this with model/view
                 string[,] MultAnswers = PModel.MultipleChoiceAnswers;
                 ViewData["questions"] = Questions;
                 ViewData["multAnswers"] = MultAnswers;
                 ViewData["isValid"] = "false";
 
-                return View("Questions");
-            }*/
+                return View("Questions");*/
+            }
             string[,] Questions = PModel.Questions; //goal is to replace this with model/view
             string[,] MultAnswers = PModel.MultipleChoiceAnswers;
             ViewData["questions"] = Questions;
             ViewData["multAnswers"] = MultAnswers;
             ViewData["isValid"] = "false";
+            ViewData["answers"] = Answers;
             return View("Questions");
 
         }
