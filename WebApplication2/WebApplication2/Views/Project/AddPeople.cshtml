@@ -28,8 +28,8 @@
                     else
                     {
                         @Html.Label("Your in Project number " + entity.X);
+                        @Html.ActionLink(" Click here to edit people in this project", "ApplyProjects", new { id = entity.X }, new { })
                         <br />
-                        @Html.ActionLink(" Click here to edit people to this project", "ApplyProjects", new { id = entity.X }, new { })
                     }
                 }
 

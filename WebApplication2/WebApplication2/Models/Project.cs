@@ -10,6 +10,7 @@ namespace WebApplication2.Models
         public int AccountId { get; set; }
         public int[] ProjectId { get; set; }
         public string[] ProjectProcess { get; set; }
+        public string[] Responsibiltes { get; set; }
 
         private RegistrationEntities1 db = new RegistrationEntities1();
 
@@ -60,6 +61,22 @@ namespace WebApplication2.Models
 
                     k++;
                 }
+
+                k = 0;
+                UsersProjects.Responsibiltes = new string[numberOfIds];
+                foreach (JunctionTableProjectAndAccountV2 project in projects)
+                {
+                    
+                    if (project.Role.Contains(User.Rank) && project.AID == User.AccountId)
+                    {
+                        
+                        UsersProjects.Responsibiltes[k] = project.Responsibilities;
+                        k++;
+                    }
+
+
+                }
+
             }
 
             return UsersProjects;
