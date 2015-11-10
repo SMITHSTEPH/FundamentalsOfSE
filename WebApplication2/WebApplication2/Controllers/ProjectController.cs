@@ -55,6 +55,17 @@ namespace WebApplication2.Controllers
             return View("AddPeople", ListofProjects);
         }
 
+        public ActionResult LeaderExchange(Project ListofProjects)
+        {
+            dynamic myModel = new ExpandoObject();
+            myModel.ProjectTable = possibleProjects();
+            JunctionTableProjectAndAccountV2 table = new JunctionTableProjectAndAccountV2();
+            table.AID = ListofProjects.AccountId;
+            myModel.JunctionTableProjectAndAccount = table;
+
+            return View("LeaderExchange", myModel);
+        }
+
         public ActionResult ApplyProjects(int id)
         {
             dynamic myModel = new ExpandoObject();
@@ -87,6 +98,34 @@ namespace WebApplication2.Controllers
             db.SaveChanges();
 
             return View("SuccessPage");
+        }
+
+        public ActionResult FindLeaderInProject(int pId, int Aid)
+        {
+            dynamic myModel = new ExpandoObject();
+            myModel.LeaderIn = possibleLeadersRemove(pId);
+            myModel.LeadersNotIn = possibleLeadersAdd(pId);
+            JunctionTableProjectAndAccountV2 table = new JunctionTableProjectAndAccountV2();
+            table.AID = Aid;
+            table.PId = pId;
+            myModel.JunctionTableProjectAndAccount = table;
+
+            return View("FindLeaderInProject", myModel);
+
+        }
+
+        public ActionResult LeaderSwitch(int oldLid, int newLid, int PId, int UId)
+        {
+            
+            leaderToAndFrom(oldLid, newLid, PId);
+
+            administrationV2 admin = db.administrationV2.Find(UId);
+            Account User = new Account();
+            User.AccountId = admin.Id;
+            User.Rank = "Admin";
+            User.UserName = admin.UserName;
+
+            return RedirectToAction("ExistingProjects", "Project", User);
         }
 
         public ActionResult SumbitProjet()
@@ -189,8 +228,6 @@ namespace WebApplication2.Controllers
             return View("SuccessPage");
         }
 
-
-
         public List<ProjectTable> possibleProjects()
         {
             List<ProjectTable> possibleProjects = db.ProjectTables.ToList();
@@ -216,6 +253,41 @@ namespace WebApplication2.Controllers
             return possibleMembers;
         }
 
+        public List<leaderTableV2> possibleLeadersAdd(int id)
+        {
+            List<leaderTableV2> possibleLeaders = db.leaderTableV2.ToList();
+
+
+            foreach (leaderTableV2 leader in db.leaderTableV2)
+            {
+                foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)
+                {
+                    if (leader.Id == junc.AID && junc.Role.Contains("Leader") && id == junc.PId)
+                    {
+                        possibleLeaders.Remove(leader);
+                    }
+                }
+            }
+
+            bool hasAProject = false;
+            foreach (leaderTableV2 leader in possibleLeaders)
+            {
+                foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)
+                {
+                    if (leader.Id == junc.AID && junc.Role.Contains("Leader"))
+                    {
+                        hasAProject = true;
+                    }
+                }
+                if(hasAProject == false)
+                {
+                    possibleLeaders.Remove(leader);
+                }
+            }
+
+            return possibleLeaders;
+        }
+
         public List<memberTableV2> possibleMembersRemove(int id)
         {
             List<memberTableV2> possibleMembers = db.memberTableV2.ToList();
@@ -236,6 +308,25 @@ namespace WebApplication2.Controllers
             return membersInProject;
         }
 
+        public List<leaderTableV2> possibleLeadersRemove(int id)
+        {
+            List<leaderTableV2> leadersInProject = new List<leaderTableV2>();
+
+
+            foreach (leaderTableV2 leader in db.leaderTableV2)
+            {
+                foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)
+                {
+                    if (leader.Id == junc.AID && junc.Role.Contains("Leader") && id == junc.PId)
+                    {
+
+                        leadersInProject.Add(leader);
+                    }
+                }
+            }
+
+            return leadersInProject;
+        }
 
         public List<JunctionTableProjectAndAccountV2> possibleMembersEdit(int id)
         {
@@ -258,8 +349,6 @@ namespace WebApplication2.Controllers
 
             return respInProject;
         }
-
-
 
         private string AddAccount(int id, string Rank, int projId)
         {
@@ -384,5 +473,35 @@ namespace WebApplication2.Controllers
 
         }
 
+        private void leaderToAndFrom(int oldLid, int newLid, int oldPId)
+        {
+            int newPId = 0;
+            //Get the projet the new Leader is In
+            foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2.ToList())
+            {
+                if(junc.AID == newLid && junc.Role.Contains("Leader"))
+                {
+                    newPId = junc.PId.Value;
+                }
+            }
+
+            foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2.ToList())
+            {
+                if(junc.AID == oldLid && junc.Role.Contains("Leader") && oldPId == junc.PId)
+                {
+
+                    junc.PId = newPId;
+
+                    db.Entry(junc).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                if(junc.AID == newLid && junc.Role.Contains("Leader") && newPId == junc.PId)
+                {
+                    junc.PId = oldPId;
+                    db.Entry(junc).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }

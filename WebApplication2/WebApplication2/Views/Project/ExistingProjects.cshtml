@@ -53,7 +53,7 @@
             if (Model.Rank  != "Leader")
             {
                     <br />
-                    @Html.Label("If you want to join a new project")
+                    @Html.Label("If you want to join a new project:")
                     <br />
                     <input type="submit" value="Join Project">
              }
@@ -74,7 +74,7 @@
             if (Model.Rank == "Leader")
             {
                 <br />
-                    @Html.Label("If you want to edit the people in your projects")
+                    @Html.Label("If you want to edit the people in your projects:")
                     <br />
                     <input type="submit" value="Edit Projects">
             }
@@ -100,12 +100,32 @@
             }
 
         }
+        @using (Html.BeginForm("LeaderExchange", "Project", FormMethod.Post))
+        {
+            @Html.HiddenFor(Model => Model.UserName)
+            @Html.HiddenFor(Model => Model.Rank)
+            @Html.HiddenFor(Model => Model.AccountId)
+            int k = 0;
+            for (k = 0; k < Model.ProjectId.Length; k++)
+            {
+                @Html.HiddenFor(Model => Model.ProjectId[k])
+                @Html.HiddenFor(Model => Model.ProjectProcess[k])
+            }
+            if (Model.Rank == "Admin")
+            {
+                <br />
+                @Html.Label("If you want to change the leaders of projects:")
+                <br />
+                <input type="submit" value="Exchange Leaders">
+            }
+
+        }
         @using (Html.BeginForm("Questions", "ProcessModel", FormMethod.Get))
         {
             if (Model.Rank == "Leader")
             {
                 <br />
-                @Html.Label("If you want to create a new project")
+                @Html.Label("If you want to create a new project:")
                 <br />
                 <input type="submit" value="Add New Project">
             }

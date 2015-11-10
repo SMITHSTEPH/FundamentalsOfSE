@@ -296,6 +296,8 @@
     <Content Include="Views\Project\AddPeople.cshtml" />
     <Content Include="Views\Project\ApplyProjects.cshtml" />
     <Content Include="Views\Project\EditPeople.cshtml" />
+    <Content Include="Views\Project\LeaderExchange.cshtml" />
+    <Content Include="Views\Project\FindLeaderInProject.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
