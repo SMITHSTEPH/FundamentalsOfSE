@@ -16,11 +16,11 @@ namespace WebApplication2.Models
         public static readonly TableName COTSTablePModel = new TableName("COTSTable");
         public static readonly TableName MultipleChoiceAnswers = new TableName("MultipleChoiceTable");
         public static readonly TableName PModelQuestions = new TableName("Questions2Table");
+        public static readonly TableName PModelScore = new TableName("ScoreTable");
 
         private TableName(string name)
         {
             this.name = name;
-           
         }
         public override string ToString()
         {

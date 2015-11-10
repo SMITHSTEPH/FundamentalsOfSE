@@ -112,7 +112,17 @@ namespace WebApplication2.Models
             }
             else
             {
-                ComputeScore("SELECT * FROM " + TableName.IterativeWaterfallPModel.ToString(), "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString());
+                int score=ComputeScore("SELECT * FROM " + winner, "SELECT COUNT(*) FROM " + winner);
+
+                string[,] SIdMax = ReadQuery("SELECT MAX(SId) FROM " + TableName.PModelScore.ToString(), 0, 0, 0);
+                int SIdVal = Convert.ToInt32(SIdMax[0,0]);
+                string Query= "INSERT INTO " + TableName.PModelScore.ToString() + "(SId, Score, ProcessModel) VALUES('"+(SIdVal+1)+"','"+score+"',"+winner+"')";
+                Debug.Print("training querty is: " + Query);
+                Connection.Open();
+                SqlCommand Command = new SqlCommand(Query, Connection);
+                Command.ExecuteNonQuery();
+                Connection.Close();
+
             }
         }
         public Boolean ReadHighPriority(string query, string queryCount)
@@ -159,7 +169,6 @@ namespace WebApplication2.Models
                 Score += AnswersTest[i].Equals(PModel[i, 1].Trim()) ? Convert.ToInt32(PModel[i, 2].Trim()) : -1 * Convert.ToInt32(PModel[i, 2].Trim());
             }
             return Score;
-            
         }
         public void ChooseProcessModels()
         {
