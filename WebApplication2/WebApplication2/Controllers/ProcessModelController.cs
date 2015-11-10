@@ -32,9 +32,17 @@ namespace WebApplication2.Controllers
             }
             if (PModel.IsValid(Answers))
             {
+                for (int i = 0; i < Answers.Length; i++) 
+                {
+                    Answers[i].Remove(0, 1);  //removing the first character from the string
+                }
+                for (int i = 0; i < Answers.Length; i++) //test
+                {
+                    Debug.Write(Answers[i] + ",");
+                }
                 PModel.Answers = Answers;
-                //PModel.EliminateProcessModels();
-                //PModel.ChooseProcessModels();
+                PModel.EliminateProcessModels();
+                PModel.ChooseProcessModels();
                 ViewData["result"] = PModel.Result;
                 return View();
             }
