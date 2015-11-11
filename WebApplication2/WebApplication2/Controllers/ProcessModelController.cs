@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using WebApplication2.Models;
 
@@ -53,25 +54,24 @@ namespace WebApplication2.Controllers
                 Debug.Print("Length of form is: ");
                 Debug.Print(Answers.Length.ToString());
 
-                for (int i = 0; i < Answers.Length; i++)
-                {
-                    Debug.Write("in for");
-                    Answers[i]=Answers[i].Remove(0, 1);  //removing the first character from the string
-                }
+                PModel.Answers = PModel.RemoveQuestionIDS(Answers);
+
                 Debug.Print("Answers Again: ");
                 for (int i = 0; i < Answers.Length; i++) //test
                 {
                     Debug.Write(Answers[i] + ",");
                 }
-                PModel.Answers = Answers;
+             
 
-                //int score =PModel.TrainData(winner);
+                int score =PModel.TrainData(winner);
+                //ViewData["questions"] = PModel.Questions;
+                //ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
+                ViewData["isValid"] = "true";
+                ViewData["answers"] = Answers;
+                //ViewData["result"] = "";
                 ViewData["questions"] = PModel.Questions;
                 ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
-                ViewData["isValid"] = "false";
-                ViewData["answers"] = Answers;
-                ViewData["result"] = "";
-                //ViewData["result"] = winner + "has been added to the database" + score.ToString();
+                ViewData["result"] = winner + "has been added to the database with a score of " + score.ToString();
                 return View("TrainingData");
             }
             else

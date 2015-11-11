@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace WebApplication2.Models
@@ -67,7 +68,8 @@ namespace WebApplication2.Models
         {
             string[,] TableData=new string[rows, columns]; //where the data extracted from the table will be stored
             Connection.Open();
-            SqlCommand Command = new SqlCommand(query, Connection);
+            Debug.Print(query)
+;            SqlCommand Command = new SqlCommand(query, Connection);
             SqlDataReader MyDataSet= Command.ExecuteReader();
             int Rows = 0;
             while(MyDataSet.Read()) //while there is data from the table left to read
@@ -104,9 +106,14 @@ namespace WebApplication2.Models
         **/
         public int TrainData(string winner)
         {
-
+            string pm = "";
+            if (winner == "COTSTable") { pm = "COTS"; }
             EliminateProcessModels();
-            if(!ProcessModelsList.Contains(winner))
+            for(int i=0; i<ProcessModelsList.Count; i++)
+            {
+                Debug.Print("Still in List: " + ProcessModelsList[i].ToString());
+            }
+            if(!ProcessModelsList.Contains(ProcessModels.COTS.ToString()))
             {
                
                 Debug.Print("You selected incorrectly!!");
@@ -116,9 +123,11 @@ namespace WebApplication2.Models
             {
                 int score=ComputeScore("SELECT * FROM " + winner, "SELECT COUNT(*) FROM " + winner);
 
-                string[,] SIdMax = ReadQuery("SELECT MAX(SId) FROM " + TableName.PModelScore.ToString(), 0, 0, 0);
-                int SIdVal = Convert.ToInt32(SIdMax[0,0]);
-                string Query= "INSERT INTO " + TableName.PModelScore.ToString() + "(SId, Score, ProcessModel) VALUES('"+(SIdVal+1)+"','"+score+"',"+winner+"')";
+                string[,] SIdMax = ReadQuery("SELECT MAX(SId) FROM " + TableName.PModelScore.ToString(), 1, 1, 0);
+                Debug.Print("SIdMax is: " + SIdMax[0, 0]);
+                int SIdVal= SIdMax[0,0] == "" ? 0 : Convert.ToInt32(SIdMax[0, 0]);
+               
+                string Query= "INSERT INTO " + TableName.PModelScore.ToString() + "(SId, Score, ProcessModel) VALUES('"+(SIdVal+1)+"','"+score+"','"+winner+"')";
                 Debug.Print("training querty is: " + Query);
                 Connection.Open();
                 SqlCommand Command = new SqlCommand(Query, Connection);
@@ -138,24 +147,25 @@ namespace WebApplication2.Models
             
             for(int i=0; i<PModel.GetLength(0); i++)
             {
-                if (AnswersTest[i].Equals(PModel[i, 1].Trim())) {return true;}
+                if (Answers[i].Equals(PModel[i, 1].Trim())) {return true;}
             }
             return false;
         }
        public void EliminateProcessModels()
        {
-           if(ReadHighPriority("SELECT * FROM " + TableName.WaterFallPModel.ToString() + "WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.WaterFallPModel.ToString() + "WHERE Priority=5")) {
+           if(ReadHighPriority("SELECT * FROM " + TableName.WaterFallPModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.WaterFallPModel.ToString() + " WHERE Priority=5")) {
                 Debug.Print("Removed waterfall");
                 ProcessModelsList.Remove(ProcessModels.Waterfall);}
-           if(ReadHighPriority("SELECT * FROM"  + TableName.IterativeWaterfallPModel.ToString() + "WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString() + "WHERE Priority=5")){
-                Debug.Print("Removed Iterative waterfall");
-                ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
-           if(ReadHighPriority("SELECT * FROM " + TableName.RADTablePModel.ToString() + "WHERE Priority=5", "SELECT COUNT(*) FROM "+ TableName.RADTablePModel.ToString() + "WHERE Priority=5")){
-                Debug.Print("Removed RAD");
-                ProcessModelsList.Remove(ProcessModels.RAD);}
-           if(ReadHighPriority("SELECT* FROM" + TableName.COTSTablePModel.ToString() + "WHERE Priority = 5", "SELECT COUNT(*) FROM" + TableName.COTSTablePModel.ToString() + "WHERE Priority=5")){
-                Debug.Print("Removed COTS");
-                ProcessModelsList.Remove(ProcessModels.COTS);}
+            if(ReadHighPriority("SELECT * FROM "  + TableName.IterativeWaterfallPModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString() + " WHERE Priority=5")){
+                  Debug.Print("Removed Iterative waterfall");
+                  ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
+             if(ReadHighPriority("SELECT * FROM " + TableName.RADTablePModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM "+ TableName.RADTablePModel.ToString() + " WHERE Priority=5")){
+                  Debug.Print("Removed RAD");
+                  ProcessModelsList.Remove(ProcessModels.RAD);}
+             if(ReadHighPriority("SELECT* FROM " + TableName.COTSTablePModel.ToString() + " WHERE Priority = 5", "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString() + " WHERE Priority=5")){
+                  Debug.Print("Removed COTS");
+                  ProcessModelsList.Remove(ProcessModels.COTS);}
+            Debug.Print("Eliminate Process Models End");
         }
         int ComputeScore(string query, string queryCount)
         {
@@ -240,6 +250,17 @@ namespace WebApplication2.Models
         public Boolean IsValid(string[] answers)
         {
             return answers.Length == Questions.GetLength(0) ? true : false;
+        }
+        public string[] RemoveQuestionIDS(string[] answers)
+        {
+            for (int i = 0; i < answers.Length; i++)
+            {
+                Debug.Write("before: " + answers[i] + "---");
+                Regex pattern = new Regex(@"^[\d-]*\s*");
+                answers[i] = pattern.Replace(answers[i], "");  //removing the first character from the string
+                //Debug.Write("after: " + answers[i] + "   ");
+            }
+            return answers;
         }
 
     }
