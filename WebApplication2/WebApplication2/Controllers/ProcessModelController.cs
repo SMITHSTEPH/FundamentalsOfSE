@@ -53,7 +53,7 @@ namespace WebApplication2.Controllers
                 form.CopyTo(Answers, 0);
                 Debug.Print("Length of form is: ");
                 Debug.Print(Answers.Length.ToString());
-
+                string[] OldAnswers = Answers;
                 PModel.Answers = PModel.RemoveQuestionIDS(Answers);
 
                 Debug.Print("Answers Again: ");
@@ -67,11 +67,11 @@ namespace WebApplication2.Controllers
                 //ViewData["questions"] = PModel.Questions;
                 //ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
                 ViewData["isValid"] = "true";
-                ViewData["answers"] = Answers;
+                ViewData["answers"] = OldAnswers;
                 //ViewData["result"] = "";
                 ViewData["questions"] = PModel.Questions;
                 ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
-                ViewData["result"] = winner + "has been added to the database with a score of " + score.ToString();
+                ViewData["result"] = winner + " has been added to the database with a score of " + score.ToString();
                 return View("TrainingData");
             }
             else

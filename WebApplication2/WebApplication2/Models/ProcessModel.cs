@@ -106,14 +106,17 @@ namespace WebApplication2.Models
         **/
         public int TrainData(string winner)
         {
-            string pm = "";
-            if (winner == "COTSTable") { pm = "COTS"; }
+            string PM = ""; //mapping the winning table to the correct process model
+            if (winner == TableName.COTSTablePModel.ToString()) { PM = ProcessModels.COTS.ToString(); }
+            else if(winner ==TableName.WaterFallPModel.ToString()) { PM = ProcessModels.Waterfall.ToString(); }
+            else if (winner==TableName.IterativeWaterfallPModel.ToString()) { PM = ProcessModels.IterativeWaterfall.ToString(); }
+            else { PM = ProcessModels.RAD.ToString(); }
             EliminateProcessModels();
             for(int i=0; i<ProcessModelsList.Count; i++)
             {
                 Debug.Print("Still in List: " + ProcessModelsList[i].ToString());
             }
-            if(!ProcessModelsList.Contains(ProcessModels.COTS.ToString()))
+            if(!ProcessModelsList.Contains(PM))
             {
                
                 Debug.Print("You selected incorrectly!!");
