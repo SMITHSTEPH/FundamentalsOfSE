@@ -102,13 +102,15 @@ namespace WebApplication2.Models
         Load the entire Questions table into A 2D array so that is can be passed
             off to the Questions View
         **/
-        public void TrainData(string winner)
+        public int TrainData(string winner)
         {
 
             EliminateProcessModels();
             if(!ProcessModelsList.Contains(winner))
-            { 
+            {
+               
                 Debug.Print("You selected incorrectly!!");
+                return 0;
             }
             else
             {
@@ -122,6 +124,7 @@ namespace WebApplication2.Models
                 SqlCommand Command = new SqlCommand(Query, Connection);
                 Command.ExecuteNonQuery();
                 Connection.Close();
+                return score;
 
             }
         }
