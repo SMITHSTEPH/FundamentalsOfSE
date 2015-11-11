@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -30,6 +31,12 @@ namespace WebApplication2.Models
         public string[] Answers { get; set; }
         public string[] AnswersTest { get; set; }
         public string  Result { get; set; }
+        //stores the scores
+        private static int[] WaterfallScores { get; set; }
+        private static int[] IterativeWaterfallScores { get; set; }
+        private static int[] COTSScore { get; set; }
+        private static int[] RADScore { get; set; }
+        private static int[] AgileSCore { get; set; } 
         /**
         Constructor populates an ArrayList with all of the ProcessModel tables in the database,
         Establishes an SQL Connection, and
@@ -42,23 +49,13 @@ namespace WebApplication2.Models
                 ProcessModelsList.Add(processModel.ToString()); //adding all of the process models to the arraylist
            }
            Connection = new SqlConnection(ConnectionStr); //establishing a connection
-
-           string[,] Size = ReadQuery("SELECT COUNT(*) FROM "+ TableName.PModelQuestions.ToString(), 1, 1, 0); //return the size of the questions table
-           int Rows = Convert.ToInt32(Size[0, 0]);
-           Debug.Print("Rows are: " + Rows);
-           Questions = new string[Rows, 3]; //initializing the size of the questions
-           Questions = ReadQuery("SELECT * FROM " + TableName.PModelQuestions.ToString(), Questions.GetLength(0), Questions.GetLength(1), 1);
-           Size = ReadQuery("SELECT COUNT(*) FROM " + TableName.MultipleChoiceAnswers.ToString(), 1, 1, 0);
-           Rows = Convert.ToInt32(Size[0, 0]);
-           MultipleChoiceAnswers = new string[Rows, 6];
-           MultipleChoiceAnswers = ReadQuery("SELECT * FROM " + TableName.MultipleChoiceAnswers.ToString(), MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
-           //for testing!
-           AnswersTest = new string[Questions.GetLength(0)];
-           for (int i = 0; i < AnswersTest.Length; i++)
-           {
-               AnswersTest[i] = "Yes"; //most of the answers are true of false so this will work for nows
-           }
+           InitializeQuestionsAndAnswers();
+           InitializeScores(TableName.WaterFallPModel.ToString(), WaterfallScores);
+           InitializeScores(TableName.IterativeWaterfallPModel.ToString(), IterativeWaterfallScores);
+           InitializeScores(TableName.RADTablePModel.ToString(), RADScore);
+           InitializeScores(TableName.COTSTablePModel.ToString(), COTSScore);
            
+
         } //end of constructor
         /**
         performs the query and stores the results in a 2D array
@@ -69,7 +66,7 @@ namespace WebApplication2.Models
             string[,] TableData=new string[rows, columns]; //where the data extracted from the table will be stored
             Connection.Open();
             Debug.Print(query)
-;            SqlCommand Command = new SqlCommand(query, Connection);
+;           SqlCommand Command = new SqlCommand(query, Connection);
             SqlDataReader MyDataSet= Command.ExecuteReader();
             int Rows = 0;
             while(MyDataSet.Read()) //while there is data from the table left to read
@@ -91,14 +88,7 @@ namespace WebApplication2.Models
         private int ComputeMedian(ArrayList pModel)
         {
             pModel.Sort();
-            if(pModel.Count%2==0)
-            {
-                return (Convert.ToInt32(pModel[pModel.Count / 2 - 1]) + Convert.ToInt32(pModel[pModel.Count / 2])) / 2;
-            }
-            else
-            {
-                return Convert.ToInt32(pModel[pModel.Count / 2]);
-            }
+            return pModel.Count % 2 == 0 ? (Convert.ToInt32(pModel[pModel.Count / 2 - 1]) + Convert.ToInt32(pModel[pModel.Count / 2])) / 2 : Convert.ToInt32(pModel[pModel.Count / 2]);
         }
         /**
         Load the entire Questions table into A 2D array so that is can be passed
@@ -111,36 +101,23 @@ namespace WebApplication2.Models
             else if(winner ==TableName.WaterFallPModel.ToString()) { PM = ProcessModels.Waterfall.ToString(); }
             else if (winner==TableName.IterativeWaterfallPModel.ToString()) { PM = ProcessModels.IterativeWaterfall.ToString(); }
             else { PM = ProcessModels.RAD.ToString(); }
+
             EliminateProcessModels();
-            for(int i=0; i<ProcessModelsList.Count; i++)
-            {
-                Debug.Print("Still in List: " + ProcessModelsList[i].ToString());
-            }
             if(!ProcessModelsList.Contains(PM))
             {
-               
                 Debug.Print("You selected incorrectly!!");
                 return 0;
             }
             else
             {
                 int score=ComputeScore("SELECT * FROM " + winner, "SELECT COUNT(*) FROM " + winner);
-
                 string[,] SIdMax = ReadQuery("SELECT MAX(SId) FROM " + TableName.PModelScore.ToString(), 1, 1, 0);
-                Debug.Print("SIdMax is: " + SIdMax[0, 0]);
                 int SIdVal= SIdMax[0,0] == "" ? 0 : Convert.ToInt32(SIdMax[0, 0]);
-               
-                string Query= "INSERT INTO " + TableName.PModelScore.ToString() + "(SId, Score, ProcessModel) VALUES('"+(SIdVal+1)+"','"+score+"','"+winner+"')";
-                Debug.Print("training querty is: " + Query);
-                Connection.Open();
-                SqlCommand Command = new SqlCommand(Query, Connection);
-                Command.ExecuteNonQuery();
-                Connection.Close();
+                InsertIntoDatabase(SIdVal + 1, score, winner);
                 return score;
-
             }
         }
-        public Boolean ReadHighPriority(string query, string queryCount)
+        private Boolean ReadHighPriority(string query, string queryCount)
         {
             string[,] Size=ReadQuery(queryCount, 1, 1, 0);
             int Rows = Convert.ToInt32(Size[0, 0]);
@@ -154,21 +131,12 @@ namespace WebApplication2.Models
             }
             return false;
         }
-       public void EliminateProcessModels()
-       {
-           if(ReadHighPriority("SELECT * FROM " + TableName.WaterFallPModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.WaterFallPModel.ToString() + " WHERE Priority=5")) {
-                Debug.Print("Removed waterfall");
-                ProcessModelsList.Remove(ProcessModels.Waterfall);}
-            if(ReadHighPriority("SELECT * FROM "  + TableName.IterativeWaterfallPModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString() + " WHERE Priority=5")){
-                  Debug.Print("Removed Iterative waterfall");
-                  ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
-             if(ReadHighPriority("SELECT * FROM " + TableName.RADTablePModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM "+ TableName.RADTablePModel.ToString() + " WHERE Priority=5")){
-                  Debug.Print("Removed RAD");
-                  ProcessModelsList.Remove(ProcessModels.RAD);}
-             if(ReadHighPriority("SELECT* FROM " + TableName.COTSTablePModel.ToString() + " WHERE Priority = 5", "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString() + " WHERE Priority=5")){
-                  Debug.Print("Removed COTS");
-                  ProcessModelsList.Remove(ProcessModels.COTS);}
-            Debug.Print("Eliminate Process Models End");
+        public void EliminateProcessModels()
+        {
+           if(ReadHighPriority("SELECT * FROM " + TableName.WaterFallPModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.WaterFallPModel.ToString() + " WHERE Priority=5")) { ProcessModelsList.Remove(ProcessModels.Waterfall);}
+           if(ReadHighPriority("SELECT * FROM "  + TableName.IterativeWaterfallPModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString() + " WHERE Priority=5")){ ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
+           if(ReadHighPriority("SELECT * FROM " + TableName.RADTablePModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM "+ TableName.RADTablePModel.ToString() + " WHERE Priority=5")){ ProcessModelsList.Remove(ProcessModels.RAD);}
+           if(ReadHighPriority("SELECT* FROM " + TableName.COTSTablePModel.ToString() + " WHERE Priority = 5", "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString() + " WHERE Priority=5")){ ProcessModelsList.Remove(ProcessModels.COTS);}
         }
         int ComputeScore(string query, string queryCount)
         {
@@ -178,10 +146,8 @@ namespace WebApplication2.Models
 
             string[,] PModel = new string[Rows, 3]; //hard coding the number of columns for now
             PModel = ReadQuery(query, PModel.GetLength(0), PModel.GetLength(1), 0);
-            Debug.Print("Pmodel legnth: " + PModel.GetLength(0).ToString());
             for (int i = 0; i < PModel.GetLength(0); i++)
             {
-                Debug.Print("Score is: "+ Score);
                 Score += AnswersTest[i].Equals(PModel[i, 1].Trim()) ? Convert.ToInt32(PModel[i, 2].Trim()) : -1 * Convert.ToInt32(PModel[i, 2].Trim());
             }
             return Score;
@@ -261,10 +227,43 @@ namespace WebApplication2.Models
                 Debug.Write("before: " + answers[i] + "---");
                 Regex pattern = new Regex(@"^[\d-]*\s*");
                 answers[i] = pattern.Replace(answers[i], "");  //removing the first character from the string
-                //Debug.Write("after: " + answers[i] + "   ");
             }
             return answers;
         }
-
+        private void InitializeScores(string processModel, int[] scoreArray)
+        {
+            string[,] Size = ReadQuery("SELECT COUNT(*) FROM " + TableName.PModelScore.ToString() + " WHERE ProcessModel='"+processModel+"'", 1, 1, 0);
+            int Rows = Convert.ToInt32(Size[0, 0]);
+            string[,] TempTable = new string[Rows, 1];
+            TempTable = ReadQuery("SELECT Score FROM " + TableName.PModelScore.ToString() + " WHERE ProcessModel='" + processModel + "'", TempTable.GetLength(0), TempTable.GetLength(1), 0);
+            scoreArray = new int[TempTable.GetLength(0)];
+            Debug.Print("scores: ");
+            for (int i = 0; i < TempTable.GetLength(0); i++)
+            {
+                Debug.Print("Score " + i + ": " + TempTable[i, 0]);
+                scoreArray[i] = Int32.Parse(TempTable[i, 0], NumberStyles.AllowLeadingSign);
+            }
+        }
+        private void InitializeQuestionsAndAnswers()
+        {
+            string[,] Size = ReadQuery("SELECT COUNT(*) FROM " + TableName.PModelQuestions.ToString(), 1, 1, 0); //return the size of the questions table
+            int Rows = Convert.ToInt32(Size[0, 0]);
+            Debug.Print("Rows are: " + Rows);
+            Questions = new string[Rows, 3]; //initializing the size of the questions
+            Questions = ReadQuery("SELECT * FROM " + TableName.PModelQuestions.ToString(), Questions.GetLength(0), Questions.GetLength(1), 1);
+            Size = ReadQuery("SELECT COUNT(*) FROM " + TableName.MultipleChoiceAnswers.ToString(), 1, 1, 0);
+            Rows = Convert.ToInt32(Size[0, 0]);
+            MultipleChoiceAnswers = new string[Rows, 6];
+            MultipleChoiceAnswers = ReadQuery("SELECT * FROM " + TableName.MultipleChoiceAnswers.ToString(), MultipleChoiceAnswers.GetLength(0), MultipleChoiceAnswers.GetLength(1), 0);
+        }
+        private void InsertIntoDatabase(int idVal, int score, string winner)
+        {
+            string Query = "INSERT INTO " + TableName.PModelScore.ToString() + "(SId, Score, ProcessModel) VALUES('" + idVal + "','" + score + "','" + winner + "')";
+            Debug.Print("training querty is: " + Query);
+            Connection.Open();
+            SqlCommand Command = new SqlCommand(Query, Connection);
+            Command.ExecuteNonQuery();
+            Connection.Close();
+        }
     }
 }

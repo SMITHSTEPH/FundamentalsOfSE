@@ -37,38 +37,26 @@ namespace WebApplication2.Controllers
             form.CopyTo(Answers, 0);
             Debug.Print("Length of form is: ");
             Debug.Print(Answers.Length.ToString());
-            /*for (int i = 0; i < Answers.Length; i++)
-            {
-                Debug.Write(Answers[i] + ",");
-            }*/
             if (Answers.Length==93) //if all the questions were answered
             {
                 string winner = form[form.Count - 1];
-                Debug.Print("winner: " + winner);
-              
+                //Debug.Print("winner: " + winner);
                 string key= form.GetKey(form.Count-1);
-                Debug.Print("key is: " + key);
                 form.Remove(form.GetKey(form.Count - 1));//hopefully removing the winner from the form 
                 Answers = new string[form.Count];
                 form.CopyTo(Answers, 0);
-                Debug.Print("Length of form is: ");
-                Debug.Print(Answers.Length.ToString());
-                string[] OldAnswers = Answers;
+                string[] OldAnswers = new string[form.Count];
+                Answers.CopyTo(OldAnswers, 0);
                 PModel.Answers = PModel.RemoveQuestionIDS(Answers);
-
-                Debug.Print("Answers Again: ");
+                /*Debug.Print("Answers Again: ");
                 for (int i = 0; i < Answers.Length; i++) //test
                 {
                     Debug.Write(Answers[i] + ",");
-                }
-             
-
+                }*/
                 int score =PModel.TrainData(winner);
-                //ViewData["questions"] = PModel.Questions;
-                //ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
+     
                 ViewData["isValid"] = "true";
                 ViewData["answers"] = OldAnswers;
-                //ViewData["result"] = "";
                 ViewData["questions"] = PModel.Questions;
                 ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
                 ViewData["result"] = winner + " has been added to the database with a score of " + score.ToString();
@@ -76,7 +64,6 @@ namespace WebApplication2.Controllers
             }
             else
             {
-
                 ViewData["questions"] = PModel.Questions;
                 ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
                 ViewData["isValid"] = "false";
@@ -93,22 +80,15 @@ namespace WebApplication2.Controllers
             Debug.Print("ANS COUNT IN CONTROLLER");
             string[] Answers = new string[form.Count]; //for now hard code it
             form.CopyTo(Answers, 0);
-            Debug.Print("Length of form is: ");
+            /*Debug.Print("Length of form is: ");
             Debug.Print(Answers.Length.ToString());
             for (int i = 0; i < Answers.Length; i++)
             {
                Debug.Write(Answers[i] +",");
-            }
+            }*/
             if (PModel.IsValid(Answers))
             {
-                for (int i = 0; i < Answers.Length; i++) 
-                {
-                    Answers[i].Remove(0, 1);  //removing the first character from the string
-                }
-                for (int i = 0; i < Answers.Length; i++) //test
-                {
-                    Debug.Write(Answers[i] + ",");
-                }
+                Answers = PModel.RemoveQuestionIDS(Answers);
                 PModel.Answers = Answers;
                 PModel.EliminateProcessModels();
                 PModel.ChooseProcessModels();
@@ -117,7 +97,6 @@ namespace WebApplication2.Controllers
             }
             else
             {
-              
                 ViewData["questions"] = PModel.Questions;
                 ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
                 ViewData["isValid"] = "false";
