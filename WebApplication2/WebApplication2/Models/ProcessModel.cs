@@ -80,11 +80,16 @@ namespace WebApplication2.Models
             Connection.Close();
             return TableData;
         }
-        private int ComputeRange(ArrayList pModel)
+        public bool IsWithinRange(int[] pModel, int score)
         {
-            pModel.Sort();
-            return Convert.ToInt32(pModel[pModel.Count - 1]) - Convert.ToInt32(pModel[0]);
+            Array.Sort(pModel);
+            return score >= pModel[0] && score <= pModel[pModel.Length - 1] ? true : false;
         }
+        /*private int ComputeRange(int[] pModel)
+        {
+            //pModel.Sort();
+            return Convert.ToInt32(pModel[pModel.Length - 1]) - Convert.ToInt32(pModel[0]);
+        }*/
         private int ComputeMedian(ArrayList pModel)
         {
             pModel.Sort();
@@ -203,6 +208,7 @@ namespace WebApplication2.Models
                 Result="RAD";
                  Debug.Print("RAD is max with: " + RADPoints); } 
 
+            
             //WHAT WE NEED TO ACTUALLY DO:
             //see if waterfall score lies within range of waterfall points
                 //if yes, calcuate range waterfall score and median point
