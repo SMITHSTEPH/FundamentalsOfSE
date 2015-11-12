@@ -34,9 +34,9 @@ namespace WebApplication2.Models
         //stores the scores
         private static int[] WaterfallScores { get; set; }
         private static int[] IterativeWaterfallScores { get; set; }
-        private static int[] COTSScore { get; set; }
-        private static int[] RADScore { get; set; }
-        private static int[] AgileSCore { get; set; } 
+        private static int[] COTSScores { get; set; }
+        private static int[] RADScores { get; set; }
+        private static int[] AgileSCores { get; set; } 
         /**
         Constructor populates an ArrayList with all of the ProcessModel tables in the database,
         Establishes an SQL Connection, and
@@ -52,10 +52,8 @@ namespace WebApplication2.Models
            InitializeQuestionsAndAnswers();
            InitializeScores(TableName.WaterFallPModel.ToString(), WaterfallScores);
            InitializeScores(TableName.IterativeWaterfallPModel.ToString(), IterativeWaterfallScores);
-           InitializeScores(TableName.RADTablePModel.ToString(), RADScore);
-           InitializeScores(TableName.COTSTablePModel.ToString(), COTSScore);
-           
-
+           InitializeScores(TableName.RADTablePModel.ToString(), RADScores);
+           InitializeScores(TableName.COTSTablePModel.ToString(), COTSScores);
         } //end of constructor
         /**
         performs the query and stores the results in a 2D array
@@ -85,15 +83,14 @@ namespace WebApplication2.Models
             Array.Sort(pModel);
             return score >= pModel[0] && score <= pModel[pModel.Length - 1] ? true : false;
         }
-        /*private int ComputeRange(int[] pModel)
+        private int ComputeMedian(int[] pModel)
         {
-            //pModel.Sort();
-            return Convert.ToInt32(pModel[pModel.Length - 1]) - Convert.ToInt32(pModel[0]);
-        }*/
-        private int ComputeMedian(ArrayList pModel)
+            Array.Sort(pModel);
+            return pModel.Length % 2 == 0 ? (Convert.ToInt32(pModel[pModel.Length / 2 - 1]) + Convert.ToInt32(pModel[pModel.Length / 2])) / 2 : Convert.ToInt32(pModel[pModel.Length / 2]);
+        }
+        private int ComputeDistanceFromMedian(int myScore, int[] pModel)
         {
-            pModel.Sort();
-            return pModel.Count % 2 == 0 ? (Convert.ToInt32(pModel[pModel.Count / 2 - 1]) + Convert.ToInt32(pModel[pModel.Count / 2])) / 2 : Convert.ToInt32(pModel[pModel.Count / 2]);
+            return Math.Abs(myScore - ComputeMedian(pModel));
         }
         /**
         Load the entire Questions table into A 2D array so that is can be passed
@@ -148,50 +145,39 @@ namespace WebApplication2.Models
             int Score = 0;
             string[,] Size = ReadQuery(queryCount, 1, 1, 0);
             int Rows = Convert.ToInt32(Size[0, 0]);
-
+            Debug.Print("ROWS ARE: " + Rows);
             string[,] PModel = new string[Rows, 3]; //hard coding the number of columns for now
             PModel = ReadQuery(query, PModel.GetLength(0), PModel.GetLength(1), 0);
+            Debug.Print(PModel[0, 0]);
             for (int i = 0; i < PModel.GetLength(0); i++)
             {
-                Score += AnswersTest[i].Equals(PModel[i, 1].Trim()) ? Convert.ToInt32(PModel[i, 2].Trim()) : -1 * Convert.ToInt32(PModel[i, 2].Trim());
+                Score += Answers[i].Equals(PModel[i, 1].Trim()) ? Convert.ToInt32(PModel[i, 2].Trim()) : -1 * Convert.ToInt32(PModel[i, 2].Trim());
             }
             return Score;
         }
         public void ChooseProcessModels()
         {
             Debug.Print("In ChooseProcessModels");
-            // int[] ProcessPoints = new int[ProcessModelsList.Count];
-            int WaterfallPoints = 0;
-            int IterativeWaterfallPoints = 0;
-            int RADPoints = 0;
-            int COTSPoints = 0;
-           
+            
+            Dictionary<string, int> Points= new Dictionary<string, int>();
+            Dictionary<string, int> Distance = new Dictionary<string, int>();
+            for (int i = 0; i < ProcessModelsList.Count; i++)
+            {
+                Points.Add(ProcessModelsList[i].ToString() + "Points", 0);
+                Distance.Add(ProcessModelsList[i].ToString() + "Distance", 0);  
+            }
             for(int i=0; i<ProcessModelsList.Count; i++)
             {
-                Debug.Print("In while");
-                Debug.Print(ProcessModelsList[i].ToString());
-                if(ProcessModelsList[i].ToString().Equals(ProcessModels.Waterfall.ToString())){ WaterfallPoints= ComputeScore("SELECT * FROM WaterfallTable2", "SELECT COUNT(*) FROM WaterfallTable2");}
-                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.IterativeWaterfall.ToString()))
-                {
-                    Debug.Print("In if Iterative");
-                    IterativeWaterfallPoints=ComputeScore("SELECT * FROM " + TableName.IterativeWaterfallPModel.ToString(), "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString());
-                }
-                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.RAD.ToString()))
-                {
-                    Debug.Print("In if RAD");
-                    RADPoints = ComputeScore("SELECT * FROM " + TableName.RADTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.RADTablePModel.ToString());
-                }
-                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.COTS.ToString()))
-                {
-                    Debug.Print("In if COTS");
-                    COTSPoints = ComputeScore("SELECT * FROM " + TableName.COTSTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString());
-                }
+                if(ProcessModelsList[i].ToString().Equals(ProcessModels.Waterfall.ToString())){ Points[ProcessModelsList[i].ToString()+"Points"]= ComputeScore("SELECT * FROM " +TableName.WaterFallPModel.ToString(), "SELECT COUNT(*) FROM " + TableName.WaterFallPModel.ToString());}
+                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.IterativeWaterfall.ToString())){ Points[ProcessModelsList[i].ToString() + "Points"] = ComputeScore("SELECT * FROM " + TableName.IterativeWaterfallPModel.ToString(), "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString());}
+                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.RAD.ToString())){ Points[ProcessModelsList[i].ToString() + "Points"] = ComputeScore("SELECT * FROM " + TableName.RADTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.RADTablePModel.ToString());}
+                else if(ProcessModelsList[i].ToString().Equals(ProcessModels.COTS.ToString())){ Points[ProcessModelsList[i].ToString() + "Points"] = ComputeScore("SELECT * FROM " + TableName.COTSTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString());}
             }
-            Debug.Print("Waterfall Points: " + WaterfallPoints);
+           
 
             //because we have no training data we will do this for now
             //determine max out of all of these
-            int Max=Math.Max(WaterfallPoints, IterativeWaterfallPoints);
+            /*int Max=Math.Max(WaterfallPoints, IterativeWaterfallPoints);
             Max = Math.Max(Max, COTSPoints);
             Max = Math.Max(Max, RADPoints);
 
@@ -206,21 +192,37 @@ namespace WebApplication2.Models
                 Debug.Print("COTS is max with: " + COTSPoints); }
             else { 
                 Result="RAD";
-                 Debug.Print("RAD is max with: " + RADPoints); } 
+                 Debug.Print("RAD is max with: " + RADPoints); }*/
 
-            
+            /*if (IsWithinRange(WaterfallScores, WaterfallPoints) && ProcessModelsList.Contains(ProcessModels.Waterfall.ToString()))
+            {
+                WaterfallDistance=ComputeDistanceFromMedian(WaterfallPoints, WaterfallScores);
+            }
+            if (IsWithinRange(IterativeWaterfallScores, IterativeWaterfallPoints) && ProcessModelsList.Contains(ProcessModels.IterativeWaterfall.ToString()))
+            {
+                IterativeWaterfallDistance=ComputeDistanceFromMedian(IterativeWaterfallPoints, IterativeWaterfallScores);
+            }
+            if (IsWithinRange(RADScores, RADPoints) && ProcessModelsList.Contains(ProcessModels.RAD.ToString()))
+            {
+                RADDistance=ComputeDistanceFromMedian(RADPoints, RADScores);
+            }
+            if (IsWithinRange(COTSScores, COTSPoints) && ProcessModelsList.Contains(ProcessModels.COTS.ToString()))
+            {
+                COTSDistance=ComputeDistanceFromMedian(COTSPoints, COTSScores);
+            }*/
+
             //WHAT WE NEED TO ACTUALLY DO:
             //see if waterfall score lies within range of waterfall points
-                //if yes, calcuate range waterfall score and median point
-                //store median value in dictionary
+            //if yes, calcuate range waterfall score and median point
+            //store median value in dictionary
             //do the same for the rest of the PModels
 
             //iterating over the dictionary values
-                //entry with min value is the winner
-           
+            //entry with min value is the winner
 
 
-           
+
+
         }
         public Boolean IsValid(string[] answers)
         {
