@@ -13,7 +13,7 @@ namespace WebApplication2.Models
     public class ProcessModel
     {
         //fields
-        enum ProcessModels{Waterfall, IterativeWaterfall, RAD, Agile, COTS}; //holds all of the possible process models that we are using
+        enum ProcessModels{Waterfall, IterativeWaterfall, RAD, COTS}; //holds all of the possible process models that we are using
         //enum ProcessTableNames: string { Waterfall="WaterfallTable2", IterativeWaterfall("WaterfallIterationTable") };
         private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
 
@@ -36,7 +36,8 @@ namespace WebApplication2.Models
         private static int[] IterativeWaterfallScores { get; set; }
         private static int[] COTSScores { get; set; }
         private static int[] RADScores { get; set; }
-        private static int[] AgileSCores { get; set; } 
+        private static int[] AgileSCores { get; set; }
+        private static Dictionary<string, int[]> WinningScores;
         /**
         Constructor populates an ArrayList with all of the ProcessModel tables in the database,
         Establishes an SQL Connection, and
@@ -50,10 +51,11 @@ namespace WebApplication2.Models
            }
            Connection = new SqlConnection(ConnectionStr); //establishing a connection
            InitializeQuestionsAndAnswers();
-           InitializeScores(TableName.WaterFallPModel.ToString(), WaterfallScores);
-           InitializeScores(TableName.IterativeWaterfallPModel.ToString(), IterativeWaterfallScores);
-           InitializeScores(TableName.RADTablePModel.ToString(), RADScores);
-           InitializeScores(TableName.COTSTablePModel.ToString(), COTSScores);
+           WaterfallScores=InitializeScores(TableName.WaterFallPModel.ToString());
+           IterativeWaterfallScores=InitializeScores(TableName.IterativeWaterfallPModel.ToString());
+           RADScores=InitializeScores(TableName.RADTablePModel.ToString());
+           COTSScores=InitializeScores(TableName.COTSTablePModel.ToString());
+           CreateScoreDictionary(); //adding all of the winning scores to a dictionary
         } //end of constructor
         /**
         performs the query and stores the results in a 2D array
@@ -86,11 +88,18 @@ namespace WebApplication2.Models
         private int ComputeMedian(int[] pModel)
         {
             Array.Sort(pModel);
+            for(int i=0; i<pModel.Length; i++) { Debug.Write(pModel[i].ToString() + ", "); }
             return pModel.Length % 2 == 0 ? (Convert.ToInt32(pModel[pModel.Length / 2 - 1]) + Convert.ToInt32(pModel[pModel.Length / 2])) / 2 : Convert.ToInt32(pModel[pModel.Length / 2]);
         }
         private int ComputeDistanceFromMedian(int myScore, int[] pModel)
         {
-            return Math.Abs(myScore - ComputeMedian(pModel));
+            Debug.Print("Score is: " + myScore.ToString());
+            int median=ComputeMedian(pModel);
+            Debug.Print("median is: " + median.ToString());
+            int distance= Math.Abs(myScore - ComputeMedian(pModel));
+            Debug.Print("Distance is: " + distance.ToString());
+            Debug.Print("-------------------------------------");
+            return distance;
         }
         /**
         Load the entire Questions table into A 2D array so that is can be passed
@@ -155,7 +164,7 @@ namespace WebApplication2.Models
             }
             return Score;
         }
-        public void ChooseProcessModels()
+        public string ChooseProcessModels()
         {
             Debug.Print("In ChooseProcessModels");
             
@@ -173,56 +182,30 @@ namespace WebApplication2.Models
                 else if(ProcessModelsList[i].ToString().Equals(ProcessModels.RAD.ToString())){ Points[ProcessModelsList[i].ToString() + "Points"] = ComputeScore("SELECT * FROM " + TableName.RADTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.RADTablePModel.ToString());}
                 else if(ProcessModelsList[i].ToString().Equals(ProcessModels.COTS.ToString())){ Points[ProcessModelsList[i].ToString() + "Points"] = ComputeScore("SELECT * FROM " + TableName.COTSTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString());}
             }
-           
-
-            //because we have no training data we will do this for now
-            //determine max out of all of these
-            /*int Max=Math.Max(WaterfallPoints, IterativeWaterfallPoints);
-            Max = Math.Max(Max, COTSPoints);
-            Max = Math.Max(Max, RADPoints);
-
-            if (Max == WaterfallPoints) {
-                Result = "Waterfall";
-                Debug.Print("Waterfall is max with: " + WaterfallPoints); }
-            else if (Max == IterativeWaterfallPoints) {
-                Result = "Iterative Waterfall";
-                Debug.Print("IterativeWaterfall is max with: " + IterativeWaterfallPoints); }
-            else if (Max == COTSPoints) { 
-                Result = "COTS";
-                Debug.Print("COTS is max with: " + COTSPoints); }
-            else { 
-                Result="RAD";
-                 Debug.Print("RAD is max with: " + RADPoints); }*/
-
-            /*if (IsWithinRange(WaterfallScores, WaterfallPoints) && ProcessModelsList.Contains(ProcessModels.Waterfall.ToString()))
+            for (int i = 0; i < ProcessModelsList.Count; i++)
             {
-                WaterfallDistance=ComputeDistanceFromMedian(WaterfallPoints, WaterfallScores);
+                Debug.Print(ProcessModelsList[i].ToString() + "Scores");
+                if(IsWithinRange(WinningScores[ProcessModelsList[i].ToString()+"Scores"], Points[ProcessModelsList[i].ToString()+"Points"]))
+                {
+                    Distance[ProcessModelsList[i].ToString()+"Distance"] = ComputeDistanceFromMedian(Points[ProcessModelsList[i].ToString() + "Points"], WinningScores[ProcessModelsList[i].ToString() + "Scores"]);
+                }
             }
-            if (IsWithinRange(IterativeWaterfallScores, IterativeWaterfallPoints) && ProcessModelsList.Contains(ProcessModels.IterativeWaterfall.ToString()))
+            //find min distance
+            int winVal = Distance[ProcessModelsList[0].ToString()+"Distance"]; //starting with value in the dictionary to have the min distance
+            string winProcess = ProcessModelsList[0].ToString();
+            Debug.Print("Winner is: " + winProcess + "With value: " + winVal.ToString());
+            for (int i=1; i<ProcessModelsList.Count; i++)
             {
-                IterativeWaterfallDistance=ComputeDistanceFromMedian(IterativeWaterfallPoints, IterativeWaterfallScores);
+                Debug.Write(ProcessModelsList[i].ToString() + "With distance: ");
+                Debug.Print(Distance[ProcessModelsList[i].ToString() + "Distance"].ToString());
+                if(winVal>Distance[ProcessModelsList[i].ToString()+"Distance"])
+                {
+                    winVal=Distance[ProcessModelsList[i].ToString()+"Distance"];
+                    winProcess = ProcessModelsList[i].ToString();
+                    Debug.Print("Winner is: " + winProcess + "With value: " + winVal.ToString());
+                }
             }
-            if (IsWithinRange(RADScores, RADPoints) && ProcessModelsList.Contains(ProcessModels.RAD.ToString()))
-            {
-                RADDistance=ComputeDistanceFromMedian(RADPoints, RADScores);
-            }
-            if (IsWithinRange(COTSScores, COTSPoints) && ProcessModelsList.Contains(ProcessModels.COTS.ToString()))
-            {
-                COTSDistance=ComputeDistanceFromMedian(COTSPoints, COTSScores);
-            }*/
-
-            //WHAT WE NEED TO ACTUALLY DO:
-            //see if waterfall score lies within range of waterfall points
-            //if yes, calcuate range waterfall score and median point
-            //store median value in dictionary
-            //do the same for the rest of the PModels
-
-            //iterating over the dictionary values
-            //entry with min value is the winner
-
-
-
-
+            return winProcess;
         }
         public Boolean IsValid(string[] answers)
         {
@@ -238,19 +221,21 @@ namespace WebApplication2.Models
             }
             return answers;
         }
-        private void InitializeScores(string processModel, int[] scoreArray)
+        private int[] InitializeScores(string processModel)
         {
+            int[] ScoreArray;
             string[,] Size = ReadQuery("SELECT COUNT(*) FROM " + TableName.PModelScore.ToString() + " WHERE ProcessModel='"+processModel+"'", 1, 1, 0);
             int Rows = Convert.ToInt32(Size[0, 0]);
             string[,] TempTable = new string[Rows, 1];
             TempTable = ReadQuery("SELECT Score FROM " + TableName.PModelScore.ToString() + " WHERE ProcessModel='" + processModel + "'", TempTable.GetLength(0), TempTable.GetLength(1), 0);
-            scoreArray = new int[TempTable.GetLength(0)];
+            ScoreArray = new int[TempTable.GetLength(0)];
             Debug.Print("scores: ");
             for (int i = 0; i < TempTable.GetLength(0); i++)
             {
                 Debug.Print("Score " + i + ": " + TempTable[i, 0]);
-                scoreArray[i] = Int32.Parse(TempTable[i, 0], NumberStyles.AllowLeadingSign);
+                ScoreArray[i] = Int32.Parse(TempTable[i, 0], NumberStyles.AllowLeadingSign);
             }
+            return ScoreArray;
         }
         private void InitializeQuestionsAndAnswers()
         {
@@ -272,6 +257,14 @@ namespace WebApplication2.Models
             SqlCommand Command = new SqlCommand(Query, Connection);
             Command.ExecuteNonQuery();
             Connection.Close();
+        }
+        private void CreateScoreDictionary()
+        {
+            WinningScores = new Dictionary<string, int[]>();
+            WinningScores.Add(ProcessModels.Waterfall.ToString() + "Scores", WaterfallScores);
+            WinningScores.Add(ProcessModels.IterativeWaterfall.ToString() + "Scores", IterativeWaterfallScores);
+            WinningScores.Add(ProcessModels.RAD.ToString()+"Scores", RADScores);
+            WinningScores.Add(ProcessModels.COTS.ToString()+"Scores", COTSScores);
         }
     }
 }
