@@ -75,7 +75,7 @@
                 dropDown.Add(new SelectListItem { Value = "Developer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Developer" });
                 dropDown.Add(new SelectListItem { Value = "Designer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Designer" });
                 dropDown.Add(new SelectListItem { Value = "2ndCommand," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "2nd in Command" });
-                            @Html.Label("Member:  ")
+                            @Html.Label("Member:         ")
                             @member.UserName
                             @Html.Label(" with a responsibitly: ")
                             @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))

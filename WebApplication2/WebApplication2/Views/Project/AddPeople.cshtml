@@ -27,8 +27,8 @@
                     }
                     else
                     {
-                        @Html.Label("Your in Project number " + entity.X);
-                        @Html.ActionLink(" Click here to edit people in this project", "ApplyProjects", new { id = entity.X, Aid = Model.AccountId }, new { })
+                        @Html.Label("For project numebr: " + entity.X);
+                        @Html.ActionLink(" Click here to view/edit people in this project", "ApplyProjects", new { id = entity.X, Aid = Model.AccountId }, new { })
                         <br />
                     }
                 }

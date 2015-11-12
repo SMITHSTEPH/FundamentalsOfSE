@@ -130,6 +130,14 @@
                 <input type="submit" value="Add New Project">
             }
         }
+
+
+        @using (Html.BeginForm("Index", "Account", FormMethod.Post))
+        {
+            <br />
+            <br />
+            <input type="submit" value="Logout">
+        }
     </div>
 </body>
 </html>

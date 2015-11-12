@@ -13,7 +13,6 @@ namespace WebApplication2.Controllers
     {
         private RegistrationEntities1 db = new RegistrationEntities1();
 
-
         // GET: Project
         public ActionResult ExistingProjects(Account User)
         {
@@ -33,6 +32,9 @@ namespace WebApplication2.Controllers
             table.AID = ListofProjects.AccountId;
             table.Role = ListofProjects.Rank;
             myModel.JunctionTableProjectAndAccount = table;
+            Account user = new Account();
+            user.AccountId = ListofProjects.AccountId;
+            myModel.user = user;
 
             //Needs to go to the page that allows them to add a project
             return View("AddProjects", myModel);
@@ -109,8 +111,6 @@ namespace WebApplication2.Controllers
 
 
             return RedirectToAction("ExistingProjects", "Project", User);
-
-            return View("SuccessPage");
         }
 
         public ActionResult FindLeaderInProject(int pId, int Aid)
@@ -154,7 +154,18 @@ namespace WebApplication2.Controllers
             string Role = role;
             AddAccount(AID, Role, id);
 
-            return View("SuccessPage");
+            memberTableV2 member = db.memberTableV2.Find(Uid);
+            Account User = new Account();
+            User.AccountId = member.Id;
+            User.Rank = "Member";
+            User.UserName = member.UserName;
+
+            return View("SuccessPage", User);
+        }
+
+        public ActionResult SuccessToExisting(Account User)
+        {
+            return RedirectToAction("ExistingProjects", "Project", User);
         }
 
         public ActionResult AddtoTableLeader(int id, string role, int Aid, int Uid)
