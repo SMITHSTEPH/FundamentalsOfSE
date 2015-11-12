@@ -27,7 +27,7 @@ namespace WebApplication2.Controllers
         public ActionResult AddProjects(Project ListofProjects)
         {
             dynamic myModel = new ExpandoObject();
-            myModel.ProjectTable = possibleProjects();
+            myModel.ProjectTable = possibleProjectsAdd(ListofProjects.Rank,ListofProjects.AccountId);
 
             JunctionTableProjectAndAccountV2 table = new JunctionTableProjectAndAccountV2();
             table.AID = ListofProjects.AccountId;
@@ -66,7 +66,7 @@ namespace WebApplication2.Controllers
             return View("LeaderExchange", myModel);
         }
 
-        public ActionResult ApplyProjects(int id)
+        public ActionResult ApplyProjects(int id, int Aid)
         {
             dynamic myModel = new ExpandoObject();
             myModel.MemberTableAdd = possibleMembersAdd(id);
@@ -75,6 +75,9 @@ namespace WebApplication2.Controllers
             ProjectTable table = new ProjectTable();
             table.ProjectId = id;
             myModel.ProjectTable = table;
+            leaderTableV2 leader = new leaderTableV2();
+            leader.Id = Aid;
+            myModel.leader = leader;
 
             return View("ApplyProjects", myModel);
         }
@@ -89,6 +92,7 @@ namespace WebApplication2.Controllers
             int id = Int32.Parse(strArray[1]);
             int AID = Int32.Parse(strArray[3]);
             string Role = strArray[2];
+            int Uid = Int32.Parse(strArray[4]);
 
             string query = "SELECT * FROM JunctionTableProjectAndAccountV2 WHERE AID= " + AID + " AND Role= '" + Role + "' AND PId = " + id;
             JunctionTableProjectAndAccountV2 JT = db.JunctionTableProjectAndAccountV2.SqlQuery(query).SingleOrDefault();
@@ -96,6 +100,15 @@ namespace WebApplication2.Controllers
             JT.Responsibilities = resp;
             db.Entry(JT).State = EntityState.Modified;
             db.SaveChanges();
+
+            leaderTableV2 leader = db.leaderTableV2.Find(Uid);
+            Account User = new Account();
+            User.AccountId = leader.Id;
+            User.Rank = "Leader";
+            User.UserName = leader.UserName;
+
+
+            return RedirectToAction("ExistingProjects", "Project", User);
 
             return View("SuccessPage");
         }
@@ -135,14 +148,29 @@ namespace WebApplication2.Controllers
             return View( );
         }
 
-        public ActionResult AddtoTable(int id, string role, int Aid)
+        public ActionResult AddtoTable(int id, string role, int Aid, int Uid)
         {
-            string result;
             int AID = Aid;
             string Role = role;
-            result = AddAccount(AID, Role, id);
-            ViewData["Output"] = result;
+            AddAccount(AID, Role, id);
+
             return View("SuccessPage");
+        }
+
+        public ActionResult AddtoTableLeader(int id, string role, int Aid, int Uid)
+        {
+            int AID = Aid;
+            string Role = role;
+            AddAccount(AID, Role, id);
+
+            leaderTableV2 leader = db.leaderTableV2.Find(Uid);
+            Account User = new Account();
+            User.AccountId = leader.Id;
+            User.Rank = "Leader";
+            User.UserName = leader.UserName;
+
+
+            return RedirectToAction("ExistingProjects", "Project", User);
         }
 
         public ActionResult ChangeRank(string role, int Aid, int UId)
@@ -213,7 +241,7 @@ namespace WebApplication2.Controllers
             return RedirectToAction("ExistingProjects", "Project", User);
         }
 
-        public ActionResult RemoveTable(int id, string role, int Aid)
+        public ActionResult RemoveTable(int id, string role, int Aid, int Uid)
         {
             
             int AID = Aid;
@@ -224,8 +252,14 @@ namespace WebApplication2.Controllers
             
             db.JunctionTableProjectAndAccountV2.Remove(JT);
             db.SaveChanges();
-            
-            return View("SuccessPage");
+
+            leaderTableV2 leader = db.leaderTableV2.Find(Uid);
+            Account User = new Account();
+            User.AccountId = leader.Id;
+            User.Rank = "Leader";
+            User.UserName = leader.UserName;
+
+            return RedirectToAction("ExistingProjects", "Project", User);
         }
 
         public List<ProjectTable> possibleProjects()
@@ -233,6 +267,25 @@ namespace WebApplication2.Controllers
             List<ProjectTable> possibleProjects = db.ProjectTables.ToList();
 
             return possibleProjects;
+        }
+
+        public List<ProjectTable> possibleProjectsAdd(string role, int id)
+        {
+            List<ProjectTable> possibleProjects = db.ProjectTables.ToList();
+
+            foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2.ToList())
+            {
+                if(junc.AID == id && junc.Role.Contains(role))
+                {
+                    ProjectTable proj = new ProjectTable();
+                    proj = db.ProjectTables.Find(junc.PId);
+                    possibleProjects.Remove(proj);
+                }
+
+            }
+
+            return possibleProjects;
+
         }
 
         public List<memberTableV2> possibleMembersAdd(int id)
@@ -350,27 +403,17 @@ namespace WebApplication2.Controllers
             return respInProject;
         }
 
-        private string AddAccount(int id, string Rank, int projId)
+        private void AddAccount(int id, string Rank, int projId)
         {
-
-
-            try
+            db.JunctionTableProjectAndAccountV2.Add(new JunctionTableProjectAndAccountV2
             {
-                db.JunctionTableProjectAndAccountV2.Add(new JunctionTableProjectAndAccountV2
-                {
-                    AID = id,
-                    Role = Rank,
-                    PId = projId,
-                    Responsibilities = Rank
+                AID = id,
+                Role = Rank,
+                PId = projId,
+                Responsibilities = Rank
 
-                });
-                db.SaveChanges();
-                return "Success";
-            }
-            catch
-            {
-                return "Fail";
-            }
+            });
+            db.SaveChanges();
         }
 
         private void UpdateJunction(int fromId, string fromRole, int toId, string toRole, int UId)
@@ -402,8 +445,6 @@ namespace WebApplication2.Controllers
 
                     db.Entry(junc).State = EntityState.Modified;
                     db.SaveChanges();
-                    
-                   
                     
                 }
             }
