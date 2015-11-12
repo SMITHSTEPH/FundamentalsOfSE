@@ -299,6 +299,7 @@
     <Content Include="Views\Project\FindLeaderInProject.cshtml" />
     <Content Include="Views\Project\LeaderExchange.cshtml" />
     <Content Include="Views\Project\Result.cshtml" />
+    <Content Include="Views\ProcessModel\TrainingData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
