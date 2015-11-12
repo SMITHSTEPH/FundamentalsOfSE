@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RegistrationModelStoreContainer" CdmEntityContainer="RegistrationEntities1">
+    <EntitySetMapping Name="memberTableV2">
+      <EntityTypeMapping TypeName="RegistrationModel.memberTableV2">
+        <MappingFragment StoreEntitySet="memberTableV2">
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="administrationV2">
+      <EntityTypeMapping TypeName="RegistrationModel.administrationV2">
+        <MappingFragment StoreEntitySet="administrationV2">
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="leaderTableV2">
+      <EntityTypeMapping TypeName="RegistrationModel.leaderTableV2">
+        <MappingFragment StoreEntitySet="leaderTableV2">
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MultipleChoiceTables">
+      <EntityTypeMapping TypeName="RegistrationModel.MultipleChoiceTable">
+        <MappingFragment StoreEntitySet="MultipleChoiceTable">
+          <ScalarProperty Name="Response6" ColumnName="Response6" />
+          <ScalarProperty Name="Response5" ColumnName="Response5" />
+          <ScalarProperty Name="Response4" ColumnName="Response4" />
+          <ScalarProperty Name="Response3" ColumnName="Response3" />
+          <ScalarProperty Name="Response2" ColumnName="Response2" />
+          <ScalarProperty Name="Response1" ColumnName="Response1" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WaterfallTable2">
+      <EntityTypeMapping TypeName="RegistrationModel.WaterfallTable2">
+        <MappingFragment StoreEntitySet="WaterfallTable2">
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COTSTables">
+      <EntityTypeMapping TypeName="RegistrationModel.COTSTable">
+        <MappingFragment StoreEntitySet="COTSTable">
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RADTables">
+      <EntityTypeMapping TypeName="RegistrationModel.RADTable">
+        <MappingFragment StoreEntitySet="RADTable">
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WaterfallIterationTables">
+      <EntityTypeMapping TypeName="RegistrationModel.WaterfallIterationTable">
+        <MappingFragment StoreEntitySet="WaterfallIterationTable">
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions2Table">
+      <EntityTypeMapping TypeName="RegistrationModel.Questions2Table">
+        <MappingFragment StoreEntitySet="Questions2Table">
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectTables">
+      <EntityTypeMapping TypeName="RegistrationModel.ProjectTable">
+        <MappingFragment StoreEntitySet="ProjectTable">
+          <ScalarProperty Name="ProcessModelChosen" ColumnName="ProcessModelChosen" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JunctionTableProjectAndAccountV2">
+      <EntityTypeMapping TypeName="RegistrationModel.JunctionTableProjectAndAccountV2">
+        <MappingFragment StoreEntitySet="JunctionTableProjectAndAccountV2">
+          <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+          <ScalarProperty Name="PId" ColumnName="PId" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="AID" ColumnName="AID" />
+          <ScalarProperty Name="JId" ColumnName="JId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

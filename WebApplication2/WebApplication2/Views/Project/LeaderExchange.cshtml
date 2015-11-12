@@ -1,0 +1,31 @@
+﻿@model dynamic
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "LeaderExchange";}</title>
+    @{Layout = "~/Views/Shared/_Layout.cshtml";}
+</head>
+<body>
+    
+    <h2>Leader Exchange</h2>
+
+    <div>
+
+        @Html.Label("You can Edit the leader in these project: ")
+        <br />
+        <br />
+
+        @foreach (ProjectTable proj in Model.ProjectTable)
+        {
+                @Html.Label("Projet Number: ")
+                @proj.ProjectId
+
+                @Html.ActionLink("Click to edit Leader", "FindLeaderInProject", new { pId = proj.ProjectId, Aid = Model.JunctionTableProjectAndAccount.AID })
+
+                <br />
+
+        }
+    </div>
+</body>
+</html>
+

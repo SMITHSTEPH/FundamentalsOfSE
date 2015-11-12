@@ -1,0 +1,40 @@
+﻿@model WebApplication2.Models.Project
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "AddPeople";}</title>
+            @{Layout = "~/Views/Shared/_Layout.cshtml";}
+</head>
+<body>
+
+    <h2>Edit People In a Project</h2>
+    <div>
+
+            @if (Model.ProjectId[0] == 0)
+            {
+                    @Html.Label("Not in any Projects")
+            }
+            else
+            {
+
+                var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y });
+
+                foreach (var entity in col)
+                {
+                    if (entity.X == 0)
+                    {
+
+                    }
+                    else
+                    {
+                        @Html.Label("For project numebr: " + entity.X);
+                        @Html.ActionLink(" Click here to view/edit people in this project", "ApplyProjects", new { id = entity.X, Aid = Model.AccountId }, new { })
+                        <br />
+                    }
+                }
+
+            }
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a530c6ff47d540849451724dfc1fedc6" Name="Diagram1">
+        <EntityTypeShape EntityType="RegistrationModel.memberTableV2" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="RegistrationModel.administrationV2" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RegistrationModel.leaderTableV2" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="RegistrationModel.MultipleChoiceTable" Width="1.5" PointX="5.5" PointY="5.875" />
+        <EntityTypeShape EntityType="RegistrationModel.WaterfallTable2" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="RegistrationModel.COTSTable" Width="1.5" PointX="8.375" PointY="3.75" />
+        <EntityTypeShape EntityType="RegistrationModel.RADTable" Width="1.5" PointX="8.375" PointY="6.75" />
+        <EntityTypeShape EntityType="RegistrationModel.WaterfallIterationTable" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="RegistrationModel.Questions2Table" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="RegistrationModel.ProjectTable" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="RegistrationModel.JunctionTableProjectAndAccountV2" Width="1.5" PointX="0.75" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

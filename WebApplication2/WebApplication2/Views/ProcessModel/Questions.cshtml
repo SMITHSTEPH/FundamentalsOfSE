@@ -1,0 +1,123 @@
+﻿
+
+@{
+    ViewBag.Title = "Questions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            display: inline;
+        }
+    </style>-->
+</head>
+<body>
+
+    <ul>
+        <li><a href="#Requirements">Requirements</a></li>
+        <li><a href="#Customers">Customers</a></li>
+        <li><a href="#Team">Team</a></li>
+        <li><a href="#Software">Software</a></li>
+        <li><a href="#Management">Management</a></li>
+        <li><a href="#Money">Money</a></li>
+        <li><a href="#Size">Size</a></li>
+        <li><a href="#Risk">Risk</a></li>
+        <li><a href="#Planning">Planning</a></li>
+        <li><a href="#Process">Process</a></li>
+    </ul>
+    <h1>Process Model Survey</h1>
+    
+
+
+@using (Html.BeginForm("Result", "ProcessModel"))
+{
+    bool IsCheckedTrue = false;
+    bool IsCheckedFalse = false;
+    bool IsCheckedMult = false;
+    if (ViewData["isValid"].Equals("false"))
+    {   <br />
+        @Html.Label("Did Not answer all of the fields");
+        <br />
+    }
+    string[,] Questions = (string[,])ViewData["questions"];
+    string[,] MultAnswers = (string[,])ViewData["multAnswers"];
+    string[] Answers = (string[])ViewData["answers"];
+    System.Collections.ArrayList Categories = new System.Collections.ArrayList();
+
+    for (int i = 0; i < Questions.GetLength(0); i++)
+    {
+
+        if (!Categories.Contains(Questions[i, 1].ToString().Trim()))
+        {
+            <br/>
+            <div id=@Questions[i, 1].ToString().Trim()></div>
+            <h2> @Questions[i, 1].ToString().Trim() </h2>
+            Categories.Add(Questions[i, 1].ToString().Trim());
+            <br />
+        }
+        @Html.Label(Questions[i, 0].ToString().Trim());
+        if (Questions[i, 2].ToString().Trim().Equals("True or False"))
+        {
+            if (Answers[0]!="test" && Array.Exists(Answers, element => element == i.ToString() + "True"))
+            {
+                IsCheckedTrue = true;
+            }
+            else if (Answers[0]!="test" && Array.Exists(Answers, element => element == i.ToString() + "False"))
+            {
+                IsCheckedFalse = true;
+            }
+            <br>
+
+            @Html.Label("True");
+            @Html.RadioButton("answer["+i+"]", i+"True", IsCheckedTrue);
+            @Html.Label("False");
+            @Html.RadioButton("answer["+i+"]", i+"False", IsCheckedFalse);
+            IsCheckedTrue = false;
+            IsCheckedFalse = false;
+            <br>
+        }
+        else if(Questions[i, 2].ToString().Trim().Equals("Short Answer"))
+        {
+            <br>
+            @Html.Label("Short Answer");
+            @Html.TextArea("answer[" + i + "]");
+            <br>
+        }
+        else //multiple choice
+        {
+            <br />
+            int QuestionID = i + 1;
+            for (int j = 0; j < MultAnswers.GetLength(0); j++)
+            {
+                if (QuestionID == Convert.ToInt32(MultAnswers[j, 0])) //the question ids are the same
+                {
+                    int m = 1;
+                    while (!MultAnswers[j, m].Trim().Equals("Empty") && m<5)
+                    {
+                        if (Answers[0] != "test" && Array.Exists(Answers, element => element == i + MultAnswers[j, m].Trim()))
+                        {
+                            IsCheckedMult = true;
+                        }
+                        @Html.Label(MultAnswers[j, m].Trim());
+                        @Html.RadioButton("answer[" + i + "]", i+MultAnswers[j, m].Trim(), IsCheckedMult);
+                        m++;
+                        IsCheckedMult = false;
+                    }
+
+                    break;
+                }
+             }
+            <br />
+        }
+    }
+    <input type="submit" value="Submit">
+}
+</body>
+</html>

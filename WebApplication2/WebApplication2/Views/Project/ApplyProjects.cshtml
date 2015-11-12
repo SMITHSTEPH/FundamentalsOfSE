@@ -1,0 +1,93 @@
+﻿@model dynamic
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "ApplyProjects";}</title>
+    @{Layout = "~/Views/Shared/_Layout.cshtml";}
+</head>
+<body>
+    
+    <h2>Add People to Projects</h2>
+
+    <div>
+        @if (Model.MemberTableAdd.Count != 0)
+        {
+            @Html.Label("You can add these people to the Project")
+            <br />
+            <br />
+        }
+
+        @foreach (memberTableV2 member in Model.MemberTableAdd)
+        {
+                @Html.Label("Member:  ")
+                @member.UserName
+                @Html.ActionLink(" Click to Add", "AddtoTableLeader", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id, Uid = Model.leader.Id})
+                <br />
+
+        }
+
+        @if (Model.MemberTableRemove.Count != 0)
+        {
+            <br />
+            <br />
+            @Html.Label("You can remove these people to the Project")
+            <br />
+            <br />
+        }
+        
+
+        @foreach (memberTableV2 member in Model.MemberTableRemove)
+        {
+            foreach (JunctionTableProjectAndAccountV2 junc in Model.JunctionTableEdit)
+            {
+                if (junc.AID == member.Id)
+                {
+                    @Html.Label("Member:  ")
+                    @member.UserName
+                    @Html.Label(" with a responsibitly: ")
+                    @junc.Responsibilities
+                    @Html.ActionLink(" Click to Remove", "RemoveTable", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id, Uid = Model.leader.Id })
+                    <br />
+                }
+            }
+        }
+        
+
+        @if (Model.MemberTableRemove.Count != 0)
+        {   
+            <br />
+            <br />
+            @Html.Label("You can edit these people in the Project")
+            <br />
+            <br />
+        }
+       
+
+        @foreach (memberTableV2 member in Model.MemberTableRemove)
+        {
+            using (Html.BeginForm("EditTable", "Project", FormMethod.Post))
+            {
+                List<SelectListItem> dropDown = new List<SelectListItem>();
+                dropDown.Add(new SelectListItem { Value = "Coder," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Coder" });
+                dropDown.Add(new SelectListItem { Value = "Tester," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Tester" });
+                dropDown.Add(new SelectListItem { Value = "Product Owner," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Product Owner" });
+                dropDown.Add(new SelectListItem { Value = "Scrum Designer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Scrum Designer" });
+                dropDown.Add(new SelectListItem { Value = "Developer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Developer" });
+                dropDown.Add(new SelectListItem { Value = "Designer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Designer" });
+                dropDown.Add(new SelectListItem { Value = "2ndCommand," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "2nd in Command" });
+                            @Html.Label("Member:         ")
+                            @member.UserName
+                            @Html.Label(" with a responsibitly: ")
+                            @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
+                <input type="submit" value="Edit Member">
+            }
+
+
+        }
+           
+
+
+    </div>
+</body>
+</html>
+

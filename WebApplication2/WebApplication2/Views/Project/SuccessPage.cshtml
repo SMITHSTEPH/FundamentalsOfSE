@@ -1,0 +1,25 @@
+﻿@model WebApplication2.Models.Account
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "SuccessPage";}</title>
+    @{Layout = "~/Views/Shared/_Layout.cshtml";}
+</head>
+<body>
+    
+    <h2>Success</h2>
+
+        @using (Html.BeginForm("SuccessToExisting", "Project", FormMethod.Post))
+        {
+            @Html.Label(Model.UserName)
+            @Html.Label(" has been successfully added to the project")
+            @Html.HiddenFor(Model => Model.UserName)
+            <br />
+            @Html.HiddenFor(Model => Model.Rank)
+            @Html.HiddenFor(Model => Model.AccountId)
+
+            <input type="submit" value="Your Project Page">
+        }
+</body>
+</html>
+

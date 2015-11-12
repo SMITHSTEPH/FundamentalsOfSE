@@ -1,0 +1,58 @@
+﻿@model dynamic
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "EditPeople";}</title>
+    @{Layout = "~/Views/Shared/_Layout.cshtml";}
+</head>
+<body>
+    
+    <h2>Edit People</h2>
+
+    <div>
+        @if (Model.Members.Count != 0)
+        {
+            @Html.Label("You can change these Members to Leaders: ")
+            <br />
+            <br />
+        }
+
+        @foreach (memberTableV2 member in Model.Members)
+        {
+                @Html.Label("Member:  ")
+                @member.UserName
+                @Html.ActionLink(" Click to change", "ChangeRank", new { role = "Member", Aid = member.Id, UId = Model.JunctionTable.AID})
+                <br />
+
+        }
+
+        @if (Model.Leaders.Count != 0)
+        {
+            <br />
+            <br />
+            @Html.Label("You can change these Leaders to Members: ")
+            <br />
+            <br />
+        }
+
+        @foreach (leaderTableV2 leader in Model.Leaders)
+        {
+            @Html.Label("Leader:  ")
+            @leader.UserName
+            @Html.ActionLink(" Click to change", "ChangeRank", new { role = "Leader", Aid = leader.Id, UId = Model.JunctionTable.AID })
+            <br />
+
+        }
+
+        @using (Html.BeginForm("Index", "Account", FormMethod.Post))
+        {
+            <br />
+            <br />
+            <input type="submit" value="Logout">
+        }
+
+
+    </div>
+</body>
+</html>
+

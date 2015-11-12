@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "EmailVerificationPage";
+}
+
+<h2>EmailVerificationPage</h2>
+
+@using (Html.BeginForm("Verify", "Account", new { id = Request.QueryString["UserName"] }, FormMethod.Post))
+{
+   
+    if (Convert.ToString(ViewData["Email"]) == "Verified")
+    {
+        System.Diagnostics.Debug.Print("In if statement");
+        @Html.Label("Email Verifed for " + ViewData["User"])
+    }
+    else if (Convert.ToString(ViewData["Email"]) == "Fail")
+    {
+        System.Diagnostics.Debug.Print("In else statement");
+        @Html.Label("Error in verifing please resend email")
+        <br />
+        <br />
+        <input type="submit" value="Resend">
+    }
+    else
+    {
+        string Clicker = Request.QueryString["UserName"];
+        @Html.Label(Clicker + ", click button to verify")
+    }
+    <br />
+    <input type="submit" value="Verify">
+    <br />
+}
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Get))
+{
+    <br />
+    <br />
+    <br />
+    <br />
+    <input type="submit" value="Go Back to Home Page">
+}

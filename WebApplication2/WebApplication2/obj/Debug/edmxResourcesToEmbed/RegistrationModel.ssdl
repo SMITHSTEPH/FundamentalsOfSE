@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RegistrationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="administrationV2">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="MiddleName" Type="nchar" MaxLength="20" />
+    <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
+    <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="COTSTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Answer" Type="nchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
+  <EntityType Name="JunctionTableProjectAndAccountV2">
+    <Key>
+      <PropertyRef Name="JId" />
+    </Key>
+    <Property Name="JId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AID" Type="int" />
+    <Property Name="Role" Type="nchar" MaxLength="10" />
+    <Property Name="PId" Type="int" />
+    <Property Name="Responsibilities" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="leaderTableV2">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="MiddleName" Type="nchar" MaxLength="20" />
+    <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
+    <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="memberTableV2">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="MiddleName" Type="nchar" MaxLength="20" />
+    <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
+    <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+    <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MultipleChoiceTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Response1" Type="nchar" MaxLength="50" />
+    <Property Name="Response2" Type="nchar" MaxLength="50" />
+    <Property Name="Response3" Type="nchar" MaxLength="50" />
+    <Property Name="Response4" Type="nchar" MaxLength="50" />
+    <Property Name="Response5" Type="nchar" MaxLength="50" />
+    <Property Name="Response6" Type="nchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProjectTable">
+    <Key>
+      <PropertyRef Name="ProjectId" />
+    </Key>
+    <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProcessModelChosen" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Questions2Table">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Question" Type="nchar" MaxLength="200" Nullable="false" />
+    <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="QuestionType" Type="nchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RADTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Answer" Type="nchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
+  <EntityType Name="WaterfallIterationTable">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Answer" Type="nchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
+  <EntityType Name="WaterfallTable2">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" Nullable="false" />
+    <Property Name="Answer" Type="nchar" MaxLength="50" />
+    <Property Name="Priority" Type="int" />
+  </EntityType>
+  <EntityContainer Name="RegistrationModelStoreContainer">
+    <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COTSTable" EntityType="Self.COTSTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JunctionTableProjectAndAccountV2" EntityType="Self.JunctionTableProjectAndAccountV2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectTable" EntityType="Self.ProjectTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Questions2Table" EntityType="Self.Questions2Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RADTable" EntityType="Self.RADTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WaterfallIterationTable" EntityType="Self.WaterfallIterationTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WaterfallTable2" EntityType="Self.WaterfallTable2" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

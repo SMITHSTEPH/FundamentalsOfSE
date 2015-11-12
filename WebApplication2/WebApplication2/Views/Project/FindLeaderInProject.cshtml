@@ -1,0 +1,49 @@
+﻿@model dynamic
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@{ViewBag.Title = "ApplyProjects";}</title>
+    @{Layout = "~/Views/Shared/_Layout.cshtml";}
+</head>
+<body>
+    
+    <h2>Change Leaders of Project</h2>
+
+    <div>
+        @if (Model.LeaderIn.Count != 0)
+        {
+            foreach (leaderTableV2 leader in Model.LeaderIn)
+            {
+                @Html.Label("You can Replace this leader: ")
+                @leader.UserName
+                <br />
+                <br />
+            }
+
+        }
+
+        @if (Model.LeadersNotIn.Count != 0)
+        {
+            <br />
+            <br />
+            @Html.Label("You can make any of these leaders the leader of this project ")
+            <br />
+            <br />
+        }
+        
+
+        @foreach (leaderTableV2 leader in Model.LeadersNotIn)
+        {
+            foreach (leaderTableV2 Releader in Model.LeaderIn)
+            {
+                    @Html.Label("Leader:  ")
+                    @leader.UserName
+                    @Html.ActionLink("Click to swtich project leaders", "LeaderSwitch", new { oldLid = Releader.Id, newLid = leader.Id, pId = Model.JunctionTableProjectAndAccount.PId, UId = Model.JunctionTableProjectAndAccount.AID })
+                    <br />
+            }
+        }
+
+    </div>
+</body>
+</html>
+
