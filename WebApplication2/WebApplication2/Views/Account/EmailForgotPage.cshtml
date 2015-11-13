@@ -1,0 +1,20 @@
+﻿@model WebApplication2.Models.Account
+
+@{
+    ViewBag.Title = "EmailForgotPage";
+}
+
+<h2>Email Forgoted Password</h2>
+
+
+@Html.Label("Forgoten Email Sent")
+
+
+@using (Html.BeginForm("Index", "Account", FormMethod.Get))
+{
+    <br />
+    <br />
+    <br />
+    <br />
+    <input type="submit" value="Go Back to Home Page">
+}

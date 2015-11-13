@@ -5,12 +5,16 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Diagnostics;
+using System.Linq;
+using System.Net.Mail;
+using System.Data.Entity;
 
 namespace WebApplication2.Controllers
 {
     public class AccountController : Controller
-    { 
+    {
         Account ConfirmedUser = new Account();
+        protected RegistrationEntities1 db = new RegistrationEntities1();
 
         // GET: Account
         /**
@@ -23,6 +27,21 @@ namespace WebApplication2.Controllers
         }
 
         public ActionResult EmailVerificationPage()
+        {
+            return View();
+        }
+
+        public ActionResult EmailChangePassword()
+        {
+            return View();
+        }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        public ActionResult EmailForgotPage()
         {
             return View();
         }
@@ -137,16 +156,107 @@ namespace WebApplication2.Controllers
             ConfirmedUser.sendEmail(ConfirmedUser.Email,ConfirmedUser.UserName);
             return View("EmailConfirmationPage");
         }
-         /**
-        Called: after the user hits the 'Sign Up' button at the end of the sign up form
-        Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
-        **/
-        public ActionResult Verify( )
+
+        public ActionResult ResendPass(Account PossibleUser)
+        {
+            SendForgotEmail(PossibleUser);
+            return View("EmailForgotPage");
+        }
+        /**
+       Called: after the user hits the 'Sign Up' button at the end of the sign up form
+       Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
+       **/
+        public ActionResult Verify()
         {
             string UserName = (string) RouteData.Values["id"];
             ViewData["User"] = UserName;
             ViewData["Email"] = ConfirmedUser.UpdateConfirmation(UserName);
             return View("EmailVerificationPage");
+        }
+
+        public ActionResult SendForgotEmail(Account User)
+        {
+
+            if (User.Rank == "Member" || User.Rank == "Leader" || User.Rank == "Admin")
+            {
+                if(User.Rank == "Member")
+                {
+                    string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + User.UserName + "'";
+                    memberTableV2 MT = db.memberTableV2.SqlQuery(queryM).SingleOrDefault();
+
+                    if (MT == null)
+                    {
+                        ViewData["UserName"] = "Fail";
+                        return View("ForgotPassword");
+                    }
+                    else
+                    {
+                        ViewData["Email"] = User.sendEmailPassword(MT.Email, MT.UserName);
+                        return View("EmailForgotPage");
+                    }
+                    
+                    
+                }
+                else if(User.Rank == "Leader")
+                {
+                    string queryL = "SELECT * FROM leaderTableV2 WHERE UserName='" + User.UserName + "'";
+                    leaderTableV2 LT = db.leaderTableV2.SqlQuery(queryL).SingleOrDefault();
+
+                    if (LT == null)
+                    {
+                        ViewData["UserName"] = "Fail";
+                        return View("ForgotPassword");
+                    }
+                    else
+                    {
+                        ViewData["Email"] = User.sendEmailPassword(LT.Email, LT.UserName);
+                        return View("EmailForgotPage");
+                    }
+                }
+                else
+                {
+                    string queryA = "SELECT * FROM administrationV2 WHERE UserName='" + User.UserName + "'";
+                    administrationV2 AT = db.administrationV2.SqlQuery(queryA).SingleOrDefault();
+
+                    if (AT == null)
+                    {
+                        ViewData["UserName"] = "Fail";
+                        return View("ForgotPassword");
+                    }
+                    else
+                    {
+                        ViewData["Email"] = User.sendEmailPassword(AT.Email, AT.UserName);
+                        return View("EmailForgotPage");
+                    }
+                }
+            }
+            else
+            {
+                ViewData["Rank"] = "Fail";
+                return View("ForgotPassword");
+            }
+        }
+
+        public ActionResult VerifyPassword()
+        {
+            string UserName = (string)RouteData.Values["id"];
+            Account User = new Account();
+            User.UserName = UserName;
+            ViewData["Password"] = "Input";
+            return View("InputPassword", User);
+            
+        }
+
+        public ActionResult InputPassword(Account User)
+        {
+            ViewData["Password"] = "Input";
+            return View("InputPassword", User);
+        }
+
+        public ActionResult ChangedPassword(Account User)
+        {
+                ViewData["Password"] = ConfirmedUser.UpdatePassword(User.UserName, User.Password);
+                return View("InputPassword", User);
         }
 
 
@@ -218,29 +328,29 @@ namespace WebApplication2.Controllers
                 result.Response5 = strArray[5];
                 result.Response6 = strArray[6];*/
 
-                //for Process tables
-                 //result.Answer = strArray[1];
-                 //result.Priority = Int32.Parse(strArray[2]);
+        //for Process tables
+        //result.Answer = strArray[1];
+        //result.Priority = Int32.Parse(strArray[2]);
 
-                /*result.QuestionId = Int32.Parse(strArray[0]);
-                result.Question = strArray[1];
-                result.Category = strArray[2];
-                result.QuestionType = strArray[3];
+        /*result.QuestionId = Int32.Parse(strArray[0]);
+        result.Question = strArray[1];
+        result.Category = strArray[2];
+        result.QuestionType = strArray[3];
 
 
-                string query = "INSERT INTO Questions2Table(QuestionId,Question,Category,QuestionType)  VALUES (" + result.QuestionId + ",'" + result.Question + "','" + result.Category + "','" + result.QuestionType + "')";
-                //string query = "INSERT INTO MultipleChoiceTable(QuestionId,Response1,Response2,Response3,Response4,Response5,Response6) VALUES (" + result.QuestionId + ",'" + result.Response1 + "','" + result.Response2 + "','" + result.Response3 + "','" + result.Response4 + "','" + result.Response5 + "','" + result.Response6 + "')";
-                //string query = "INSERT INTO COTSTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-                //string query = "INSERT INTO WaterfallIterationTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-                //string query = "INSERT INTO RADTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-                //string query = "INSERT INTO WaterfallTable2 (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-                //Run Query 
-                db.Database.ExecuteSqlCommand(query);
-            }
+        string query = "INSERT INTO Questions2Table(QuestionId,Question,Category,QuestionType)  VALUES (" + result.QuestionId + ",'" + result.Question + "','" + result.Category + "','" + result.QuestionType + "')";
+        //string query = "INSERT INTO MultipleChoiceTable(QuestionId,Response1,Response2,Response3,Response4,Response5,Response6) VALUES (" + result.QuestionId + ",'" + result.Response1 + "','" + result.Response2 + "','" + result.Response3 + "','" + result.Response4 + "','" + result.Response5 + "','" + result.Response6 + "')";
+        //string query = "INSERT INTO COTSTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+        //string query = "INSERT INTO WaterfallIterationTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+        //string query = "INSERT INTO RADTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+        //string query = "INSERT INTO WaterfallTable2 (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
+        //Run Query 
+        db.Database.ExecuteSqlCommand(query);
+    }
 
-            //Tidy Streameader up
-            //sr.Dispose();
+    //Tidy Streameader up
+    //sr.Dispose();
 
-        }*/
+}*/
     }
 }

@@ -20,7 +20,7 @@
                 @Html.Label("Projet Number: ")
                 @proj.ProjectId
 
-                @Html.ActionLink(" Click to Add", "AddtoTable", new { id = proj.ProjectId, role = Model.JunctionTableProjectAndAccount.Role, Aid = Model.JunctionTableProjectAndAccount.AID, Uid = Model.user.AccountId })
+                @Html.ActionLink(" Click to Add", "AddtoTable", new { id = proj.ProjectId, role = Model.JunctionTableProjectAndAccount.Role, Aid = Model.JunctionTableProjectAndAccount.AID, Uid = Model.user.AccountId }, new { onclick = "return confirm('Are you sure you want to add this project?');" })
 
                 <br />
 

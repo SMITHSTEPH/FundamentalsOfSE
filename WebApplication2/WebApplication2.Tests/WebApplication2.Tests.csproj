@@ -68,6 +68,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Iteration1.cs" />
     <Compile Include="Iteration1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
