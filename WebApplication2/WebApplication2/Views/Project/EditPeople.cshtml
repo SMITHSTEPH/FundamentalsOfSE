@@ -21,7 +21,7 @@
         {
                 @Html.Label("Member:  ")
                 @member.UserName
-                @Html.ActionLink(" Click to change", "ChangeRank", new { role = "Member", Aid = member.Id, UId = Model.JunctionTable.AID})
+                @Html.ActionLink(" Click to change", "ChangeRank", new { role = "Member", Aid = member.Id, UId = Model.JunctionTable.AID}, new { onclick = "return confirm('Are you sure you want to change this person to a Leader?');" })
                 <br />
 
         }
@@ -39,12 +39,17 @@
         {
             @Html.Label("Leader:  ")
             @leader.UserName
-            @Html.ActionLink(" Click to change", "ChangeRank", new { role = "Leader", Aid = leader.Id, UId = Model.JunctionTable.AID })
+            @Html.ActionLink(" Click to change", "ChangeRank", new { role = "Leader", Aid = leader.Id, UId = Model.JunctionTable.AID }, new { onclick = "return confirm('Are you sure you want to change this person to a Member?');" })
             <br />
 
         }
 
-           
+        @using (Html.BeginForm("Index", "Account", FormMethod.Post))
+        {
+            <br />
+            <br />
+            <input type="submit" value="Logout">
+        }
 
 
     </div>

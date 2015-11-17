@@ -105,6 +105,77 @@ namespace WebApplication2.Models
             }
         }
 
+        public string UpdatePassword(string UserName, string newPassword)
+        {
+
+            if(vf.PasswordCheck(newPassword) == "Valid")
+            {
+                string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + UserName + "'";
+                memberTableV2 MT = db.memberTableV2.SqlQuery(queryM).SingleOrDefault();
+                string queryL = "SELECT * FROM leaderTableV2 WHERE UserName='" + UserName + "'";
+                leaderTableV2 LT = db.leaderTableV2.SqlQuery(queryL).SingleOrDefault();
+                string queryA = "SELECT * FROM administrationV2 WHERE UserName='" + UserName + "'";
+                administrationV2 AT = db.administrationV2.SqlQuery(queryA).SingleOrDefault();
+
+                if (MT != null)
+                {
+                    MT.Password = vf.Encrypt(newPassword);
+                    db.Entry(MT).State = EntityState.Modified;
+                }
+                else if (LT != null)
+                {
+                    LT.Password = vf.Encrypt(newPassword);
+                    db.Entry(LT).State = EntityState.Modified;
+                }
+                else
+                {
+                    AT.Password = vf.Encrypt(newPassword);
+                    db.Entry(AT).State = EntityState.Modified;
+                }
+
+                db.SaveChanges();
+                return "Valid";
+            }
+            else
+            {
+                return "Fail";
+            }
+
+           
+        }
+
+
+        public string sendEmailPassword(String Emailto, string User)
+        {
+            try
+            {
+                SmtpClient Sender = new SmtpClient();
+                Sender.Port = 587;
+                Sender.Host = "smtp.gmail.com";
+                Sender.Credentials = new System.Net.NetworkCredential("bradbergeron90@gmail.com", "allhailgizmo1234");
+                Sender.EnableSsl = true;
+
+                MailMessage mail = new MailMessage("bradbergeron90@gmail.com", Emailto);
+                mail.Subject = "This mail is sent from asp.net application";
+                mail.Body = "Please Click <a href=\"http://localhost:49882/Account/EmailChangePassword?UserName=" + User + "\">Here</a> to change your password";
+                mail.IsBodyHtml = true;
+
+                Sender.Send(mail);
+                return "Sent";
+            }
+            catch (Exception ex)
+            {
+                Exception ex2 = ex;
+                string errorMessage = string.Empty;
+                while (ex2 != null)
+                {
+                    errorMessage += ex2.ToString();
+                    ex2 = ex2.InnerException;
+                }
+                return "Fail";
+            }
+        }
+
 
         public string UpdateConfirmation(string UserName)
         {

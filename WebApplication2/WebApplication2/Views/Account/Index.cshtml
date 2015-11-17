@@ -20,6 +20,9 @@
             @Html.PasswordFor(model => model.Password, "Password")
             <br />
             <br />
+            @Html.ActionLink("Forgot Password", "ForgotPassword")
+            <br />
+            <br />
             <input type="submit" value="Sign In">
             if (Convert.ToBoolean(ViewData["Email"]) == true)
             {
@@ -75,6 +78,7 @@
     </div>
 </body>
 </html>
+
 
 
 

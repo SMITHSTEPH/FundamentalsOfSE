@@ -38,7 +38,7 @@
             {
                     @Html.Label("Leader:  ")
                     @leader.UserName
-                    @Html.ActionLink("Click to swtich project leaders", "LeaderSwitch", new { oldLid = Releader.Id, newLid = leader.Id, pId = Model.JunctionTableProjectAndAccount.PId, UId = Model.JunctionTableProjectAndAccount.AID })
+                    @Html.ActionLink("Click to swtich project leaders", "LeaderSwitch", new { oldLid = Releader.Id, newLid = leader.Id, pId = Model.JunctionTableProjectAndAccount.PId, UId = Model.JunctionTableProjectAndAccount.AID }, new { onclick = "return confirm('Are you sure you want to swtich the leaders?');" })
                     <br />
             }
         }
