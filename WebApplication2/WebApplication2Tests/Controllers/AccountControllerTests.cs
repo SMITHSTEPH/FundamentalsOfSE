@@ -9,16 +9,10 @@ using System.Threading.Tasks;
 namespace WebApplication2.Controllers.Tests
 {
     [TestClass()]
-    public class Iteration1
+    public class AccountControllerTests
     {
         [TestMethod()]
-        public void IndexTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void EmailVerificationPageTest()
+        public void EmailChangePasswordTest()
         {
             Assert.Fail();
         }

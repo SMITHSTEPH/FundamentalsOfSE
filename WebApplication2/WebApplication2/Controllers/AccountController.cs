@@ -28,22 +28,22 @@ namespace WebApplication2.Controllers
 
         public ActionResult EmailVerificationPage()
         {
-            return View();
+            return View("EmailVerificationPage");
         }
 
         public ActionResult EmailChangePassword()
         {
-            return View();
+            return View("EmailChangePassword");
         }
 
         public ActionResult ForgotPassword()
         {
-            return View();
+            return View("ForgotPassword");
         }
 
         public ActionResult EmailForgotPage()
         {
-            return View();
+            return View("EmailForgotPage");
         }
         /**
         Called: after the user hits the 'Sign Up' button
