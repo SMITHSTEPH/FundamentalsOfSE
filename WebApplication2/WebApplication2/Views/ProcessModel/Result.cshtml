@@ -7,3 +7,27 @@
 <h2>Result</h2>
 
 @Html.Label(ViewData["result"].ToString(), ViewData["result"].ToString());
+@using (Html.BeginForm("Test", "ProcessModel", FormMethod.Post))
+{
+    @Html.Hidden(ViewData["result"].ToString());
+    <input type="submit" value="Keep Suggestion">
+}
+<div>
+    @{
+        List<SelectListItem> dropDown = new List<SelectListItem>();
+        dropDown.Add(new SelectListItem { Value = "Test", Text = "Waterfall" });
+        dropDown.Add(new SelectListItem { Value = "Test", Text = "Iterative Waterfall" });
+        dropDown.Add(new SelectListItem { Value = "Test", Text = "RAD" });
+        dropDown.Add(new SelectListItem { Value = "Test", Text = "COTS" });
+    }
+</div>
+<div>
+    @using (Html.BeginForm("Test", "ProcessModel"))
+    {
+        <br />
+        
+            <br />
+            @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
+            <input type="submit" value="Override Suggestion">
+    }
+</div>

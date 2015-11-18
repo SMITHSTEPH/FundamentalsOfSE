@@ -18,6 +18,16 @@ namespace WebApplication2.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult Test(FormCollection form)
+        {
+            Debug.Print("Form is: ");
+            for(int i=0; i<form.Count; i++)
+            {
+                Debug.Print(form[i]);
+            }
+            return View();
+        }
         //for training
         public ActionResult TrainingData()
         {

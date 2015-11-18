@@ -351,6 +351,7 @@
     <Content Include="Views\Account\EmailForgotPage.cshtml" />
     <Content Include="Views\Account\EmailChangePassword.cshtml" />
     <Content Include="Views\Account\InputPassword.cshtml" />
+    <Content Include="Views\ProcessModel\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
