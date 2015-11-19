@@ -9,16 +9,16 @@
 @Html.Label(ViewData["result"].ToString(), ViewData["result"].ToString());
 @using (Html.BeginForm("Test", "ProcessModel", FormMethod.Post))
 {
-    @Html.Hidden(ViewData["result"].ToString());
+    @Html.Hidden(ViewData["result"].ToString(), ViewData["result"].ToString());
     <input type="submit" value="Keep Suggestion">
 }
 <div>
     @{
         List<SelectListItem> dropDown = new List<SelectListItem>();
-        dropDown.Add(new SelectListItem { Value = "Test", Text = "Waterfall" });
-        dropDown.Add(new SelectListItem { Value = "Test", Text = "Iterative Waterfall" });
-        dropDown.Add(new SelectListItem { Value = "Test", Text = "RAD" });
-        dropDown.Add(new SelectListItem { Value = "Test", Text = "COTS" });
+        dropDown.Add(new SelectListItem { Value = "Waterfall", Text = "Waterfall" });
+        dropDown.Add(new SelectListItem { Value = "Iterative Waterfall", Text = "Iterative Waterfall" });
+        dropDown.Add(new SelectListItem { Value = "RAD", Text = "RAD" });
+        dropDown.Add(new SelectListItem { Value = "COTS", Text = "COTS" });
     }
 </div>
 <div>
