@@ -122,6 +122,9 @@
         }
         @using (Html.BeginForm("Questions", "ProcessModel", FormMethod.Get))
         {
+            @Html.HiddenFor(Model => Model.UserName)
+            @Html.HiddenFor(Model => Model.Rank)
+            @Html.HiddenFor(Model => Model.AccountId)
             if (Model.Rank == "Leader")
             {
                 <br />
