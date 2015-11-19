@@ -18,6 +18,16 @@ namespace WebApplication2.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult Test(FormCollection form)
+        {
+            Debug.Print("Form is: ");
+            for(int i=0; i<form.Count; i++)
+            {
+                Debug.Print(form[i]);
+            }
+            return View();
+        }
         //for training
         public ActionResult TrainingData()
         {
@@ -25,7 +35,7 @@ namespace WebApplication2.Controllers
             ViewData["multAnswers"] = PModel.MultipleChoiceAnswers;
             ViewData["isValid"] = "true";
             ViewData["answers"] =new string[1]{"test"};
-            //ViewData["answers"] = new string[92]{"0True", "1True", "2True", "3True", "4True", "5False", "test", "7False", "8False", "9very little", "10False", "11False", "12at the end", "13very little to no time", "14False", "15False", "16Fast", "17False", "18Less than a Year", "19False", "20Every 1-3 weeks", "21Every 1-3 weeks", "22False", "23False", "24False", "25very", "26True", "27very", "28False", "29False", "30little", "31little", "32average amount", "33love it", "34False", "35spread out across country", "36low - Medium", "37High", "38False", "39False", "40True", "41False", "42False", "43low", "44True", "45One", "46False", "47True", "48True", "49True", "50None", "51True", "52True", "53False", "54Medium", "55True", "56True", "57False", "58False", "59False", "60Updated Often", "61False", "62False", "63False", "64Low Budget", "65Low Budget", "66Low Budget", "67Low Budget", "68False", "69False", "70False", "71Small", "72True", "73False", "74Flexable", "75True", "76True", "77True", "78True", "79True", "80True", "81True", "82True", "83True", "84False", "85False", "86False", "87False", "88True", "89False", "90False", "91False"};
+            ViewData["answers"] = new string[92]{"0True", "1True", "2True", "3True", "4True", "5False", "test", "7False", "8False", "9very little", "10False", "11False", "12at the end", "13very little to no time", "14False", "15False", "16Fast", "17False", "18Less than a Year", "19False", "20Every 1-3 weeks", "21Every 1-3 weeks", "22False", "23False", "24False", "25very", "26True", "27very", "28False", "29False", "30little", "31little", "32average amount", "33love it", "34False", "35spread out across country", "36low - Medium", "37High", "38False", "39False", "40True", "41False", "42False", "43low", "44True", "45One", "46False", "47True", "48True", "49True", "50None", "51True", "52True", "53False", "54Medium", "55True", "56True", "57False", "58False", "59False", "60Updated Often", "61False", "62False", "63False", "64Low Budget", "65Low Budget", "66Low Budget", "67Low Budget", "68False", "69False", "70False", "71Small", "72True", "73False", "74Flexable", "75True", "76True", "77True", "78True", "79True", "80True", "81True", "82True", "83True", "84False", "85False", "86False", "87False", "88True", "89False", "90False", "91False"};
             ViewData["result"] = "";
             return View();
         }
