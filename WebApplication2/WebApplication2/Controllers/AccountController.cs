@@ -11,6 +11,8 @@ using System.Data.Entity;
 
 namespace WebApplication2.Controllers
 {
+
+
     public class AccountController : Controller
     {
         Account ConfirmedUser = new Account();
