@@ -3,9 +3,6 @@
     padding-bottom: 20px;
    
 }
-page {
-    background-color: lightblue;
-}
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -19,5 +16,9 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+#navbar_custom{
+    background-color:navy;
+    border-bottom:double;
 }
 

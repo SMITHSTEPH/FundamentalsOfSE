@@ -7,42 +7,50 @@
 </head>
 <body>
     <h2>Login</h2>
-        @using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
+    @using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
+    {
+        <hr />
+            @Html.Label("Username:", new { @id = "username" })
+            @Html.TextBoxFor(model => model.UserName, "Username", new { @class = "textbox" })<br /><br />
+                @Html.Label("Password:")
+                @Html.PasswordFor(model => model.Password, "Password")<br /><br />
+                <input type="submit" value="Sign In" id="sign_in" , class="btn-primary button"> //sign in button
+        if (Convert.ToBoolean(ViewData["Email"]) == true)
         {
-            <hr/>
-                @Html.Label("Username:", new {@id="username"})
-                @Html.TextBoxFor(model => model.UserName, "Username", new {@class="textbox"})<br/><br/>
-            @Html.Label("Password:")
-            @Html.PasswordFor(model => model.Password, "Password")<br/><br/>
-            <input type="submit" value="Sign In" id="sign_in", class="btn-primary button"> //sign in button
-            if (Convert.ToBoolean(ViewData["Email"]) == true)
+            if (Convert.ToString(ViewData["isValid"]) == "Fail")
             {
-                if (Convert.ToString(ViewData["isValid"]) == "Fail")
-                {
-                    @Html.Label("Invalid username of password", new {@class="warning"})<br/>
-                    @Html.Label("Please try again", new {@class="warning"})
-                }
-                else if (Convert.ToString(ViewData["isValid"]) == "Leader"){@Html.Label("Team Leader Logged In as " + Model.UserName + "!")}
-                else if (Convert.ToString(ViewData["isValid"]) == "Admin"){@Html.Label("Team Admin Logged In as " + Model.UserName + "!")}
-                else if (Convert.ToString(ViewData["isValid"]) == "Member"){@Html.Label("Team Member Logged In as " + Model.UserName + "!")}
+                <p>
+                    <b>
+                        @Html.Label("Invalid username of password", new { @class = "warning" })<br />
+                        @Html.Label("Please try again", new { @class = "warning" })
+                    </b>
+                </p>
             }
-            else{@Html.Label("Verify Email before logging In!", new {@id= "verify_email"})}
+            else if (Convert.ToString(ViewData["isValid"]) == "Leader")
+            {@Html.Label("Team Leader Logged In as " + Model.UserName + "!")}
+            else if (Convert.ToString(ViewData["isValid"]) == "Admin")
+            {@Html.Label("Team Admin Logged In as " + Model.UserName + "!")}
+            else if (Convert.ToString(ViewData["isValid"]) == "Member")
+            {@Html.Label("Team Member Logged In as " + Model.UserName + "!")}
         }
-        <p><b>@Html.ActionLink("Forgot Password", "ForgotPassword", null, new { @id = "forgot_password" })</b></p>
-        @{
-            List<SelectListItem> dropDown = new List<SelectListItem>(); //adding info into dropdown menu
-            dropDown.Add(new SelectListItem { Value = "SignUpMember", Text = "Team Member" });
-            dropDown.Add(new SelectListItem { Value = "SignUpLeader", Text = "Team Leader" });
-            dropDown.Add(new SelectListItem { Value = "SignUpAdmin", Text = "Team Administrator" });
-        }
-        @using (Html.BeginForm("SignUp", "Account"))
-        {
-            <br/>
-            @Html.Label("Not a member?")<br/>
-            @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"), new {@id="dropdown"})
-            <input type="submit" value="Sign Up", class="button btn-primary">
-        }
-    </body>
+        else
+        {@Html.Label("Verify Email before logging In!", new { @id = "verify_email" })}
+    }
+    <p><b>@Html.ActionLink("Forgot Password", "ForgotPassword", null, new { @id = "forgot_password" })</b></p>
+    @{
+        List<SelectListItem> dropDown = new List<SelectListItem>(); //adding info into dropdown menu
+        dropDown.Add(new SelectListItem { Value = "SignUpMember", Text = "Team Member" });
+        dropDown.Add(new SelectListItem { Value = "SignUpLeader", Text = "Team Leader" });
+        dropDown.Add(new SelectListItem { Value = "SignUpAdmin", Text = "Team Administrator" });
+    }
+    @using (Html.BeginForm("SignUp", "Account"))
+    {
+        <br />
+            @Html.Label("Not a member?")<br />
+            @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"), new { @id = "dropdown" })
+            <input type="submit" value="Sign Up" , class="button btn-primary">
+    }
+</body>
 </html>
 
 
