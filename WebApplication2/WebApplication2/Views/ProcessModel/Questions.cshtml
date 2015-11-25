@@ -1,4 +1,4 @@
-﻿
+﻿@model WebApplication2.Models.Account
 
 @{
     ViewBag.Title = "Questions";
@@ -33,8 +33,6 @@
         <li><a href="#Process">Process</a></li>
     </ul>
     <h1>Process Model Survey</h1>
-    
-
 
 @using (Html.BeginForm("Result", "ProcessModel"))
 {
@@ -46,6 +44,7 @@
         @Html.Label("Did Not answer all of the fields");
         <br />
     }
+    @Html.HiddenFor(Model => Model.AccountId)
     string[,] Questions = (string[,])ViewData["questions"];
     string[,] MultAnswers = (string[,])ViewData["multAnswers"];
     string[] Answers = (string[])ViewData["answers"];

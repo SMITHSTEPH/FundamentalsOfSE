@@ -206,10 +206,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ProcessModels.mdf" />
-    <Content Include="App_Data\ProcessModels_log.ldf">
-      <DependentUpon>ProcessModels.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\Registration.mdf" />
     <Content Include="App_Data\Registration_log.ldf">
       <DependentUpon>Registration.mdf</DependentUpon>

@@ -11,6 +11,8 @@ using System.Data.Entity;
 
 namespace WebApplication2.Controllers
 {
+
+
     public class AccountController : Controller
     {
         Account ConfirmedUser = new Account();
@@ -186,8 +188,20 @@ namespace WebApplication2.Controllers
 
                     if (MT == null)
                     {
-                        ViewData["UserName"] = "Fail";
-                        return View("ForgotPassword");
+
+                        string queryM2 = "SELECT * FROM memberTableV2 WHERE Email='" + User.Email + "'";
+                        memberTableV2 MT2 = db.memberTableV2.SqlQuery(queryM2).SingleOrDefault();
+
+                        if (MT2 == null)
+                        {
+                            ViewData["UserName"] = "Fail";
+                            return View("ForgotPassword");
+                        }
+                        else
+                        {
+                            ViewData["Email"] = User.sendEmailPassword(MT2.Email, MT2.UserName);
+                            return View("EmailForgotPage");
+                        }
                     }
                     else
                     {
@@ -204,8 +218,20 @@ namespace WebApplication2.Controllers
 
                     if (LT == null)
                     {
-                        ViewData["UserName"] = "Fail";
-                        return View("ForgotPassword");
+
+                        string queryL2 = "SELECT * FROM leaderTableV2 WHERE Email='" + User.Email + "'";
+                        leaderTableV2 LT2 = db.leaderTableV2.SqlQuery(queryL2).SingleOrDefault();
+
+                        if (LT2 == null)
+                        {
+                            ViewData["UserName"] = "Fail";
+                            return View("ForgotPassword");
+                        }
+                        else
+                        {
+                            ViewData["Email"] = User.sendEmailPassword(LT2.Email, LT2.UserName);
+                            return View("EmailForgotPage");
+                        }
                     }
                     else
                     {
@@ -220,8 +246,20 @@ namespace WebApplication2.Controllers
 
                     if (AT == null)
                     {
-                        ViewData["UserName"] = "Fail";
-                        return View("ForgotPassword");
+
+                        string queryA2 = "SELECT * FROM administrationV2 WHERE Email='" + User.Email + "'";
+                        administrationV2 AT2 = db.administrationV2.SqlQuery(queryA2).SingleOrDefault();
+
+                        if (AT2 == null)
+                        {
+                            ViewData["UserName"] = "Fail";
+                            return View("ForgotPassword");
+                        }
+                        else
+                        {
+                            ViewData["Email"] = User.sendEmailPassword(AT2.Email, AT2.UserName);
+                            return View("EmailForgotPage");
+                        }
                     }
                     else
                     {

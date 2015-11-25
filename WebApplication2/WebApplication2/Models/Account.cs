@@ -157,7 +157,7 @@ namespace WebApplication2.Models
 
                 MailMessage mail = new MailMessage("bradbergeron90@gmail.com", Emailto);
                 mail.Subject = "This mail is sent from asp.net application";
-                mail.Body = "Please Click <a href=\"http://localhost:49882/Account/EmailChangePassword?UserName=" + User + "\">Here</a> to change your password";
+                mail.Body = "Please Click <a href=\"http://localhost:49882/Account/EmailChangePassword?UserName=" + User + "\">Here</a> to change your password, Your Username is: " + User;
                 mail.IsBodyHtml = true;
 
                 Sender.Send(mail);

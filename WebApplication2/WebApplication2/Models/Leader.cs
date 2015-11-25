@@ -41,7 +41,7 @@ namespace WebApplication2.Models
                 return "LeaderKey";
             else if (IsNullLeader(Self))
                 return "NullFields";
-            else if (FindLeader(Self.UserName))
+            else if (FindLeader(Self.UserName, Self.Email))
                 return "Exist";
             else return vf.PasswordCheck(Self.Password);
         }
@@ -64,24 +64,22 @@ namespace WebApplication2.Models
             else return false;
         }
 
-        public bool FindLeader(string UserName)
+        public bool FindLeader(string UserName, string Email)
         {
             try
             {
                 string queryL = "SELECT * FROM leaderTableV2 WHERE UserName='" + UserName + "'";
                 leaderTableV2 LT = db.leaderTableV2.SqlQuery(queryL).SingleOrDefault();
 
-                if (LT != null)
-                {
-                    return true;
-                }
+                string queryL2 = "SELECT * FROM leaderTableV2 WHERE Email='" + Email + "'";
+                leaderTableV2 LT2 = db.leaderTableV2.SqlQuery(queryL2).SingleOrDefault();
 
+
+                if (LT != null)return true;
+                if (LT2 != null) return true;
                 return false;
             }
-            catch
-            {
-                return true;
-            }
+            catch{return true;}
         }
     }
 }

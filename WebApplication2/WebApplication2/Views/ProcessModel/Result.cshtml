@@ -1,15 +1,19 @@
-﻿
+﻿@model WebApplication2.Models.Account
+
 @{
     ViewBag.Title = "Result";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Result</h2>
+<br />
+<br />
 
-@Html.Label(ViewData["result"].ToString(), ViewData["result"].ToString());
+@Html.Label(ViewData["result"].ToString(), ViewData["result"].ToString())
 @using (Html.BeginForm("Test", "ProcessModel", FormMethod.Post))
 {
-    @Html.Hidden(ViewData["result"].ToString(), ViewData["result"].ToString());
+    @Html.HiddenFor(Model => Model.AccountId)
+    @Html.Hidden(ViewData["result"].ToString(), ViewData["result"].ToString())
     <input type="submit" value="Keep Suggestion">
 }
 <div>
@@ -25,7 +29,7 @@
     @using (Html.BeginForm("Test", "ProcessModel"))
     {
         <br />
-        
+        @Html.HiddenFor(Model => Model.AccountId)
             <br />
             @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
             <input type="submit" value="Override Suggestion">

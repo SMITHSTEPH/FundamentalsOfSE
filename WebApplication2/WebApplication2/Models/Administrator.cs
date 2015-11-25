@@ -41,7 +41,7 @@ namespace WebApplication2.Models
                 return "AdminKey";
             else if (IsNullAdmin(Self))
                 return "NullFields";
-            else if (FindAdmin(Self.UserName))
+            else if (FindAdmin(Self.UserName, Self.Email))
                 return "Exist";
             else return vf.PasswordCheck(Self.Password);
         }
@@ -64,24 +64,21 @@ namespace WebApplication2.Models
             else return false;
         }
 
-        public bool FindAdmin(string UserName)
+        public bool FindAdmin(string UserName, String Email)
         {
             try
             {
                 string queryA = "SELECT * FROM administrationV2 WHERE UserName='" + UserName + "'";
                 administrationV2 AT = db.administrationV2.SqlQuery(queryA).SingleOrDefault();
 
-                if (AT != null)
-                {
-                    return true;
-                }
+                string queryA2 = "SELECT * FROM administrationV2 WHERE Email='" + Email + "'";
+                administrationV2 AT2 = db.administrationV2.SqlQuery(queryA2).SingleOrDefault();
 
+                if (AT != null)return true;
+                if (AT2 != null) return true;
                 return false;
             }
-            catch
-            {
-                return true;
-            }
+            catch{return true;}
         }
 
 
