@@ -7,77 +7,42 @@
 </head>
 <body>
     <h2>Login</h2>
-
-    <div id="login_form">
         @using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
         {
-            <br />
-            <br />
-            
+            <hr/>
                 @Html.Label("Username:", new {@id="username"})
-           
-           
-                @Html.TextBoxFor(model => model.UserName, "Username")
-          
-            <br />
-            <br />
+                @Html.TextBoxFor(model => model.UserName, "Username", new {@class="textbox"})<br/><br/>
             @Html.Label("Password:")
-            @Html.PasswordFor(model => model.Password, "Password")
-            <br />
-            <br />
-            @Html.ActionLink("Forgot Password", "ForgotPassword")
-            <br />
-            <br />
-            <input type="submit" value="Sign In">
+            @Html.PasswordFor(model => model.Password, "Password")<br/><br/>
+            <input type="submit" value="Sign In" id="sign_in", class="btn-primary button"> //sign in button
             if (Convert.ToBoolean(ViewData["Email"]) == true)
             {
                 if (Convert.ToString(ViewData["isValid"]) == "Fail")
                 {
-                    @Html.Label("Invalid username of password")
-                    <br />
-                    @Html.Label("Please try again")
+                    @Html.Label("Invalid username of password", new {@class="warning"})<br/>
+                    @Html.Label("Please try again", new {@class="warning"})
                 }
-                else if (Convert.ToString(ViewData["isValid"]) == "Leader")
-                {
-                    @Html.Label("Team Leader Logged In as " + Model.UserName + "!")
-                }
-                else if (Convert.ToString(ViewData["isValid"]) == "Admin")
-                {
-                    @Html.Label("Team Admin Logged In as " + Model.UserName + "!")
-                }
-                else if (Convert.ToString(ViewData["isValid"]) == "Member")
-                {
-                    @Html.Label("Team Member Logged In as " + Model.UserName + "!")
-                }
+                else if (Convert.ToString(ViewData["isValid"]) == "Leader"){@Html.Label("Team Leader Logged In as " + Model.UserName + "!")}
+                else if (Convert.ToString(ViewData["isValid"]) == "Admin"){@Html.Label("Team Admin Logged In as " + Model.UserName + "!")}
+                else if (Convert.ToString(ViewData["isValid"]) == "Member"){@Html.Label("Team Member Logged In as " + Model.UserName + "!")}
             }
-            else
-            {
-                @Html.Label("Verify Email before logging In!")
-            }
-
+            else{@Html.Label("Verify Email before logging In!", new {@id= "verify_email"})}
         }
-    </div>
-    <div>
+        <p><b>@Html.ActionLink("Forgot Password", "ForgotPassword", null, new { @id = "forgot_password" })</b></p>
         @{
-            List<SelectListItem> dropDown = new List<SelectListItem>();
+            List<SelectListItem> dropDown = new List<SelectListItem>(); //adding info into dropdown menu
             dropDown.Add(new SelectListItem { Value = "SignUpMember", Text = "Team Member" });
             dropDown.Add(new SelectListItem { Value = "SignUpLeader", Text = "Team Leader" });
             dropDown.Add(new SelectListItem { Value = "SignUpAdmin", Text = "Team Administrator" });
         }
-    </div>
-    <div>
         @using (Html.BeginForm("SignUp", "Account"))
         {
-            <br />
-            <br />
-            @Html.Label("Not a member?")
-            <br />
-            <br />
-            @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
-            <input type="submit" value="Sign Up">
+            <br/>
+            @Html.Label("Not a member?")<br/>
+            @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"), new {@id="dropdown"})
+            <input type="submit" value="Sign Up", class="button btn-primary">
         }
-    </div>
-</body>
+    </body>
 </html>
 
 
