@@ -43,7 +43,7 @@ namespace WebApplication2.Models
 
         public string isValid(Member Self)
         {
-            if (FindMember(Self.UserName))
+            if (FindMember(Self.UserName, Self.Email))
                return "Exist";
             else if (IsNullMember(Self))
                return "NullFields";
@@ -68,14 +68,18 @@ namespace WebApplication2.Models
             else return false;
         }
 
-        public bool FindMember(string UserName)
+        public bool FindMember(string UserName, string Email)
         {
             try
             {
                 string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + UserName + "'";
                 memberTableV2 MT = db.memberTableV2.SqlQuery(queryM).SingleOrDefault();
 
+                string queryM2 = "SELECT * FROM memberTableV2 WHERE Email='" + Email + "'";
+                memberTableV2 MT2 = db.memberTableV2.SqlQuery(queryM2).SingleOrDefault();
+
                 if (MT != null)return true;
+                if (MT2 != null)return true;
                 return false;
             }
             catch{return true;}
