@@ -3,17 +3,22 @@
 <html>
 <head>
     <title>@{ViewBag.Title = "Index";}</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/LoginStyle.css">
 </head>
 <body>
-    <h2>Software Process Planner</h2>
+    <h2>Login</h2>
 
-    <div>
+    <div id="login_form">
         @using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
         {
             <br />
             <br />
-            @Html.Label("Username:")
-            @Html.TextBoxFor(model => model.UserName, "Username")
+            
+                @Html.Label("Username:", new {@id="username"})
+           
+           
+                @Html.TextBoxFor(model => model.UserName, "Username")
+          
             <br />
             <br />
             @Html.Label("Password:")
@@ -43,10 +48,6 @@
                 else if (Convert.ToString(ViewData["isValid"]) == "Member")
                 {
                     @Html.Label("Team Member Logged In as " + Model.UserName + "!")
-                }
-                else
-                {
-
                 }
             }
             else
