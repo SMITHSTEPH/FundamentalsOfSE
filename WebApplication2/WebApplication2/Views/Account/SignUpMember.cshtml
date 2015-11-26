@@ -1,64 +1,135 @@
 ﻿@model  WebApplication2.Models.Member
 
-@{
-    ViewBag.Title = "Member";
-}
+<html>
+<head>
+    <title>@{ViewBag.Title = "Member"; }</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/SignupStyle.css">
+</head>
+<body>
+<h2>Member Sign Up</h2><hr/>
+<div class="signup_form" align="center">
+    @using (Html.BeginForm("CreateMember", "Account", FormMethod.Post))
+    {
+        if (Convert.ToString(ViewData["isValid"]) == "NullFields")
+        {
+            <br />@Html.Label("Please have an input for all text fields with *")
+        }
+        if (Convert.ToString(ViewData["isValid"]) == "Exist")
+        {
+            <br />@Html.Label("Username or Email already Exists choose another one")
+        }
+        <br/><br/>
+        <div class="outer">
+            <div>
+                @Html.Label("* Username:", new { @class = "signup_label"})
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.UserName, "UserName", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br/>
+        <div class="outer">
+            <div>
+                @Html.Label("* Password:", new { @class = "signup_label"})
+            </div>
+            <div>
+                @Html.PasswordFor(model => model.Password, "Password")
+            </div>
+        </div>
+        if (Convert.ToString(ViewData["isValid"]) == "Length")
+        {
+            <br />@Html.Label("Password needs to be at least 6 characters")
+        }
+        if (Convert.ToString(ViewData["isValid"]) == "Char")
+        {
+            <br />@Html.Label("Password must contain a lower case, upper case, digit and a symbol")
 
-
-<h2>Member Sign Up</h2>
-<div class="signup_form">
-@using (Html.BeginForm("CreateMember", "Account", FormMethod.Post))
-{
-    if (Convert.ToString(ViewData["isValid"]) == "NullFields")
-    {
-        <br/>@Html.Label("Please have an input for all text fields with *")
+        }
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("* First name:", new { @class = "signup_label" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.FirstName, "FirstName", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("Middle name:", new { @class = "signup_label" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.MiddleName, "MiddleName", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("* Last name:", new { @class = "signup_label" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.LastName, "LastName", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("* Address:", new { @class = "signup_label" });
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.Address, "Address", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("* Birthdate:", new { @class = "signup_label" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.Birthdate, "Birthdate", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("* Phone Number:", new { @class = "signup_label" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.PhoneNumber, "PhoneNumber", new { @class = "textbox" })
+           
+            </div>
+        </div>
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("2nd Phone Number:", new { @class = "signup_label" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.OptionalPhoneNumber, "PhoneNumber", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("* Gender:", new { @class = "signup_label" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.Gender, "Gender", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br />
+        <div class="outer">
+            <div>
+                @Html.Label("* Email:", new { @class = "signup_label" })
+            </div>
+            <div>
+                @Html.TextBoxFor(model => model.Email, "Email", new { @class = "textbox" })
+            </div>
+        </div>
+        <br /><br />
+        <input type="submit" value="Create Member", class="btn-primary button">
     }
-    if (Convert.ToString(ViewData["isValid"]) == "Exist")
-    {
-        <br/>@Html.Label("Username or Email already Exists choose another one")
-    }
-    <br/><br/>
-    @Html.Label("* Username:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.UserName, "UserName", new {@class="textbox" })
-    <br/><br/>
-    @Html.Label("* Password:", new { @class = "signup_label" })
-    @Html.PasswordFor(model => model.Password, "Password")
-    if (Convert.ToString(ViewData["isValid"]) == "Length")
-    {
-        <br/>@Html.Label("Password needs to be at least 6 characters")
-    }
-    if (Convert.ToString(ViewData["isValid"]) == "Char")
-    {
-        <br/>@Html.Label("Password must contain a lower case, upper case, digit and a symbol")
-    }
-    <br/><br/>
-    @Html.Label("* First name:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.FirstName, "FirstName", new { @class = "textbox" })
-    <br/><br/>
-    @Html.Label("Middle name:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.MiddleName, "MiddleName", new { @class = "textbox" })
-    <br/><br/>
-    @Html.Label("* Last name:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.LastName, "LastName", new { @class = "textbox" })
-    <br/><br/>
-    @Html.Label("* Address:", new { @class = "signup_label" });
-    @Html.TextBoxFor(model => model.Address, "Address", new { @class = "textbox" })
-    <br/><br/>
-    @Html.Label("* Birthdate:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.Birthdate, "Birthdate", new { @class = "textbox" })
-    <br/><br/>
-    @Html.Label("* Phone Number:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.PhoneNumber, "PhoneNumber", new { @class = "textbox" })
-    <br/><br/>
-    @Html.Label("2nd Phone Number:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.OptionalPhoneNumber, "PhoneNumber", new { @class = "textbox" })
-    <br/><br/>
-    @Html.Label("* Gender:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.Gender, "Gender", new { @class = "textbox" })
-    <br/><br/>
-    @Html.Label("* Email:", new { @class = "signup_label" })
-    @Html.TextBoxFor(model => model.Email, "Email", new { @class = "textbox" })
-    <br/><br/>
-    <input type="submit" value="Create Member">
-}
 </div>
+</body>
+</html>
