@@ -12,11 +12,11 @@
     {
         if (Convert.ToString(ViewData["isValid"]) == "NullFields")
         {
-            <br />@Html.Label("Please have an input for all text fields with *")
+            <br />@Html.Label("Please have an input for all text fields with *", new { @class = "warning" })
         }
         if (Convert.ToString(ViewData["isValid"]) == "Exist")
         {
-            <br />@Html.Label("Username or Email already Exists choose another one")
+            <br />@Html.Label("Username or Email already Exists choose another one", new { @class = "warning" })
         }
         <br/><br/>
         <div class="outer">
@@ -38,11 +38,11 @@
         </div>
         if (Convert.ToString(ViewData["isValid"]) == "Length")
         {
-            <br />@Html.Label("Password needs to be at least 6 characters")
+            <br />@Html.Label("Password needs to be at least 6 characters", new {@class="warning" })
         }
         if (Convert.ToString(ViewData["isValid"]) == "Char")
         {
-            <br />@Html.Label("Password must contain a lower case, upper case, digit and a symbol")
+            <br />@Html.Label("Password must contain a lower case, upper case, digit and a symbol", new { @class = "warning" })
 
         }
         <br /><br />
