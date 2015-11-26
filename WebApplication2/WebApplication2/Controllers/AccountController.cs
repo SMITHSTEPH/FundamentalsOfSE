@@ -65,6 +65,8 @@ namespace WebApplication2.Controllers
         {
             ConfirmedUser = User.Verify(User);
             ViewData["isValid"] = ConfirmedUser.Rank;
+            Debug.Print("Returned from the controller");
+            Debug.Print(ViewData["isValid"].ToString());
             ViewData["Email"] = ConfirmedUser.ConfirmEmail;
            
             if (ConfirmedUser.Rank != "Fail" && ConfirmedUser.ConfirmEmail == true)

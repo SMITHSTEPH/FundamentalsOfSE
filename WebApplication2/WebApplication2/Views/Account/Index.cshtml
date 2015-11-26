@@ -15,7 +15,12 @@
                 @Html.Label("Password:")
                 @Html.PasswordFor(model => model.Password, "Password")<br /><br />
                 <input type="submit" value="Sign In" id="sign_in" , class="btn-primary button"> //sign in button
-        if (Convert.ToBoolean(ViewData["Email"]) == true)
+        if (Convert.ToString(ViewData["isValid"]) == "Fail")
+        {
+            <p>@Html.Label("Invalid username and/or password", new { @class = "warning" })<br/>
+            @Html.Label("Please try again", new { @class = "warning" })</p>
+        }
+        else if (Convert.ToBoolean(ViewData["Email"]) == true)
         {
             if (Convert.ToString(ViewData["isValid"]) == "Fail")
             {
