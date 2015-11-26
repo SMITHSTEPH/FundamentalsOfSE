@@ -24,12 +24,8 @@
         {
             if (Convert.ToString(ViewData["isValid"]) == "Fail")
             {
-                <p>
-                    <b>
-                        @Html.Label("Invalid username of password", new { @class = "warning" })<br />
-                        @Html.Label("Please try again", new { @class = "warning" })
-                    </b>
-                </p>
+                <p>@Html.Label("Invalid username of password", new { @class = "warning" })<br />
+                 @Html.Label("Please try again", new { @class = "warning" })</p>
             }
             else if (Convert.ToString(ViewData["isValid"]) == "Leader")
             {@Html.Label("Team Leader Logged In as " + Model.UserName + "!")}

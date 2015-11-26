@@ -1,24 +1,9 @@
-﻿body {
-    background-image: url('http://www.magic4walls.com/wp-content/uploads/2014/01/texture-blue-fonchik-simple-dark-colors-glow-background.jpg');
-    background-repeat: repeat
-}
-h2 {
-    color: white;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-}
-label {
-    color: white;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
-#verify_email { margin-left: 10px;}
+﻿#verify_email { margin-left: 10px;}
 #dropdown {margin-right: 10px}
-.textbox, #Password {margin-left: 20px;}
 #sign_in{margin-bottom:10px;}
 #forgot_password {color:#03022c}
-.button{
-    color:black;
-    background-color:white;
+.button {
+    color: black;
+    background-color: white;
     border-color: black;
-
 }
-.warning{color:red}
