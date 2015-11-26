@@ -5,9 +5,11 @@
 }
 h2{text-align: center;}
 .textbox, #Password{
-    width:320px;
+    width:300px;
     font-size:14pt;
+    border: 1px solid #03022c;
 }
+label{border:#03022c}
 .outer{position:relative;
           display:inline-block;
 }
