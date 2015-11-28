@@ -1,18 +1,19 @@
 ﻿.project{
     display:inline-block;
-   
-   border:thick solid black;
-   text-align:left;
-   
-    
+    border:thick solid #03022c;
+    background-color: rgba(105,105, 105,0.6);
+    border-radius:10px;
+    text-align:left;
 }
 .project_header{
     text-align:center;
-    border-bottom:thick solid black;
+    border-bottom:thick solid #03022c;
+    opacity:1.0
 }
 .project_input{
-    margin-left:5px;
-    margin-right:5px;
+    margin-left:10px;
+    margin-right:10px;
     margin-bottom:5px;
     margin-top:5px;
+    
 }
