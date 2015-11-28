@@ -19,6 +19,15 @@
                 <br />@Html.Label("Username or Email already Exists choose another one", new { @class = "warning" })
             }
             <br /><br />
+            <div class="outer">
+                <div>
+                    @Html.Label("* Username:", new { @class = "signup_label" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.UserName, "UserName", new { @class = "textbox" })
+                </div>
+            </div>
+            <br /><br />
              <div class="outer">
                  <div>
                      @Html.Label("* Password:", new { @class = "signup_label" })

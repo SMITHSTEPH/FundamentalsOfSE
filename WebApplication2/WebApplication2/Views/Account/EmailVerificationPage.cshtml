@@ -1,40 +1,36 @@
-﻿@{
-    ViewBag.Title = "EmailVerificationPage";
-}
+﻿<head>
+    <title>@{ViewBag.Title = "EmailVerificationPage";}</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/EmailStyle.css">
+</head>
 
-<h2>Email Verification</h2>
+<h2>Verify Email</h2><hr />
+<div align="center">
+    @using (Html.BeginForm("Verify", "Account", new { id = Request.QueryString["UserName"] }, FormMethod.Post))
+    {
 
-@using (Html.BeginForm("Verify", "Account", new { id = Request.QueryString["UserName"] }, FormMethod.Post))
-{
-   
-    if (Convert.ToString(ViewData["Email"]) == "Verified")
-    {
-        System.Diagnostics.Debug.Print("In if statement");
-        @Html.Label("Email Verifed for " + ViewData["User"])
-    }
-    else if (Convert.ToString(ViewData["Email"]) == "Fail")
-    {
-        System.Diagnostics.Debug.Print("In else statement");
-        @Html.Label("Error in verifing please resend email")
+        if (Convert.ToString(ViewData["Email"]) == "Verified")
+        {
+            @Html.Label("Email Verifed for " + ViewData["User"])
+        }
+        else if (Convert.ToString(ViewData["Email"]) == "Fail")
+        {
+           
+            @Html.Label("Error in verifing please resend email", new { @class = "warning" })<br />
+            <input type="submit" value="Resend class="btn-primary button"">
+        }
+        else
+        {
+            string Clicker = Request.QueryString["UserName"];
+            @Html.Label(Clicker + ", click button to verify")
+        }
         <br />
+        <input type="submit" value="Verify">
         <br />
-        <input type="submit" value="Resend">
     }
-    else
-    {
-        string Clicker = Request.QueryString["UserName"];
-        @Html.Label(Clicker + ", click button to verify")
-    }
-    <br />
-    <input type="submit" value="Verify">
-    <br />
-}
 
-@using (Html.BeginForm("Index", "Account", FormMethod.Get))
-{
-    <br />
-    <br />
-    <br />
-    <br />
-    <input type="submit" value="Go Back to Home Page">
-}
+    @using (Html.BeginForm("Index", "Account", FormMethod.Get))
+    {
+        <br /><br />
+        <input type="submit" value="Return to Login" class="btn-primary button">
+    }
+</div>
