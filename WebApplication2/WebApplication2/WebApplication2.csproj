@@ -214,6 +214,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EmailStyle.css" />
     <Content Include="Content\LoginStyle.css" />
+    <Content Include="Content\ProfileStyle.css" />
     <Content Include="Content\SignupStyle.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
