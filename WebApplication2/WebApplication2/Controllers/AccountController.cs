@@ -140,7 +140,7 @@ namespace WebApplication2.Controllers
             if (print != "Valid")
             {
                 ViewData["isValid"] = print;
-                return View("SignUpLeader");
+                return View("SignUpAdmin");
             }
             else
             {
