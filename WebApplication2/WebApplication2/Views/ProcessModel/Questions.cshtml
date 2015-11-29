@@ -33,11 +33,15 @@
             <li><a href="#Process">Process</a></li>
         </ul>
         <h1>Process Model Survey</h1><hr />
-    <div align="left">
+    <div align="left" id="q_form">
     @using (Html.BeginForm("Result", "ProcessModel"))
     {
-        bool IsCheckedTrue = false; bool IsCheckedFalse = false; bool IsCheckedMult = false; if (ViewData["isValid"].Equals("false"))
-        { <br />@Html.Label("Did Not answer all of the questions", new { @class = "warning" });<br />
+        bool IsCheckedTrue = false;
+        bool IsCheckedFalse = false;
+        bool IsCheckedMult = false;
+        if (ViewData["isValid"].Equals("false"))
+        { 
+            <br />@Html.Label("Did Not answer all of the questions", new { @class = "warning" });<br />
         }
         @Html.HiddenFor(Model => Model.AccountId)
         string[,] Questions = (string[,])ViewData["questions"];
@@ -46,12 +50,15 @@
         System.Collections.ArrayList Categories = new System.Collections.ArrayList();
 
         for (int i = 0; i < Questions.GetLength(0); i++)
-        {
+        { 
+           
             if (!Categories.Contains(Questions[i, 1].ToString().Trim()))
             {
+                 
                 <br /><div id=@Questions[i, 1].ToString().Trim() class="question_cat_header">
                     <h2> @Questions[i, 1].ToString().Trim() </h2>
                 </div>
+                <hr/>
                 Categories.Add(Questions[i, 1].ToString().Trim());
             }
             if (Questions[i, 2].ToString().Trim().Equals("True or False"))
@@ -63,14 +70,21 @@
                 if (Answers[0] != "test" && Array.Exists(Answers, element => element == i.ToString() + "True")) { IsCheckedTrue = true; }
                 else if (Answers[0] != "test" && Array.Exists(Answers, element => element == i.ToString() + "False")) { IsCheckedFalse = true; }
                 <div class="answers">
-                    @Html.Label("True", new { @class = "label" })
-                    @Html.Label("False", new { @class = "label" })<br />
-                    @Html.RadioButton("answer[" + i + "]", i + "True", IsCheckedTrue, new { @class = "rbutton" })
-                    @Html.RadioButton("answer[" + i + "]", i + "False", IsCheckedFalse, new { @class = "rbutton" })<br>
+                    <table>
+                        <tr>
+                            <th>@Html.Label("True", new { @class = "label" })</th>
+                            <th>@Html.Label("False", new { @class = "label" })</th>
+                        </tr>
+                        <tr>
+                            <td>@Html.RadioButton("answer[" + i + "]", i + "True", IsCheckedTrue, new { @class = "rbutton" })</td>
+                            <td>@Html.RadioButton("answer[" + i + "]", i + "False", IsCheckedFalse, new { @class = "rbutton" })</td>
+                        </tr>
+                    </table>
                 </div>
                 IsCheckedTrue = false;
                 IsCheckedFalse = false;
-                @:</div>
+        <br /><br>
+        @:</div>
             }
             else if (Questions[i, 2].ToString().Trim().Equals("Short Answer"))
             {
@@ -84,35 +98,38 @@
                     </div><br />
                  @:</div>
             }
-        /*else //multiple choice
-        {
-            int QuestionID = i + 1;
-            for (int j = 0; j < MultAnswers.GetLength(0); j++)
+            /*else //multiple choice
             {
-                if (QuestionID == Convert.ToInt32(MultAnswers[j, 0])) //the question ids are the same
+                int QuestionID = i + 1;
+                for (int j = 0; j < MultAnswers.GetLength(0); j++)
                 {
-                    for (int n = 0; n < 2; n++)
+                    if (QuestionID == Convert.ToInt32(MultAnswers[j, 0])) //the question ids are the same
                     {
-                        int m = 1;
-                        while (!MultAnswers[j, m].Trim().Equals("Empty") && m < 5)
+                        for (int n = 0; n < 2; n++)
                         {
-                            if (Answers[0] != "test" && Array.Exists(Answers, element => element == i + MultAnswers[j, m].Trim()))
+                            int m = 1;
+                            while (!MultAnswers[j, m].Trim().Equals("Empty") && m < 5)
                             {
-                                IsCheckedMult = true;
-                            }
-                            if (n == 0){ @Html.Label(MultAnswers[j, m].Trim()); }
-                            else{@Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult);}
-                            m++;
-                            IsCheckedMult = false;
-                        }//end while
-                        <br />
-                     }//end for
-                }//end if
-            }//end for
-        }//end else*/
-    }//end question for loop
-    <input type="submit" value="Submit" onclick="return confirm('Are you sure you want to submit this form');">
-}
+                                if (Answers[0] != "test" && Array.Exists(Answers, element => element == i + MultAnswers[j, m].Trim()))
+                                {
+                                    IsCheckedMult = true;
+                                }
+                                if (n == 0){ @Html.Label(MultAnswers[j, m].Trim()); }
+                                else{@Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult);}
+                                m++;
+                                IsCheckedMult = false;
+                            }//end while
+                            <br />
+                         }//end for
+                    }//end if
+                }//end for
+            }//end else*/
+        }//end question for loop
+        <hr />
+        <div id="submit_form" align="center">
+            <input type="submit" value="Submit" onclick="return confirm('Are you sure you want to submit this form');"><br /><br />
+        </div>
+    }
 </div>
 
 

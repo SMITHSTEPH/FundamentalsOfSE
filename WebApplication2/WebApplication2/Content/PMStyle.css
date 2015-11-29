@@ -3,15 +3,13 @@
     width: 100%; 
     table-layout:fixed;
     border-spacing: 10px; /*Optional*/
-    background-color:black;
 }
 .question{
     text-align:left;
     display: table-cell;
     width:50%;
-   position:relative;
- left:0;
-    background-color: red; /*Optional*/
+    position:relative;
+    left:0;
 }
 .answers{
     display: table-cell;
@@ -20,3 +18,20 @@
 .question_cat_header{
     text-align:left;
 }
+td,th{
+   text-align:center;
+   top:0;
+}
+table{
+    table-layout:fixed;
+    min-height: 100%;
+    width: 100%;
+}
+#q_form{
+    border:thick solid #03022c;
+    background-color: rgba(75,0,130,0.6);
+    border-radius:10px;
+}
+.question_cat_header{margin-left: 10px; /*Optional*/}
+
+
