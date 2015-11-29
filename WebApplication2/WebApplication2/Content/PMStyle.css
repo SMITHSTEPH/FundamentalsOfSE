@@ -1,2 +1,22 @@
-﻿body {
+﻿.question_row{
+    display: table;
+    width: 100%; 
+    table-layout:fixed;
+    border-spacing: 10px; /*Optional*/
+    background-color:black;
+}
+.question{
+    text-align:left;
+    display: table-cell;
+    width:50%;
+   position:relative;
+ left:0;
+    background-color: red; /*Optional*/
+}
+.answers{
+    display: table-cell;
+}
+.label{text-align:left}
+.question_cat_header{
+    text-align:left;
 }
