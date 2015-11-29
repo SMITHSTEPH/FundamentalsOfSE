@@ -2,7 +2,7 @@
 
 <head>
     <title>@{ViewBag.Title = "EmailConfirmationPage";}</title>
-    <link rel="stylesheet" type="text/css" href="~/Content/EmailStyle.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/SignupStyle.css">
 </head>
 
 
@@ -17,14 +17,26 @@
         }
         else
         {
-            @Html.Label("Error in sending please Email, Please enter Username and Password to Resend", new { @class = "warning" })
+            @Html.Label("Error in sending Email, Please enter Username and Password to Resend", new { @class = "warning" })
             <br /><br />
-            @Html.Label("Username:")
-            @Html.TextBoxFor(model => model.UserName, "Username")
+            <div class="outer">
+                <div>
+                    @Html.Label("Username:", new { @class = "signup_label" })
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.UserName, "Username", new { @class = "textbox" })
+                </div>
+            </div>
             <br /><br />
-            @Html.Label("Password:")
-            @Html.PasswordFor(model => model.Password, "Password")
-            <br />
+            <div class="outer">
+                <div>
+                    @Html.Label("Password:", new { @class = "signup_label" })
+                </div>
+                <div>
+                    @Html.PasswordFor(model => model.Password, "Password")
+                </div>
+            </div>
+            <br /><br />
             <input type="submit" value="Resend" class="btn-primary button">
         }
     }

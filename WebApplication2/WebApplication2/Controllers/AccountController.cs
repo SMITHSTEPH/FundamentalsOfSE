@@ -11,12 +11,12 @@ using System.Data.Entity;
 
 namespace WebApplication2.Controllers
 {
-
-
+    /**
+    **/
     public class AccountController : Controller
     {
         Account ConfirmedUser = new Account();
-        protected RegistrationEntities1 db = new RegistrationEntities1();
+        protected RegistrationEntities1 db = new RegistrationEntities1(); //instance of our database 'RegistrationEntities1'
 
         // GET: Account
         /**
@@ -27,23 +27,28 @@ namespace WebApplication2.Controllers
         {
             return View("Index");
         }
-
+        /**
+        Called: when the user clicks the 'confirm email' link in their email
+        **/
         public ActionResult EmailVerificationPage()
         {
             return View("EmailVerificationPage");
         }
-
+        /**
+            
+        **/
         public ActionResult EmailChangePassword()
         {
             return View("EmailChangePassword");
         }
-
+        /**
+        Called: when the user clicks the 'forgot password' link on the login page
+        **/
         public ActionResult ForgotPassword()
         {
             return View("ForgotPassword");
         }
-
-        public ActionResult EmailForgotPage()
+        public ActionResult EmailForgotPage() //no idea when this is called
         {
             return View("EmailForgotPage");
         }
@@ -52,55 +57,46 @@ namespace WebApplication2.Controllers
         Routes to: the view that correspond to the dropdown selection
         **/
         [HttpPost]
-        public ActionResult SignUp(String DropChoice)
+        public ActionResult SignUp(String dropChoice)
         {
-            return View(DropChoice);
+            return View(dropChoice);
         }
         /**
         Called: after the user hits the 'Sign In' button
         Routes to: Index if invalid or Project if valid
         **/
         [HttpPost]
-        public ActionResult SignIn(Account User)
+        public ActionResult SignIn(Account user)
         {
-            ConfirmedUser = User.Verify(User);
+            ConfirmedUser = user.Verify(user); 
             ViewData["isValid"] = ConfirmedUser.Rank;
-            Debug.Print("Returned from the controller");
-            Debug.Print(ViewData["isValid"].ToString());
             ViewData["Email"] = ConfirmedUser.ConfirmEmail;
-           
             if (ConfirmedUser.Rank != "Fail" && ConfirmedUser.ConfirmEmail == true)
             {
-                return RedirectToAction("ExistingProjects", "Project", User);
+                return RedirectToAction("ExistingProjects", "Project", user);
             }
-            else
-            {
-                return View("Index");
-            }
-
-           
-           
+            else{return View("Index");}
         }
         /**
         Called: after the user hits the 'Sign Up' button at the end of the sign up form
         Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
         **/
         [HttpPost]
-        public ActionResult CreateMember(Member PossibleMem)
+        public ActionResult CreateMember(Member possibleMem)
         {
-            PossibleMem.ConfirmEmail = false;
-            string print = PossibleMem.isValid(PossibleMem);
+            possibleMem.ConfirmEmail = false;
+            string Member = possibleMem.isValid(possibleMem);
 
-            if (print != "Valid")
+            if (Member != "Valid")
             {
-                ViewData["isValid"] = print;
-                return View("SignUpMember");
+                ViewData["isValid"] = Member;
+                return View("SignUpMember"); 
             }
             else
             {
-                Member ConfirmedMem = PossibleMem;
+                Member ConfirmedMem = possibleMem;
                 ViewData["Email"] = ConfirmedUser.sendEmail(ConfirmedMem.Email, ConfirmedMem.UserName);
-                ConfirmedMem.Init(PossibleMem);
+                ConfirmedMem.Init(possibleMem);
                 return View("EmailConfirmationPage");
             }
         }
@@ -109,21 +105,21 @@ namespace WebApplication2.Controllers
        Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
        **/
         [HttpPost]
-        public ActionResult CreateLeader(Leader PossibleLead)
+        public ActionResult CreateLeader(Leader possibleLead)
         {
-            PossibleLead.ConfirmEmail = false;
-            string print = PossibleLead.isValid(PossibleLead);
+            possibleLead.ConfirmEmail = false;
+            string leader = possibleLead.isValid(possibleLead);
 
-            if (print != "Valid")
+            if (leader != "Valid")
             {
-                ViewData["isValid"] = print;
+                ViewData["isValid"] = leader;
                 return View("SignUpLeader");
             }
             else
             {
-                Leader ConfirmedLead = PossibleLead;
+                Leader ConfirmedLead = possibleLead;
                 ViewData["Email"] = ConfirmedUser.sendEmail(ConfirmedLead.Email, ConfirmedLead.UserName);
-                ConfirmedLead.Init(PossibleLead);
+                ConfirmedLead.Init(possibleLead);
                 return View("EmailConfirmationPage");
             }
         }
@@ -132,21 +128,21 @@ namespace WebApplication2.Controllers
         Routes to: itself if form was filled out incorrectly, emailconfirationpage if was filled out correctly
         **/
         [HttpPost]
-        public ActionResult CreateAdmin(Administrator PossibleAdmin)
+        public ActionResult CreateAdmin(Administrator possibleAdmin)
         {
-            PossibleAdmin.ConfirmEmail = false;
-            string print = PossibleAdmin.isValid(PossibleAdmin);
+            possibleAdmin.ConfirmEmail = false;
+            string admin = possibleAdmin.isValid(possibleAdmin);
 
-            if (print != "Valid")
+            if (admin != "Valid")
             {
-                ViewData["isValid"] = print;
+                ViewData["isValid"] = admin;
                 return View("SignUpAdmin");
             }
             else
             {
-                Administrator ConfirmedAdmin = PossibleAdmin;
+                Administrator ConfirmedAdmin = possibleAdmin;
                 ViewData["Email"] = ConfirmedUser.sendEmail(ConfirmedUser.Email, ConfirmedUser.UserName);
-                ConfirmedAdmin.Init(PossibleAdmin);
+                ConfirmedAdmin.Init(possibleAdmin);
                 return View("EmailConfirmationPage");
             }
         }
@@ -298,99 +294,5 @@ namespace WebApplication2.Controllers
                 ViewData["Password"] = ConfirmedUser.UpdatePassword(User.UserName, User.Password);
                 return View("InputPassword", User);
         }
-
-
-       /*[HttpPost]
-        public ActionResult Upload(HttpPostedFileBase FileUpload)
-        {
-            //check we have a file
-            if (FileUpload.ContentLength > 0)
-            {
-                //Workout our file path
-                string fileName = Path.GetFileName(FileUpload.FileName);
-                string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-     
-                //Try and upload
-                try
-                {
-                    FileUpload.SaveAs(path);
-                    //Process the CSV file and capture the results to our DataTable place holder
-                    ProcessCSV(path);
-                }
-                catch (Exception ex)
-                {
-                    //Catch errors
-                    ViewData["Feedback"] = ex.Message;
-                }
-            }
-            else
-            {
-                //Catch errors
-                ViewData["Feedback"] = "Please select a file";
-            }
-
-            return View("Input", ViewData["Feedback"]);
-        }
-
-        private static void ProcessCSV(string fileName)
-        {
-            //Set up our variables
-            string Feedback = string.Empty;
-            string line = string.Empty;
-            string[] strArray;
-
-            // work out where we should split on comma, but not in a sentence
-            Regex r = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-            //Set the filename in to our stream
-            StreamReader sr = new StreamReader(fileName);
-
-            //Get rid of Headers
-            line = sr.ReadLine();
-
-            //CHANGE TO WHICH TABLE YOU NEED
-            Questions2Table result = new Questions2Table();
-    
-            RegistrationEntities1 db = new RegistrationEntities1();
-            //Read each line in the CVS file until it’s empty
-            while ((line = sr.ReadLine()) != null)
-            {
-                //row = dt.NewRow();
-
-                strArray = r.Split(line);
-
-                //for multiple choice table
-                //result.QuestionId = Int32.Parse(strArray[0]);
-
-               /* result.Response1 = strArray[1];
-                result.Response2 = strArray[2];
-                result.Response3 = strArray[3];
-                result.Response4 = strArray[4];
-                result.Response5 = strArray[5];
-                result.Response6 = strArray[6];*/
-
-        //for Process tables
-        //result.Answer = strArray[1];
-        //result.Priority = Int32.Parse(strArray[2]);
-
-        /*result.QuestionId = Int32.Parse(strArray[0]);
-        result.Question = strArray[1];
-        result.Category = strArray[2];
-        result.QuestionType = strArray[3];
-
-
-        string query = "INSERT INTO Questions2Table(QuestionId,Question,Category,QuestionType)  VALUES (" + result.QuestionId + ",'" + result.Question + "','" + result.Category + "','" + result.QuestionType + "')";
-        //string query = "INSERT INTO MultipleChoiceTable(QuestionId,Response1,Response2,Response3,Response4,Response5,Response6) VALUES (" + result.QuestionId + ",'" + result.Response1 + "','" + result.Response2 + "','" + result.Response3 + "','" + result.Response4 + "','" + result.Response5 + "','" + result.Response6 + "')";
-        //string query = "INSERT INTO COTSTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-        //string query = "INSERT INTO WaterfallIterationTable (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-        //string query = "INSERT INTO RADTable(QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-        //string query = "INSERT INTO WaterfallTable2 (QuestionId,Answer,Priority) VALUES (" + result.QuestionId + ",'" + result.Answer + "'," + result.Priority + ")";
-        //Run Query 
-        db.Database.ExecuteSqlCommand(query);
-    }
-
-    //Tidy Streameader up
-    //sr.Dispose();
-
-}*/
     }
 }
