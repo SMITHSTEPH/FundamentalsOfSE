@@ -4,49 +4,50 @@
 <head>
     <title>@{ViewBag.Title = "ExistingProjects";}</title>
             @{Layout = "~/Views/Shared/_Layout.cshtml";}
+    <link rel="stylesheet" type="text/css" href="~/Content/ProfileStyle.css">
 </head>
 <body>
-
-    <h2>Existing Projects</h2>
-    <div>
+    
         @using (Html.BeginForm("AddProjects", "Project", FormMethod.Get))
         {
-                @Html.Label("Logged In as " + Model.UserName)
-                @Html.HiddenFor(Model => Model.UserName)
-
                 <br />
+                @Html.Label("Logged In as " + Model.UserName)
+                @Html.HiddenFor(Model => Model.UserName)<br />
                 @Html.Label("Your have the Rank: " + Model.Rank)
                 @Html.HiddenFor(Model => Model.Rank)
-                @Html.HiddenFor(Model => Model.AccountId)
-                <br />
+                @Html.HiddenFor(Model => Model.AccountId)<br />
+                <hr />
+               
+                    
+                <h2>Existing Projects</h2><br />
 
-            if (Model.ProjectId[0] == 0)
-            {
-                    @Html.Label("Not in any Projects")
-            }
+            if (Model.ProjectId[0] == 0){@Html.Label("Not in any Projects")}
             else
             {
                 int k = 0;
-
                 for (k = 0; k < Model.ProjectId.Length; k++)
                 {
-                            @Html.HiddenFor(Model => Model.ProjectId[k])
-                            @Html.HiddenFor(Model => Model.ProjectProcess[k])
+                    
+                    @Html.HiddenFor(Model => Model.ProjectId[k])
+                    @Html.HiddenFor(Model => Model.ProjectProcess[k])
                 }
 
                 var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y }).Zip(Model.Responsibiltes, (x, z) => new { X = x, Z = z });
-
                 foreach (var entity in col)
                 {
-                    if (entity.X.X == 0)
+                    if (entity.X.X != 0)
                     {
+                        <div class="project">
+                            <div class="project_header">
+                                <h3> Project # @entity.X.X </h3>
+                            </div>
+                            @Html.Label("Rank: " + entity.Z, new { @class = "project_input" })<br />
+                            @Html.Label("Process Model: " + entity.X.Y, new { @class = "project_input" })<br />
+                            @Html.Label("View Project Schedule: ", new { @class = "project_input" })
+                        </div>
+                        <br /><br /><br />
+                    }
 
-                    }
-                    else
-                    {
-                        @Html.Label("Your in Project number " + entity.X.X + " as a " + entity.Z + " which has the chosen process: " + entity.X.Y);
-                        <br />
-                    }
                 }
 
             }
@@ -59,6 +60,7 @@
              }
            
         }
+
         @using (Html.BeginForm("AddPeople", "Project", FormMethod.Get))
         {
             
@@ -133,6 +135,7 @@
                 <input type="submit" value="Add New Project">
             }
         }
+                  
 
 
         @using (Html.BeginForm("Index", "Account", FormMethod.Post))
@@ -141,7 +144,7 @@
             <br />
             <input type="submit" value="Logout">
         }
-    </div>
+   
 </body>
 </html>
 

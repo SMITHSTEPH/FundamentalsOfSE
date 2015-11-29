@@ -1,20 +1,16 @@
 ﻿@model WebApplication2.Models.Account
 
-@{
-    ViewBag.Title = "EmailForgotPage";
-}
+<head>
+    <title>@{ViewBag.Title = "EmailForgotPage"; }</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/SignupStyle.css">
+</head>
 
-<h2>Email Forgoted Password</h2>
-
-
-@Html.Label("Forgoten Email Sent")
-
-
-@using (Html.BeginForm("Index", "Account", FormMethod.Get))
-{
-    <br />
-    <br />
-    <br />
-    <br />
-    <input type="submit" value="Go Back to Home Page">
-}
+<h2>Reset Password</h2><hr />
+<div align="center">
+    @Html.Label("Please check email to reset password")
+    @using (Html.BeginForm("Index", "Account", FormMethod.Get))
+    {
+        <br /><br />
+        <input type="submit" value="Return to Login" class="button btn-primary" />
+    }
+</div>

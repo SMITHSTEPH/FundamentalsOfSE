@@ -1,0 +1,21 @@
+﻿.signup_label {
+    margin-bottom: 5px;
+    float: left;
+    margin-left: 20px;
+}
+h2{text-align: center;}
+.textbox, #Password{
+    width:300px;
+    font-size:14pt;
+    border: 1px solid #03022c;
+}
+label{border:#03022c}
+.outer{position:relative;
+          display:inline-block;
+}
+.button {
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+#or{font-size:x-large}
