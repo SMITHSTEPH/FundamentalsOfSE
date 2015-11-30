@@ -1,0 +1,1 @@
+﻿$("#welcome_label").replaceWith("<li id='welcome_label'><label id='welcome'>Project Manager</label></li>");

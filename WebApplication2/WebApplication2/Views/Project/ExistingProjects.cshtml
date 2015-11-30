@@ -5,20 +5,28 @@
     <title>@{ViewBag.Title = "ExistingProjects";}</title>
             @{Layout = "~/Views/Shared/_Layout.cshtml";}
     <link rel="stylesheet" type="text/css" href="~/Content/ProfileStyle.css">
+    <script src="~/Scripts/ProjectManager.js"></script> 
 </head>
 <body>
-    
-        @using (Html.BeginForm("AddProjects", "Project", FormMethod.Get))
-        {
                 <br />
-                @Html.Label("Logged In as " + Model.UserName)
+    @Html.Label("Logged in as " + Model.UserName)
                 @Html.HiddenFor(Model => Model.UserName)<br />
-                @Html.Label("Your have the Rank: " + Model.Rank)
+    @Html.Label("Rank: " + Model.Rank)
                 @Html.HiddenFor(Model => Model.Rank)
                 @Html.HiddenFor(Model => Model.AccountId)<br />
+    @using (Html.BeginForm("Index", "Account", FormMethod.Post))
+    {
+        <input type="submit" value="Logout" class="button btn-primary">
+    }
                 <hr />
-               
-                    
+    <div id="join_proj" align="center">
+        @using (Html.BeginForm("AddProjects", "Project", FormMethod.Get))
+        {
+            if (Model.Rank != "Leader")
+            {
+                //<br />@Html.Label("If you want to join a new project:")<br />
+                <input type="submit" value="Join Project" id="join_project" class="button btn-primary">
+            }
                 <h2>Existing Projects</h2><br />
 
             if (Model.ProjectId.Length == 0){@Html.Label("Not in any Projects")}
@@ -47,19 +55,10 @@
                         </div>
                         <br /><br /><br />
                     }
-
-                }
-
             }
-            if (Model.Rank  != "Leader")
-            {
-                    <br />
-                    @Html.Label("If you want to join a new project:")
-                    <br />
-                    <input type="submit" value="Join Project">
              }
-           
         }
+    </div>
 
         @using (Html.BeginForm("AddPeople", "Project", FormMethod.Get))
         {
@@ -138,12 +137,7 @@
                   
 
 
-        @using (Html.BeginForm("Index", "Account", FormMethod.Post))
-        {
-            <br />
-            <br />
-            <input type="submit" value="Logout">
-        }
+        
    
 </body>
 </html>

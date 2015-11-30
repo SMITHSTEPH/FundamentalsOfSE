@@ -17,3 +17,12 @@
     margin-top:5px;
     
 }
+.button {
+    color: black;
+    background-color: white;
+    border-color: black;
+}
+#join_project{
+    width:50%;
+    height:100%;
+}
