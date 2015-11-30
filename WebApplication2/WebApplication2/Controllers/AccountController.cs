@@ -16,8 +16,8 @@ namespace WebApplication2.Controllers
     public class AccountController : Controller
     {
         Account ConfirmedUser = new Account();
-        protected RegistrationEntities1 db = new RegistrationEntities1(); //instance of our database 'RegistrationEntities1'
-
+        //protected RegistrationEntities1 db = new RegistrationEntities1(); //instance of our database 'RegistrationEntities1'
+        protected RegistrationEntities1Entities1 db = new RegistrationEntities1Entities1();
         // GET: Account
         /**
         Called: when the user navigated to the web application

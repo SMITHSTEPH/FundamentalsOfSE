@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RegistrationEntities1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="administrationV2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="MiddleName" Type="nchar" MaxLength="20" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
+          <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COTSTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityType Name="JunctionTableProjectAndAccountV2">
+          <Key>
+            <PropertyRef Name="JId" />
+          </Key>
+          <Property Name="JId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AID" Type="int" />
+          <Property Name="Role" Type="nchar" MaxLength="10" />
+          <Property Name="PId" Type="int" />
+          <Property Name="Responsibilities" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="leaderTableV2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="MiddleName" Type="nchar" MaxLength="20" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
+          <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="memberTableV2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="MiddleName" Type="nchar" MaxLength="20" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="nchar" MaxLength="15" />
+          <Property Name="Address" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="BirthDate" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MultipleChoiceTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Response1" Type="nchar" MaxLength="50" />
+          <Property Name="Response2" Type="nchar" MaxLength="50" />
+          <Property Name="Response3" Type="nchar" MaxLength="50" />
+          <Property Name="Response4" Type="nchar" MaxLength="50" />
+          <Property Name="Response5" Type="nchar" MaxLength="50" />
+          <Property Name="Response6" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProjectTable">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcessModelChosen" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Questions2Table">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Question" Type="nchar" MaxLength="200" Nullable="false" />
+          <Property Name="Category" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="QuestionType" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RADTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityType Name="ScoreTable">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Name="SId" Type="int" Nullable="false" />
+          <Property Name="Score" Type="int" />
+          <Property Name="ProcessModel" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Name="SId" Type="int" Nullable="false" />
+          <Property Name="Score" Type="int" />
+          <Property Name="ProcessModel" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WaterfallIterationTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RegistrationEntities1.dbo.WaterfallTable2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="WaterfallTable2">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nchar" MaxLength="50" />
+          <Property Name="Priority" Type="int" />
+        </EntityType>
+        <EntityContainer Name="RegistrationEntities1ModelStoreContainer">
+          <EntitySet Name="administrationV2" EntityType="Self.administrationV2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COTSTable" EntityType="Self.COTSTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JunctionTableProjectAndAccountV2" EntityType="Self.JunctionTableProjectAndAccountV2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MultipleChoiceTable" EntityType="Self.MultipleChoiceTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectTable" EntityType="Self.ProjectTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions2Table" EntityType="Self.Questions2Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RADTable" EntityType="Self.RADTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScoreTable" EntityType="Self.ScoreTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaterfallIterationTable" EntityType="Self.WaterfallIterationTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaterfallTable2" EntityType="Self.WaterfallTable2" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WaterfallTable2].[QuestionId] AS [QuestionId], 
+    [WaterfallTable2].[Answer] AS [Answer], 
+    [WaterfallTable2].[Priority] AS [Priority]
+    FROM [dbo].[WaterfallTable2] AS [WaterfallTable2]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RegistrationEntities1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="administrationV2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COTSTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="JunctionTableProjectAndAccountV2">
+          <Key>
+            <PropertyRef Name="JId" />
+          </Key>
+          <Property Name="JId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AID" Type="Int32" />
+          <Property Name="Role" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PId" Type="Int32" />
+          <Property Name="Responsibilities" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="leaderTableV2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="memberTableV2">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ConfirmEmail" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="OptionalPhoneNumber" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MultipleChoiceTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Response1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response2" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response3" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response4" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response5" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Response6" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProjectTable">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcessModelChosen" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Questions2Table">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Question" Type="String" MaxLength="200" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="QuestionType" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RADTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ScoreTable">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Name="SId" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="ProcessModel" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="SId" />
+          </Key>
+          <Property Name="SId" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="ProcessModel" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WaterfallIterationTable">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityType Name="WaterfallTable2">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Priority" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="RegistrationEntities1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="administrationV2" EntityType="Self.administrationV2" />
+          <EntitySet Name="COTSTables" EntityType="Self.COTSTable" />
+          <EntitySet Name="JunctionTableProjectAndAccountV2" EntityType="Self.JunctionTableProjectAndAccountV2" />
+          <EntitySet Name="leaderTableV2" EntityType="Self.leaderTableV2" />
+          <EntitySet Name="memberTableV2" EntityType="Self.memberTableV2" />
+          <EntitySet Name="MultipleChoiceTables" EntityType="Self.MultipleChoiceTable" />
+          <EntitySet Name="ProjectTables" EntityType="Self.ProjectTable" />
+          <EntitySet Name="Questions2Table" EntityType="Self.Questions2Table" />
+          <EntitySet Name="RADTables" EntityType="Self.RADTable" />
+          <EntitySet Name="ScoreTables" EntityType="Self.ScoreTable" />
+          <EntitySet Name="Tables" EntityType="Self.Table" />
+          <EntitySet Name="WaterfallIterationTables" EntityType="Self.WaterfallIterationTable" />
+          <EntitySet Name="WaterfallTable2" EntityType="Self.WaterfallTable2" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RegistrationEntities1ModelStoreContainer" CdmEntityContainer="RegistrationEntities1Entities1">
+          <EntitySetMapping Name="administrationV2">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.administrationV2">
+              <MappingFragment StoreEntitySet="administrationV2">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COTSTables">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.COTSTable">
+              <MappingFragment StoreEntitySet="COTSTable">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JunctionTableProjectAndAccountV2">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.JunctionTableProjectAndAccountV2">
+              <MappingFragment StoreEntitySet="JunctionTableProjectAndAccountV2">
+                <ScalarProperty Name="JId" ColumnName="JId" />
+                <ScalarProperty Name="AID" ColumnName="AID" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="Responsibilities" ColumnName="Responsibilities" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="leaderTableV2">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.leaderTableV2">
+              <MappingFragment StoreEntitySet="leaderTableV2">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="memberTableV2">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.memberTableV2">
+              <MappingFragment StoreEntitySet="memberTableV2">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="OptionalPhoneNumber" ColumnName="OptionalPhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MultipleChoiceTables">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.MultipleChoiceTable">
+              <MappingFragment StoreEntitySet="MultipleChoiceTable">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Response1" ColumnName="Response1" />
+                <ScalarProperty Name="Response2" ColumnName="Response2" />
+                <ScalarProperty Name="Response3" ColumnName="Response3" />
+                <ScalarProperty Name="Response4" ColumnName="Response4" />
+                <ScalarProperty Name="Response5" ColumnName="Response5" />
+                <ScalarProperty Name="Response6" ColumnName="Response6" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectTables">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.ProjectTable">
+              <MappingFragment StoreEntitySet="ProjectTable">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="ProcessModelChosen" ColumnName="ProcessModelChosen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions2Table">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.Questions2Table">
+              <MappingFragment StoreEntitySet="Questions2Table">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RADTables">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.RADTable">
+              <MappingFragment StoreEntitySet="RADTable">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScoreTables">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.ScoreTable">
+              <MappingFragment StoreEntitySet="ScoreTable">
+                <ScalarProperty Name="SId" ColumnName="SId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="ProcessModel" ColumnName="ProcessModel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="SId" ColumnName="SId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="ProcessModel" ColumnName="ProcessModel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaterfallIterationTables">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.WaterfallIterationTable">
+              <MappingFragment StoreEntitySet="WaterfallIterationTable">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaterfallTable2">
+            <EntityTypeMapping TypeName="RegistrationEntities1Model.WaterfallTable2">
+              <MappingFragment StoreEntitySet="WaterfallTable2">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

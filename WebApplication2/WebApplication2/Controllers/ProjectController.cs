@@ -11,7 +11,8 @@ namespace WebApplication2.Controllers
 {
     public class ProjectController : Controller
     {
-        private RegistrationEntities1 db = new RegistrationEntities1();
+        //private RegistrationEntities1 db = new RegistrationEntities1();
+        private RegistrationEntities1Entities1 db = new RegistrationEntities1Entities1();
 
         // GET: Project
         public ActionResult ExistingProjects(Account User)
