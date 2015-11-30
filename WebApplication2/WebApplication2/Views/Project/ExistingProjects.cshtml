@@ -69,35 +69,24 @@
                                 }
                                @:</div>
                          }
-                        </div>
+                         @if (Model.Rank == "Admin")
+                         {
+                            <div algin="center">
+                                @using (Html.BeginForm("FindLeaderInProject", "Project", new { pId = entity.X.X, Aid = Model.AccountId }, FormMethod.Post))
+                                {
+                                    <input type="submit" value="Change Project Leaders" class="btn-primary project_input button">
+                                }
+                             </div>
+                         }
+                   </div>
                         <br /><br /><br />
                 }
             }
         }
     </div>
-        @using (Html.BeginForm("EditPeople", "Project", FormMethod.Post))
-        {
-            @Html.HiddenFor(Model => Model.UserName)
-            @Html.HiddenFor(Model => Model.Rank)
-            @Html.HiddenFor(Model => Model.AccountId)
-            int k = 0;
-            for (k = 0; k < Model.ProjectId.Length; k++)
-            {
-                @Html.HiddenFor(Model => Model.ProjectId[k])
-                @Html.HiddenFor(Model => Model.ProjectProcess[k])
-            }
-            if (Model.Rank == "Admin")
-            {
-                <br />
-                @Html.Label("If you want to edit peoples ranking:")
-                <br />
-                    <input type="submit" value="Edit People">
-            }
-
-        }
         @using (Html.BeginForm("LeaderExchange", "Project", FormMethod.Post))
         {
-            @Html.HiddenFor(Model => Model.UserName)
+            /*@Html.HiddenFor(Model => Model.UserName)
             @Html.HiddenFor(Model => Model.Rank)
             @Html.HiddenFor(Model => Model.AccountId)
             int k = 0;
@@ -112,8 +101,26 @@
                 @Html.Label("If you want to change the leaders of projects:")
                 <br />
                 <input type="submit" value="Exchange Leaders">
-            }
+            }*/
 
+        }
+        @if (Model.Rank == "Admin")
+        {
+            @:<div align="center">
+                using (Html.BeginForm("EditPeople", "Project", FormMethod.Post))
+                {
+                @Html.HiddenFor(Model => Model.UserName)
+                @Html.HiddenFor(Model => Model.Rank)
+                @Html.HiddenFor(Model => Model.AccountId)
+                int k = 0;
+                for (k = 0; k < Model.ProjectId.Length; k++)
+                {
+                @Html.HiddenFor(Model => Model.ProjectId[k])
+                @Html.HiddenFor(Model => Model.ProjectProcess[k])
+                }
+                <input type="submit" value="Edit Ranks" id="join_project" class="button btn-primary">
+                }
+            @:</div>
         }
      </body>
 </html>
