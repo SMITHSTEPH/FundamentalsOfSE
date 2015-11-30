@@ -219,7 +219,6 @@
     <Content Include="Content\Images\navbar_color.jpg" />
     <Content Include="Content\Images\RAD.JPG" />
     <Content Include="Content\Images\texture-blue-fonchik-simple-dark-colors-glow-background.jpg" />
-    <Content Include="Content\Images\waterfall.jpg" />
     <Content Include="Content\LoginStyle.css" />
     <Content Include="Content\PMResultStyle.css" />
     <Content Include="Content\PMStyle.css" />
@@ -238,8 +237,9 @@
     <Content Include="RegistrationModel.edmx.diagram">
       <DependentUpon>RegistrationModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
+    <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
+    <None Include="Properties\PublishProfiles\Team5SoE.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="RegistrationModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
