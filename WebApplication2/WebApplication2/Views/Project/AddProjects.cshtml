@@ -4,27 +4,24 @@
 <head>
     <title>@{ViewBag.Title = "AddProjects";}</title>
     @{Layout = "~/Views/Shared/_Layout.cshtml";}
+    <link rel="stylesheet" type="text/css" href="~/Content/EditAndAddStyle.css">
+    <script src="~/Scripts/ProjectManager.js"></script> 
 </head>
 <body>
-    
-    <h2>Add Projects</h2>
-
-    <div>
-
-        @Html.Label("You can join these projects: ")
-        <br />
-        <br />
-
-        @foreach (ProjectTable proj in Model.ProjectTable)
-        {
-                @Html.Label("Projet Number: ")
-                @proj.ProjectId
-
-                @Html.ActionLink(" Click to Add", "AddtoTable", new { id = proj.ProjectId, role = Model.JunctionTableProjectAndAccount.Role, Aid = Model.JunctionTableProjectAndAccount.AID, Uid = Model.user.AccountId }, new { onclick = "return confirm('Are you sure you want to add this project?');" })
-
-                <br />
-
-        }
+    <div align="center">
+    <h2>Add Projects</h2><hr />
+        <table>
+            @foreach (ProjectTable proj in Model.ProjectTable)
+            {
+                using (Html.BeginForm("AddtoTable", "Project", new { id = proj.ProjectId, role = Model.JunctionTableProjectAndAccount.Role, Aid = Model.JunctionTableProjectAndAccount.AID, Uid = Model.user.AccountId }))
+                {
+                    <tr>
+                        <td>@Html.Label("Project #" + @proj.ProjectId, new {@class="proj_label"})</td>
+                        <td><input type="submit" value="Add" class="btn-primary button" , onclick="return confirm('Are you sure you want to add this project?');" } /></td>
+                    </tr>
+                }
+            }
+        </table>
     </div>
 </body>
 </html>

@@ -2,51 +2,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@{ViewBag.Title = "ApplyProjects";}</title>
+    <title>@{ViewBag.Title = "FindLeaderInProject";}</title>
     @{Layout = "~/Views/Shared/_Layout.cshtml";}
+    <link rel="stylesheet" type="text/css" href="~/Content/EditAndAddStyle.css">
+    <script src="~/Scripts/ProjectManager.js"></script>
 </head>
 <body>
-    
-    <h2>Change Leaders of Project</h2>
+    <div align="center">
+        <h2>Change Leaders</h2><hr />
 
-    <div>
-        @if(Model.LeaderIn.Count != 0 && Model.LeadersNotIn.Count != 0)
+        @if (Model.LeaderIn.Count != 0 && Model.LeadersNotIn.Count != 0)
         {
             foreach (leaderTableV2 leader in Model.LeaderIn)
             {
-                @Html.Label("You can Replace this leader: ")
-                @leader.UserName
-                <br />
-                <br />
-            }
-            <br />
-            <br />
-            @Html.Label("You can make any of these leaders the leader of this project ")
-            <br />
-            <br />
+                @Html.Label("Replace leader: " + @leader.UserName)<br />
+            }<br />
+                @Html.Label("With any of these other leaders: ")
+                <br /><br />
         }
         else
         {
-            <br />
-            <br />
-            @Html.Label("There are not enough leaders to make a switch");
-            <br />
-            <br />
+            <br />@Html.Label("There are not enough leaders to make a switch");<br />
         }
-
-
-        @foreach (leaderTableV2 leader in Model.LeadersNotIn)
-        {
-            foreach (leaderTableV2 Releader in Model.LeaderIn)
+        <table>
+            @foreach (leaderTableV2 leader in Model.LeadersNotIn)
             {
-                    @Html.Label("Leader:  ")
-                    @leader.UserName
-                    @Html.ActionLink("Click to swtich project leaders", "LeaderSwitch", new { oldLid = Releader.Id, newLid = leader.Id, pId = Model.JunctionTableProjectAndAccount.PId, UId = Model.JunctionTableProjectAndAccount.AID }, new { onclick = "return confirm('Are you sure you want to swtich the leaders?');" })
-                    <br />
+                foreach (leaderTableV2 Releader in Model.LeaderIn)
+                {
+                    // @Html.ActionLink("Click to swtich project leaders", "LeaderSwitch", new { oldLid = Releader.Id, newLid = leader.Id, pId = Model.JunctionTableProjectAndAccount.PId, UId = Model.JunctionTableProjectAndAccount.AID }, new { onclick = "return confirm('Are you sure you want to swtich the leaders?');" })
+                    using (Html.BeginForm("LeaderSwitch", "Project", new { oldLid = Releader.Id, newLid = leader.Id, pId = Model.JunctionTableProjectAndAccount.PId, UId = Model.JunctionTableProjectAndAccount.AID }))
+                    {
+                        <tr>
+                            <td>@Html.Label("Leader: " + @leader.UserName)</td>
+                            <td><input type="submit" value="Add" class="btn-primary button" , onclick="return confirm('return confirm(Are you sure you want to swtich the leaders?');" } /></td>
+                        </tr>
+                    }
+                }
             }
-        }
+        </table>
 
     </div>
+
 </body>
 </html>
 

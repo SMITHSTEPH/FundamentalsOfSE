@@ -1,0 +1,11 @@
+﻿#DropChoice{
+            margin-right:10px;
+            margin-left:10px;
+}
+.button {
+    color: black;
+    background-color: white;
+    border-color: black;
+    margin-left:10px;
+}
+.proj_label{font-size:larger}
