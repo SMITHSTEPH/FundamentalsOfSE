@@ -10,7 +10,7 @@
     <h2>Change Leaders of Project</h2>
 
     <div>
-        @if (Model.LeaderIn.Count != 0)
+        @if(Model.LeaderIn.Count != 0 && Model.LeadersNotIn.Count != 0)
         {
             foreach (leaderTableV2 leader in Model.LeaderIn)
             {
@@ -19,18 +19,21 @@
                 <br />
                 <br />
             }
-
-        }
-
-        @if (Model.LeadersNotIn.Count != 0)
-        {
             <br />
             <br />
             @Html.Label("You can make any of these leaders the leader of this project ")
             <br />
             <br />
         }
-        
+        else
+        {
+            <br />
+            <br />
+            @Html.Label("There are not enough leaders to make a switch");
+            <br />
+            <br />
+        }
+
 
         @foreach (leaderTableV2 leader in Model.LeadersNotIn)
         {

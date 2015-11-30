@@ -153,12 +153,22 @@ namespace WebApplication2.Controllers
             int AID = Aid;
             string Role = role;
             AddAccount(AID, Role, id);
-
-            memberTableV2 member = db.memberTableV2.Find(Uid);
             Account User = new Account();
-            User.AccountId = member.Id;
-            User.Rank = "Member";
-            User.UserName = member.UserName;
+
+            if (Role == "Member")
+            {
+                memberTableV2 member = db.memberTableV2.Find(Uid);
+                User.AccountId = member.Id;
+                User.Rank = "Member";
+                User.UserName = member.UserName;
+            }
+            else
+            {
+                administrationV2 admin = db.administrationV2.Find(Uid);
+                User.AccountId = admin.Id;
+                User.Rank = "Admin";
+                User.UserName = admin.UserName;
+            }
 
             return View("SuccessPage", User);
         }
@@ -334,19 +344,25 @@ namespace WebApplication2.Controllers
             }
 
             bool hasAProject = false;
-            foreach (leaderTableV2 leader in possibleLeaders)
-            {
-                foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)
+            try {
+                foreach (leaderTableV2 leader in possibleLeaders)
                 {
-                    if (leader.Id == junc.AID && junc.Role.Contains("Leader"))
+                    foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)
                     {
-                        hasAProject = true;
+                        if (leader.Id == junc.AID && junc.Role.Contains("Leader"))
+                        {
+                            hasAProject = true;
+                        }
+                    }
+                    if (hasAProject == false)
+                    {
+                        possibleLeaders.Remove(leader);
                     }
                 }
-                if(hasAProject == false)
-                {
-                    possibleLeaders.Remove(leader);
-                }
+            }
+            catch(InvalidOperationException)
+            {
+
             }
 
             return possibleLeaders;

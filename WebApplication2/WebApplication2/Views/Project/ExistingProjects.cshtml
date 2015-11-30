@@ -21,7 +21,7 @@
                     
                 <h2>Existing Projects</h2><br />
 
-            if (Model.ProjectId[0] == 0){@Html.Label("Not in any Projects")}
+            if (Model.ProjectId.Length == 0){@Html.Label("Not in any Projects")}
             else
             {
                 int k = 0;
