@@ -4,28 +4,41 @@
 <head>
     <title>@{ViewBag.Title = "EditPeople";}</title>
     @{Layout = "~/Views/Shared/_Layout.cshtml";}
+    <!--<link rel="stylesheet" type="text/css" href="~/Content/ProfileStyle.css">-->
+    <script src="~/Scripts/ProjectManager.js"></script>
+    <style>
+        /*Move this into its own style sheet*/
+        #DropChoice {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .button {
+            color: black;
+            background-color: white;
+            border-color: black;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
     
-    <h2>Edit People</h2>
+    <h2>Manage People</h2><hr />
 
     <div>
         @if (Model.Members.Count != 0)
         {
-            @Html.Label("You can change these Members to Leaders: ")
-            <br />
-            <br />
+            <h3>Change these Members to Leaders</h3>
         }
-
         @foreach (memberTableV2 member in Model.Members)
         {
-                @Html.Label("Member:  ")
-                @member.UserName
-                @Html.ActionLink(" Click to change", "ChangeRank", new { role = "Member", Aid = member.Id, UId = Model.JunctionTable.AID}, new { onclick = "return confirm('Are you sure you want to change this person to a Leader?');" })
+            using (Html.BeginForm("ChangeRank", "Project", new { role = "Member", Aid = member.Id, UId = Model.JunctionTable.AID }))
+            {
+                @Html.Label("Member: " + @member.UserName)
+                <input type="submit" value="Add" class="btn-primary button" , onclick="return confirm('return confirm(Are you sure you want to change this person to a Leader?');" } />
                 <br />
-
+            }
         }
-
         @if (Model.Leaders.Count != 0)
         {
             <br />

@@ -173,21 +173,22 @@ namespace WebApplication2.Controllers
             ViewData["Email"] = ConfirmedUser.UpdateConfirmation(UserName);
             return View("EmailVerificationPage");
         }
-
-        public ActionResult SendForgotEmail(Account User)
+        /**
+        Called: after inputting email and clicking 'reset password'
+        
+        **/
+        public ActionResult SendForgotEmail(Account user)
         {
-
-            if (User.Rank == "Member" || User.Rank == "Leader" || User.Rank == "Admin")
+            if (user.Rank == "Member" || user.Rank == "Leader" || user.Rank == "Admin")
             {
-                if(User.Rank == "Member")
+                if(user.Rank == "Member")
                 {
-                    string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + User.UserName + "'";
+                    string queryM = "SELECT * FROM memberTableV2 WHERE UserName='" + user.UserName + "'";
                     memberTableV2 MT = db.memberTableV2.SqlQuery(queryM).SingleOrDefault();
-
                     if (MT == null)
                     {
 
-                        string queryM2 = "SELECT * FROM memberTableV2 WHERE Email='" + User.Email + "'";
+                        string queryM2 = "SELECT * FROM memberTableV2 WHERE Email='" + user.Email + "'";
                         memberTableV2 MT2 = db.memberTableV2.SqlQuery(queryM2).SingleOrDefault();
 
                         if (MT2 == null)
@@ -197,27 +198,27 @@ namespace WebApplication2.Controllers
                         }
                         else
                         {
-                            ViewData["Email"] = User.sendEmailPassword(MT2.Email, MT2.UserName);
+                            ViewData["Email"] = user.sendEmailPassword(MT2.Email, MT2.UserName);
                             return View("EmailForgotPage");
                         }
                     }
                     else
                     {
-                        ViewData["Email"] = User.sendEmailPassword(MT.Email, MT.UserName);
+                        ViewData["Email"] = user.sendEmailPassword(MT.Email, MT.UserName);
                         return View("EmailForgotPage");
                     }
                     
                     
                 }
-                else if(User.Rank == "Leader")
+                else if(user.Rank == "Leader")
                 {
-                    string queryL = "SELECT * FROM leaderTableV2 WHERE UserName='" + User.UserName + "'";
+                    string queryL = "SELECT * FROM leaderTableV2 WHERE UserName='" + user.UserName + "'";
                     leaderTableV2 LT = db.leaderTableV2.SqlQuery(queryL).SingleOrDefault();
 
                     if (LT == null)
                     {
 
-                        string queryL2 = "SELECT * FROM leaderTableV2 WHERE Email='" + User.Email + "'";
+                        string queryL2 = "SELECT * FROM leaderTableV2 WHERE Email='" + user.Email + "'";
                         leaderTableV2 LT2 = db.leaderTableV2.SqlQuery(queryL2).SingleOrDefault();
 
                         if (LT2 == null)
@@ -227,25 +228,25 @@ namespace WebApplication2.Controllers
                         }
                         else
                         {
-                            ViewData["Email"] = User.sendEmailPassword(LT2.Email, LT2.UserName);
+                            ViewData["Email"] = user.sendEmailPassword(LT2.Email, LT2.UserName);
                             return View("EmailForgotPage");
                         }
                     }
                     else
                     {
-                        ViewData["Email"] = User.sendEmailPassword(LT.Email, LT.UserName);
+                        ViewData["Email"] = user.sendEmailPassword(LT.Email, LT.UserName);
                         return View("EmailForgotPage");
                     }
                 }
                 else
                 {
-                    string queryA = "SELECT * FROM administrationV2 WHERE UserName='" + User.UserName + "'";
+                    string queryA = "SELECT * FROM administrationV2 WHERE UserName='" + user.UserName + "'";
                     administrationV2 AT = db.administrationV2.SqlQuery(queryA).SingleOrDefault();
 
                     if (AT == null)
                     {
 
-                        string queryA2 = "SELECT * FROM administrationV2 WHERE Email='" + User.Email + "'";
+                        string queryA2 = "SELECT * FROM administrationV2 WHERE Email='" + user.Email + "'";
                         administrationV2 AT2 = db.administrationV2.SqlQuery(queryA2).SingleOrDefault();
 
                         if (AT2 == null)
@@ -255,13 +256,13 @@ namespace WebApplication2.Controllers
                         }
                         else
                         {
-                            ViewData["Email"] = User.sendEmailPassword(AT2.Email, AT2.UserName);
+                            ViewData["Email"] = user.sendEmailPassword(AT2.Email, AT2.UserName);
                             return View("EmailForgotPage");
                         }
                     }
                     else
                     {
-                        ViewData["Email"] = User.sendEmailPassword(AT.Email, AT.UserName);
+                        ViewData["Email"] = user.sendEmailPassword(AT.Email, AT.UserName);
                         return View("EmailForgotPage");
                     }
                 }

@@ -1,4 +1,5 @@
 ﻿@model WebApplication2.Models.Project
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,10 +7,10 @@
             @{Layout = "~/Views/Shared/_Layout.cshtml";}
 </head>
 <body>
-
+    
     <h2>Edit People In a Project</h2>
     <div>
-
+            
             @if (Model.ProjectId[0] == 0)
             {
                     @Html.Label("Not in any Projects")
@@ -23,7 +24,7 @@
                 {
                     if (entity.X == 0)
                     {
-
+                        //THIS VIEW SHOULD NOT EXIST!
                     }
                     else
                     {
