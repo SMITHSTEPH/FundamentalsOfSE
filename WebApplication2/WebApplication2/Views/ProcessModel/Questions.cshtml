@@ -6,18 +6,6 @@
 </head>
 <!DOCTYPE html>
 <html>
-<head>
-    <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        li {
-            display: inline;
-        }
-    </style>
-</head>
 <body>
   
         <ul>
@@ -69,7 +57,8 @@
                     </div>
                 if (Answers[0] != "test" && Array.Exists(Answers, element => element == i.ToString() + "True")) { IsCheckedTrue = true; }
                 else if (Answers[0] != "test" && Array.Exists(Answers, element => element == i.ToString() + "False")) { IsCheckedFalse = true; }
-                <div class="answers">
+                /*<div class="answers">
+                    
                     <table>
                         <tr>
                             <th>@Html.Label("True", new { @class = "label" })</th>
@@ -80,10 +69,20 @@
                             <td>@Html.RadioButton("answer[" + i + "]", i + "False", IsCheckedFalse, new { @class = "rbutton" })</td>
                         </tr>
                     </table>
+                </div>*/
+                <div class="answers">
+                    <div class="checkbox_group">
+                        @Html.Label("True", new { @class = "label" })
+                        @Html.RadioButton("answer[" + i + "]", i + "True", IsCheckedTrue, new { @class = "rbutton" })
+                    </div>
+                    <div class="checkbox_group">
+                        @Html.Label("False", new { @class = "label" })
+                        @Html.RadioButton("answer[" + i + "]", i + "False", IsCheckedFalse, new { @class = "rbutton" })
+                    </div>
                 </div>
                 IsCheckedTrue = false;
                 IsCheckedFalse = false;
-        <br /><br>
+        <br/><br>
         @:</div>
             }
             else if (Questions[i, 2].ToString().Trim().Equals("Short Answer"))
@@ -93,7 +92,7 @@
                         @Html.Label(Questions[i, 0].ToString().Trim())
                     </div>
                     <div class="answers">
-                        @Html.Label("Short Answer", new { @class = "label" });
+                        @Html.Label("Short Answer", new { @class = "label" });<br/>
                         @Html.TextArea("answer[" + i + "]");
                     </div><br />
                  @:</div>
@@ -110,26 +109,47 @@
                     if (QuestionID == Convert.ToInt32(MultAnswers[j, 0])) //the question ids are the same
                     {
                         @:<div class="answers">
-                            @:<table>
-                            for (int n = 0; n < 2; n++)
+                        int m = 1;
+                        while (!MultAnswers[j, m].Trim().Equals("Empty") && m < 5)
+                        {
+                            if (Answers[0] != "test" && Array.Exists(Answers, element => element == i + MultAnswers[j, m].Trim()))
                             {
-                                @:<tr>
-                                int m = 1;
-                                while (!MultAnswers[j, m].Trim().Equals("Empty") && m < 5)
-                                {
-                                    if (Answers[0] != "test" && Array.Exists(Answers, element => element == i + MultAnswers[j, m].Trim()))
-                                    {
-                                        IsCheckedMult = true;
-                                    }
-                                    if (n == 0){<th>@Html.Label(MultAnswers[j, m].Trim(), new {@class="label" });</th>}
-                                    else{<td>@Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult);</td>}
-                                    m++;
-                                    IsCheckedMult = false;
-                                }//end while
-                            @:</tr>
-                            }//end for (loop twice)
-                            @:</table>
-                       @:</div>
+                                IsCheckedMult = true;
+                            }
+                            <div class="checkbox_group">
+                                @Html.Label(MultAnswers[j, m].Trim(), new { @class = "label" });
+                                @Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult);
+                            </div>
+                            m++;
+                            IsCheckedMult = false;
+                        }//end while
+                        @:</div>
+
+                         /*@:<table>
+                         for (int n = 0; n < 2; n++)
+                         {
+                             @:
+                        <tr>
+                             int m = 1;
+                             while (!MultAnswers[j, m].Trim().Equals("Empty") && m < 5)
+                             {
+                                 if (Answers[0] != "test" && Array.Exists(Answers, element => element == i + MultAnswers[j, m].Trim()))
+                                 {
+                                     IsCheckedMult = true;
+                                 }
+                                 if (n == 0){
+                                <th>@Html.Label(MultAnswers[j, m].Trim(), new {@class="label" });</th>}
+                                 else{
+                                <td>@Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult);</td>}
+                                 m++;
+                                 IsCheckedMult = false;
+                             }//end while
+                         @:
+    </tr>
+                         }//end for (loop twice)
+                         @:
+    </table>*/
+                      
                     }//end if
                 }//end for
                 @:</div>

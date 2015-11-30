@@ -17,18 +17,27 @@
     display: table-cell;
     
 }
-.label{text-align:left}
+.label{text-align:left;
+           margin-right:5px;
+}
 .question_cat_header{
     text-align:left;
 }
-td, th{
+.checkbox_group {
+  display: inline-block;
+  text-align: center;
+}
+.checkbox_group label {
+  display: block;
+}
+td{
    text-align:center;
    
 }
-/*th{
+th{
     text-align:left;
     
-}*/
+}
 table{
     table-layout:fixed;
     min-height: 100%;
@@ -40,5 +49,13 @@ table{
     border-radius:10px;
 }
 .question_cat_header{margin-left: 10px; /*Optional*/}
+ul {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+}
+li {
+     display: inline;
+}
 
 
