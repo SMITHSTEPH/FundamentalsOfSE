@@ -65,7 +65,7 @@ namespace WebApplication2.Controllers
         Called: after the user hits the 'Sign In' button
         Routes to: Index if invalid or Project if valid
         **/
-        [HttpPost]
+        //[HttpPost]
         public ActionResult SignIn(Account user)
         {
             ConfirmedUser = user.Verify(user); 

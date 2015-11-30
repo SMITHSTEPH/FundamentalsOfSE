@@ -31,13 +31,16 @@ namespace WebApplication2.Models
 
             foreach (JunctionTableProjectAndAccountV2 project in projects)
             {
-
-                if (project.Role.Contains(User.Rank) && project.AID == User.AccountId)
+                try
                 {
-                    UsersProjects.ProjectId[j] = new int();
-                    UsersProjects.ProjectId[j] = (int)project.PId;
-                    j++;
+                    if (project.Role.Contains(User.Rank) && project.AID == User.AccountId)
+                    {
+                        UsersProjects.ProjectId[j] = new int();
+                        UsersProjects.ProjectId[j] = (int)project.PId;
+                        j++;
+                    }
                 }
+                catch (ArgumentNullException){}
 
             }
 
