@@ -7,12 +7,8 @@
     <!--<link rel="stylesheet" type="text/css" href="~/Content/ProfileStyle.css">-->
     <script src="~/Scripts/ProjectManager.js"></script> 
     <style>
-       a{
-            color:#03022c;
-            margin-left:10px;
-
-        }
-        #DropChoice{
+        /*Move this into its own style sheet*/
+       #DropChoice{
             margin-right:10px;
             margin-left:10px;
         }
@@ -20,8 +16,7 @@
             color: black;
             background-color: white;
             border-color: black;
-            margin-left:10px;
-}
+            margin-left:10px;}
     </style>
 </head>
 <body>
@@ -39,7 +34,6 @@
                    @Html.Label("Member: " + @member.UserName)
                   <input type="submit" value="Add" class="btn-primary button",  onclick = "return confirm('Are you sure you want to add this person to the project?')" />
                 }
-                //@Html.ActionLink("Add", "AddtoTableLeader", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id, Uid = Model.leader.Id }, new { onclick = "return confirm('Are you sure you want to add this person to the project?');" })
                <br />
             }
         </div>

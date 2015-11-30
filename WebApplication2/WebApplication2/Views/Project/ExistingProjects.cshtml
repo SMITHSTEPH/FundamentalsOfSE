@@ -48,58 +48,33 @@
                  @Html.HiddenFor(Model => Model.ProjectId[k])
                  @Html.HiddenFor(Model => Model.ProjectProcess[k])
             }
-
-                var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y }).Zip(Model.Responsibiltes, (x, z) => new { X = x, Z = z });
-                foreach (var entity in col)
+            var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y }).Zip(Model.Responsibiltes, (x, z) => new { X = x, Z = z });
+            foreach (var entity in col)
+            {
+                if (entity.X.X != 0)
                 {
-                    if (entity.X.X != 0)
-                    {
-                        <div class="project">
-                            <div class="project_header">
-                                <h3> Project # @entity.X.X </h3>
-                            </div>
-                            @Html.Label("Rank: " + entity.Z, new { @class = "project_input" })<br />
-                            @Html.Label("Process Model: " + entity.X.Y, new { @class = "project_input" })<br />
-                            @Html.Label("View Project Schedule: ", new { @class = "project_input" })<br/>
-                            @if (Model.Rank == "Leader")
-                            {
-                                @:<div align="center">
-                                    using (Html.BeginForm("ApplyProjects", "Project", new { id = entity.X.X, Aid = Model.AccountId }, FormMethod.Post))
-                                    {
-                                        <input type="submit" value="Edit Project Members" class="btn-primary project_input button">
-                                    }
+                   <div class="project">
+                        <div class="project_header">
+                               <h3> Project # @entity.X.X </h3>
+                         </div>
+                         @Html.Label("Rank: " + entity.Z, new { @class = "project_input" })<br />
+                         @Html.Label("Process Model: " + entity.X.Y, new { @class = "project_input" })<br />
+                         @Html.Label("View Project Schedule: ", new { @class = "project_input" })<br/>
+                         @if (Model.Rank == "Leader")
+                         {
+                             @:<div align="center">
+                                using (Html.BeginForm("ApplyProjects", "Project", new { id = entity.X.X, Aid = Model.AccountId }, FormMethod.Post))
+                                {
+                                    <input type="submit" value="Edit Project Members" class="btn-primary project_input button">
+                                }
                                @:</div>
-                           }
+                         }
                         </div>
                         <br /><br /><br />
-                    }
+                }
             }
-             
         }
     </div>
-
-        @using (Html.BeginForm("AddPeople", "Project", FormMethod.Get))
-        {
-            /*
-            @Html.HiddenFor(Model => Model.UserName)
-            @Html.HiddenFor(Model => Model.Rank)
-            @Html.HiddenFor(Model => Model.AccountId)
-            int k = 0;
-            for (k = 0; k < Model.ProjectId.Length; k++)
-            {
-                @Html.HiddenFor(Model => Model.ProjectId[k])
-                @Html.HiddenFor(Model => Model.ProjectProcess[k])
-            }
-            if (Model.Rank == "Leader")
-            {
-                <br />
-                    @Html.Label("If you want to edit the people in your projects:")
-                    <br />
-                    <input type="submit" value="Edit Projects">
-            }
-            */
-
-        }
         @using (Html.BeginForm("EditPeople", "Project", FormMethod.Post))
         {
             @Html.HiddenFor(Model => Model.UserName)
@@ -140,12 +115,6 @@
             }
 
         }
-     
-                  
-
-
-        
-   
-</body>
+     </body>
 </html>
 
