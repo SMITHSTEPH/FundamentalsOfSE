@@ -8,20 +8,23 @@
 </head>
 
 <h2>Results</h2><hr/>
-
-
-@if (ViewData["result"].ToString() == "waterfall") { }
 @using (Html.BeginForm("Test", "ProcessModel", FormMethod.Post))
 {
     @Html.HiddenFor(Model => Model.AccountId)
     @Html.Hidden(ViewData["result"].ToString(), ViewData["result"].ToString())
+    string ImageURL;
+    if (ViewData["result"].ToString() == "Waterfall") { ImageURL = "~/Content/Images/waterfall.jpg"; }
+    else if(ViewData["result"].ToString() == "Iterative Waterfall") { ImageURL = "~/Content/Images/iterative_waterfall.jpg"; }
+    else if (ViewData["result"].ToString() == "COTS") { ImageURL = "~/Content/Images/COTS.jpg"; }
+    else { ImageURL = "~/Content/Images/RAD.jpg"; }
     <div align="center">
         <div>
             @Html.Label(ViewData["result"].ToString(), ViewData["result"].ToString(), new {@id="pmodel"})
         </div>
         <div>
-            <img class="model_pic" src="~/Content/Images/waterfall.jpg" alt="some_text">
-        </div><br />
+            <img class="model_pic" src=@Url.Content(ImageURL) alt="some_text">
+        </div>
+        <br />
         <div align="center">
             <input type="submit" value="Keep Suggestion" class="button btn-primary">
         </div>
