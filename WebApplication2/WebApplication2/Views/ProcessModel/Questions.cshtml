@@ -98,39 +98,53 @@
                     </div><br />
                  @:</div>
             }
-            /*else //multiple choice
+            else //multiple choice
             {
+                @:<div class="question_row">
+                <div class="question">
+                    @Html.Label(Questions[i, 0].ToString().Trim())
+                </div>
                 int QuestionID = i + 1;
                 for (int j = 0; j < MultAnswers.GetLength(0); j++)
                 {
                     if (QuestionID == Convert.ToInt32(MultAnswers[j, 0])) //the question ids are the same
                     {
-                        for (int n = 0; n < 2; n++)
-                        {
-                            int m = 1;
-                            while (!MultAnswers[j, m].Trim().Equals("Empty") && m < 5)
+                        @:<div class="answers">
+                            @:<table>
+                            for (int n = 0; n < 2; n++)
                             {
-                                if (Answers[0] != "test" && Array.Exists(Answers, element => element == i + MultAnswers[j, m].Trim()))
+                                @:<tr>
+                                int m = 1;
+                                while (!MultAnswers[j, m].Trim().Equals("Empty") && m < 5)
                                 {
-                                    IsCheckedMult = true;
-                                }
-                                if (n == 0){ @Html.Label(MultAnswers[j, m].Trim()); }
-                                else{@Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult);}
-                                m++;
-                                IsCheckedMult = false;
-                            }//end while
-                            <br />
-                         }//end for
+                                    if (Answers[0] != "test" && Array.Exists(Answers, element => element == i + MultAnswers[j, m].Trim()))
+                                    {
+                                        IsCheckedMult = true;
+                                    }
+                                    if (n == 0){<th>@Html.Label(MultAnswers[j, m].Trim(), new {@class="label" });</th>}
+                                    else{<td>@Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult);</td>}
+                                    m++;
+                                    IsCheckedMult = false;
+                                }//end while
+                            @:</tr>
+                            }//end for (loop twice)
+                            @:</table>
+                       @:</div>
                     }//end if
                 }//end for
-            }//end else*/
+                @:</div>
+            }//end else
         }//end question for loop
         <hr />
         <div id="submit_form" align="center">
             <input type="submit" value="Submit" onclick="return confirm('Are you sure you want to submit this form');"><br /><br />
         </div>
-    }
+}
 </div>
+
+
+
+
 
 
 

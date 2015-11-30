@@ -3,6 +3,8 @@
     width: 100%; 
     table-layout:fixed;
     border-spacing: 10px; /*Optional*/
+    border-bottom:solid;
+    border-color:rgba(75,0,130,1.0);
 }
 .question{
     text-align:left;
@@ -13,15 +15,20 @@
 }
 .answers{
     display: table-cell;
+    
 }
 .label{text-align:left}
 .question_cat_header{
     text-align:left;
 }
-td,th{
+td, th{
    text-align:center;
-   top:0;
+   
 }
+/*th{
+    text-align:left;
+    
+}*/
 table{
     table-layout:fixed;
     min-height: 100%;
