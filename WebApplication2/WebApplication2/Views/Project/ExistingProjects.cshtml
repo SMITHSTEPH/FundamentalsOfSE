@@ -9,11 +9,8 @@
 </head>
 <body>
                 <br />
-    @Html.Label("Logged in as " + Model.UserName)
-                @Html.HiddenFor(Model => Model.UserName)<br />
-    @Html.Label("Rank: " + Model.Rank)
-                @Html.HiddenFor(Model => Model.Rank)
-                @Html.HiddenFor(Model => Model.AccountId)<br />
+    @Html.Label("Logged in as " + Model.UserName)<br />
+    @Html.Label("Rank: " + Model.Rank)<br />
     @using (Html.BeginForm("Index", "Account", FormMethod.Post))
     {
         <input type="submit" value="Logout" class="button btn-primary">
@@ -22,6 +19,10 @@
     <div id="join_proj" align="center">
         @using (Html.BeginForm("AddProjects", "Project", FormMethod.Get))
         {
+            @Html.HiddenFor(Model => Model.UserName)
+            @Html.HiddenFor(Model => Model.Rank)
+            @Html.HiddenFor(Model => Model.AccountId)
+
             if (Model.Rank != "Leader")
             {
                 //<br />@Html.Label("If you want to join a new project:")<br />
