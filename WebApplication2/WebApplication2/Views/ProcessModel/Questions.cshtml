@@ -3,24 +3,18 @@
 <head>
     <title>@{ViewBag.Title = "Questions"; }</title>
     <link rel="stylesheet" type="text/css" href="~/Content/PMStyle.css">
+    <script>
+        $("#welcome_label").replaceWith("<li><a href='#Requirements'>Requirements</a></li>"+
+             "<li><a href='#Customers'>Customers</a></li>" + "<li><a href='#Team'>Team</a></li>"+
+             "<li><a href='#Software'>Software</a></li>" + "<li><a href='#Management'>Management</a></li>"+
+             "<li><a href='#Money'>Money</a></li>"+"<li><a href='#Size'>Size</a></li>"+"<li><a href='#Risk'>Risk</a></li>"+
+             "<li><a href='#Planning'>Planning</a></li>"+"<li><a href='#Process'>Process</a></li>")
+    </script>
 </head>
 <!DOCTYPE html>
 <html>
 <body>
-  
-        <ul>
-            <li><a href="#Requirements">Requirements</a></li>
-            <li><a href="#Customers">Customers</a></li>
-            <li><a href="#Team">Team</a></li>
-            <li><a href="#Software">Software</a></li>
-            <li><a href="#Management">Management</a></li>
-            <li><a href="#Money">Money</a></li>
-            <li><a href="#Size">Size</a></li>
-            <li><a href="#Risk">Risk</a></li>
-            <li><a href="#Planning">Planning</a></li>
-            <li><a href="#Process">Process</a></li>
-        </ul>
-        <h1>Process Model Survey</h1><hr />
+    <h1>Process Model Survey</h1><hr />
     <div align="left" id="q_form">
     @using (Html.BeginForm("Result", "ProcessModel"))
     {
