@@ -14,32 +14,40 @@
     @using (Html.BeginForm("Index", "Account", FormMethod.Post))
     {
         <input type="submit" value="Logout" class="button btn-primary">
-    }
-                <hr />
+    }<hr />
     <div id="join_proj" align="center">
+        @if (Model.Rank == "Leader") //add new project for leader
+        {
+            using (Html.BeginForm("Questions", "ProcessModel", FormMethod.Get))
+            {
+                @Html.HiddenFor(Model => Model.UserName)
+                @Html.HiddenFor(Model => Model.Rank)
+                @Html.HiddenFor(Model => Model.AccountId)
+                <input type="submit" value="Add New Project" id="join_project" class="button btn-primary">
+            }
+        }
         @using (Html.BeginForm("AddProjects", "Project", FormMethod.Get))
         {
             @Html.HiddenFor(Model => Model.UserName)
             @Html.HiddenFor(Model => Model.Rank)
             @Html.HiddenFor(Model => Model.AccountId)
 
-            if (Model.Rank != "Leader")
+            if (Model.Rank != "Leader") //join project for admin or member
             {
-                //<br />@Html.Label("If you want to join a new project:")<br />
                 <input type="submit" value="Join Project" id="join_project" class="button btn-primary">
             }
-                <h2>Existing Projects</h2><br />
-
-            if (Model.ProjectId.Length == 0){@Html.Label("Not in any Projects")}
-            else
+        }
+        <h2>Existing Projects</h2><br />
+        @if (Model.ProjectId.Length == 0){@Html.Label("Not in any Projects")}
+        else
+        {
+            int k = 0;
+            for (k = 0; k < Model.ProjectId.Length; k++)
             {
-                int k = 0;
-                for (k = 0; k < Model.ProjectId.Length; k++)
-                {
                     
-                    @Html.HiddenFor(Model => Model.ProjectId[k])
-                    @Html.HiddenFor(Model => Model.ProjectProcess[k])
-                }
+                 @Html.HiddenFor(Model => Model.ProjectId[k])
+                 @Html.HiddenFor(Model => Model.ProjectProcess[k])
+            }
 
                 var col = Model.ProjectId.Zip(Model.ProjectProcess, (x, y) => new { X = x, Y = y }).Zip(Model.Responsibiltes, (x, z) => new { X = x, Z = z });
                 foreach (var entity in col)
@@ -52,18 +60,27 @@
                             </div>
                             @Html.Label("Rank: " + entity.Z, new { @class = "project_input" })<br />
                             @Html.Label("Process Model: " + entity.X.Y, new { @class = "project_input" })<br />
-                            @Html.Label("View Project Schedule: ", new { @class = "project_input" })
+                            @Html.Label("View Project Schedule: ", new { @class = "project_input" })<br/>
+                            @if (Model.Rank == "Leader")
+                            {
+                                @:<div align="center">
+                                    using (Html.BeginForm("ApplyProjects", "Project", new { id = entity.X.X, Aid = Model.AccountId }, FormMethod.Post))
+                                    {
+                                        <input type="submit" value="Edit Project Members" class="btn-primary project_input button">
+                                    }
+                               @:</div>
+                           }
                         </div>
                         <br /><br /><br />
                     }
             }
-             }
+             
         }
     </div>
 
         @using (Html.BeginForm("AddPeople", "Project", FormMethod.Get))
         {
-            
+            /*
             @Html.HiddenFor(Model => Model.UserName)
             @Html.HiddenFor(Model => Model.Rank)
             @Html.HiddenFor(Model => Model.AccountId)
@@ -80,6 +97,7 @@
                     <br />
                     <input type="submit" value="Edit Projects">
             }
+            */
 
         }
         @using (Html.BeginForm("EditPeople", "Project", FormMethod.Post))
@@ -122,19 +140,7 @@
             }
 
         }
-        @using (Html.BeginForm("Questions", "ProcessModel", FormMethod.Get))
-        {
-            @Html.HiddenFor(Model => Model.UserName)
-            @Html.HiddenFor(Model => Model.Rank)
-            @Html.HiddenFor(Model => Model.AccountId)
-            if (Model.Rank == "Leader")
-            {
-                <br />
-                @Html.Label("If you want to create a new project:")
-                <br />
-                <input type="submit" value="Add New Project">
-            }
-        }
+     
                   
 
 

@@ -4,90 +4,91 @@
 <head>
     <title>@{ViewBag.Title = "ApplyProjects";}</title>
     @{Layout = "~/Views/Shared/_Layout.cshtml";}
+    <!--<link rel="stylesheet" type="text/css" href="~/Content/ProfileStyle.css">-->
+    <script src="~/Scripts/ProjectManager.js"></script> 
+    <style>
+       a{
+            color:#03022c;
+            margin-left:10px;
+
+        }
+        #DropChoice{
+            margin-right:10px;
+            margin-left:10px;
+        }
+        .button {
+            color: black;
+            background-color: white;
+            border-color: black;
+            margin-left:10px;
+}
+    </style>
 </head>
 <body>
-    
-    <h2>Add People to Projects</h2>
-
-    <div>
-        @if (Model.MemberTableAdd.Count != 0)
-        {
-            @Html.Label("You can add these people to the Project")
-            <br />
-            <br />
-        }
-
-        @foreach (memberTableV2 member in Model.MemberTableAdd)
-        {
-                @Html.Label("Member:  ")
-                @member.UserName
-                @Html.ActionLink(" Click to Add", "AddtoTableLeader", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id, Uid = Model.leader.Id}, new { onclick = "return confirm('Are you sure you want to add this person to the project?');" })
-                <br />
-
-        }
-
-        @if (Model.MemberTableRemove.Count != 0)
-        {
-            <br />
-            <br />
-            @Html.Label("You can remove these people to the Project")
-            <br />
-            <br />
-        }
-        
-
-        @foreach (memberTableV2 member in Model.MemberTableRemove)
-        {
-            foreach (JunctionTableProjectAndAccountV2 junc in Model.JunctionTableEdit)
+    <div align="center">
+        <h3>Add Project Members</h3>
+        <div class="info">
+            @if (Model.MemberTableAdd.Count == 0)
             {
-                if (junc.AID == member.Id)
+                @Html.Label("no available members to add")<br />
+            }
+            @foreach (memberTableV2 member in Model.MemberTableAdd)
+            {
+                using (Html.BeginForm("AddtoTableLeader", "Project", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id, Uid = Model.leader.Id }))
                 {
-                    @Html.Label("Member:  ")
-                    @member.UserName
-                    @Html.Label(" with a responsibitly: ")
-                    @junc.Responsibilities
-                    @Html.ActionLink(" Click to Remove", "RemoveTable", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id, Uid = Model.leader.Id }, new { onclick = "return confirm('Are you sure you want to remove this person from the project?');" })
-                    <br />
+                   @Html.Label("Member: " + @member.UserName)
+                  <input type="submit" value="Add" class="btn-primary button",  onclick = "return confirm('Are you sure you want to add this person to the project?')" />
+                }
+                //@Html.ActionLink("Add", "AddtoTableLeader", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id, Uid = Model.leader.Id }, new { onclick = "return confirm('Are you sure you want to add this person to the project?');" })
+               <br />
+            }
+        </div>
+            <h3>Remove Project Members</h3>
+        <div class="info">
+            @if (Model.MemberTableRemove.Count == 0)
+            {
+                @Html.Label("no available members to add");<br />
+            }
+            @foreach (memberTableV2 member in Model.MemberTableRemove)
+            {
+                foreach (JunctionTableProjectAndAccountV2 junc in Model.JunctionTableEdit)
+                {
+                    if (junc.AID == member.Id)
+                    {
+                        using (Html.BeginForm("Remove", "Project", new { id = Model.ProjectTable.ProjectId, role = "Member", Aid = member.Id, Uid = Model.leader.Id }))
+                        {
+                            @Html.Label("Member: " + @member.UserName + " with a responsibitly: " + @junc.Responsibilities)
+                           <input type="submit" value="Remove" class="btn-primary button" , onclick="return confirm('Are you sure you want to remove this person to the project')" />
+                        }
+                    }
                 }
             }
-        }
-        
-
-        @if (Model.MemberTableRemove.Count != 0)
-        {   
-            <br />
-            <br />
-            @Html.Label("You can edit these people in the Project")
-            <br />
-            <br />
-        }
-       
-
-        @foreach (memberTableV2 member in Model.MemberTableRemove)
-        {
-            using (Html.BeginForm("EditTable", "Project", FormMethod.Post))
+         </div>
+        <div class="info">
+            <h3>Edit Project Members</h3>
+            @if (Model.MemberTableRemove.Count == 0)
             {
-                List<SelectListItem> dropDown = new List<SelectListItem>();
-                dropDown.Add(new SelectListItem { Value = "Coder," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Coder" });
-                dropDown.Add(new SelectListItem { Value = "Tester," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Tester" });
-                dropDown.Add(new SelectListItem { Value = "Product Owner," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Product Owner" });
-                dropDown.Add(new SelectListItem { Value = "Scrum Designer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Scrum Designer" });
-                dropDown.Add(new SelectListItem { Value = "Developer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Developer" });
-                dropDown.Add(new SelectListItem { Value = "Designer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Designer" });
-                dropDown.Add(new SelectListItem { Value = "2ndCommand," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "2nd in Command" });
-                            @Html.Label("Member:         ")
-                            @member.UserName
-                            @Html.Label(" with a responsibitly: ")
-                            @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
-                <input type="submit" value="Edit Member" onclick="return confirm('Are you sure you want edit this member');">
+                @Html.Label("no available members to edit")<br />
             }
-
-
-        }
-           
-
-
+            @foreach (memberTableV2 member in Model.MemberTableRemove)
+            {
+                using (Html.BeginForm("EditTable", "Project", FormMethod.Post))
+                {
+                    List<SelectListItem> dropDown = new List<SelectListItem>();
+                    dropDown.Add(new SelectListItem { Value = "Coder," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Coder" });
+                    dropDown.Add(new SelectListItem { Value = "Tester," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Tester" });
+                    dropDown.Add(new SelectListItem { Value = "Product Owner," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Product Owner" });
+                    dropDown.Add(new SelectListItem { Value = "Scrum Designer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Scrum Designer" });
+                    dropDown.Add(new SelectListItem { Value = "Developer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Developer" });
+                    dropDown.Add(new SelectListItem { Value = "Designer," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "Designer" });
+                    dropDown.Add(new SelectListItem { Value = "2ndCommand," + Convert.ToString(Model.ProjectTable.ProjectId) + ",Member," + Convert.ToString(member.Id) + "," + Convert.ToString(Model.leader.Id), Text = "2nd in Command" });
+                    @Html.Label("Member: " + @member.UserName + " with a responsibitly: ");
+                    @Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))
+                    <input type="submit" value="Edit" class="button btn-primary" onclick="return confirm('Are you sure you want edit this member');">
+                }
+            }
+        </div>
     </div>
-</body>
+   </body>
 </html>
 
