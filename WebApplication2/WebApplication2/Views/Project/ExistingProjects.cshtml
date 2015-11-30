@@ -8,35 +8,35 @@
     <script src="~/Scripts/ProjectManager.js"></script> 
 </head>
 <body>
-    <br />
-    @Html.Label("Logged in as " + Model.UserName)
-    @Html.HiddenFor(Model => Model.UserName)<br />
-    @Html.Label("Rank: " + Model.Rank)
-    @Html.HiddenFor(Model => Model.Rank)
-    @Html.HiddenFor(Model => Model.AccountId)<br />
+                <br />
+    @Html.Label("Logged in as " + Model.UserName)<br />
+    @Html.Label("Rank: " + Model.Rank)<br />
     @using (Html.BeginForm("Index", "Account", FormMethod.Post))
     {
         <input type="submit" value="Logout" class="button btn-primary">
     }
-    <hr />
+                <hr />
     <div id="join_proj" align="center">
         @using (Html.BeginForm("AddProjects", "Project", FormMethod.Get))
         {
+            @Html.HiddenFor(Model => Model.UserName)
+            @Html.HiddenFor(Model => Model.Rank)
+            @Html.HiddenFor(Model => Model.AccountId)
+
             if (Model.Rank != "Leader")
             {
                 //<br />@Html.Label("If you want to join a new project:")<br />
                 <input type="submit" value="Join Project" id="join_project" class="button btn-primary">
             }
-            <h2>Existing Projects</h2><br />
+                <h2>Existing Projects</h2><br />
 
-            if (Model.ProjectId[0] == 0)
-            {@Html.Label("Not in any Projects")}
+            if (Model.ProjectId.Length == 0){@Html.Label("Not in any Projects")}
             else
             {
                 int k = 0;
                 for (k = 0; k < Model.ProjectId.Length; k++)
                 {
-
+                    
                     @Html.HiddenFor(Model => Model.ProjectId[k])
                     @Html.HiddenFor(Model => Model.ProjectProcess[k])
                 }
@@ -56,8 +56,8 @@
                         </div>
                         <br /><br /><br />
                     }
-                }
             }
+             }
         }
     </div>
 

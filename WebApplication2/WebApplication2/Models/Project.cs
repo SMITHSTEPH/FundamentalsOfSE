@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WebApplication2.Models
@@ -24,18 +25,17 @@ namespace WebApplication2.Models
             Project UsersProjects = new Project();
             int j = 0;
             UsersProjects.ProjectId = new int[projects.Count];
+            UsersProjects.UserName = User.UserName;
+            UsersProjects.Rank = User.Rank;
+            UsersProjects.AccountId = User.AccountId;
 
             foreach (JunctionTableProjectAndAccountV2 project in projects)
             {
 
-                UsersProjects.UserName = User.UserName;
-                UsersProjects.Rank = User.Rank;
-                UsersProjects.AccountId = User.AccountId;
-
                 if (project.Role.Contains(User.Rank) && project.AID == User.AccountId)
                 {
                     UsersProjects.ProjectId[j] = new int();
-                    UsersProjects.ProjectId[j] = (int) project.PId;
+                    UsersProjects.ProjectId[j] = (int)project.PId;
                     j++;
                 }
 

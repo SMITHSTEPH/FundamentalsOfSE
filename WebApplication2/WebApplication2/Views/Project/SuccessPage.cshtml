@@ -12,7 +12,8 @@
         @using (Html.BeginForm("SuccessToExisting", "Project", FormMethod.Post))
         {
             @Html.Label(Model.UserName)
-            @Html.Label(" has been successfully added to the project")
+            <br />
+            @Html.Label("has been successfully added to the project")
             @Html.HiddenFor(Model => Model.UserName)
             <br />
             @Html.HiddenFor(Model => Model.Rank)
