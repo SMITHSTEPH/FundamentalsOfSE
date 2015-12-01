@@ -258,7 +258,13 @@ namespace WebApplication2.Controllers
             User.Rank = "Admin";
             User.UserName = admin.UserName;
 
-
+           /* dynamic myModel = new ExpandoObject();
+            myModel.Members = db.memberTableV2.ToList();
+            myModel.Leaders = db.leaderTableV2.ToList();
+            JunctionTableProjectAndAccountV2 table = new JunctionTableProjectAndAccountV2();
+            table.AID = ListofProjects.AccountId; //need to get ListofProjects
+            myModel.JunctionTable = table;
+            //return View("EditPeople");*/
             return RedirectToAction("ExistingProjects", "Project", User);
         }
 
@@ -412,8 +418,6 @@ namespace WebApplication2.Controllers
         {
             
             List<JunctionTableProjectAndAccountV2> respInProject = new List<JunctionTableProjectAndAccountV2>();
-
-
             foreach (memberTableV2 member in db.memberTableV2)
             {
                 foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)

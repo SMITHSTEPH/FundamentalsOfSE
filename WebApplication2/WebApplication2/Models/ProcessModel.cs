@@ -65,8 +65,8 @@ namespace WebApplication2.Models
         {
             string[,] TableData=new string[rows, columns]; //where the data extracted from the table will be stored
             Connection.Open();
-            Debug.Print(query)
-;           SqlCommand Command = new SqlCommand(query, Connection);
+            //Debug.Print(query);
+               SqlCommand Command = new SqlCommand(query, Connection);
             SqlDataReader MyDataSet= Command.ExecuteReader();
             int Rows = 0;
             while(MyDataSet.Read()) //while there is data from the table left to read
@@ -107,14 +107,18 @@ namespace WebApplication2.Models
         **/
         public int TrainData(string winner)
         {
+            Debug.Print("\nIN TRAIN DATA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             string PM = ""; //mapping the winning table to the correct process model
             if (winner == TableName.COTSTablePModel.ToString()) { PM = ProcessModels.COTS.ToString(); }
             else if(winner ==TableName.WaterFallPModel.ToString()) { PM = ProcessModels.Waterfall.ToString(); }
             else if (winner==TableName.IterativeWaterfallPModel.ToString()) { PM = ProcessModels.IterativeWaterfall.ToString(); }
             else { PM = ProcessModels.RAD.ToString(); }
-
+            Debug.Print("IN TRAIN DATA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Debug.Print("PM String: " + PM.ToString());
+            
             EliminateProcessModels();
-            if(!ProcessModelsList.Contains(PM))
+            for(int i=0; i<ProcessModelsList.Count; i++) { Debug.Write(ProcessModelsList[i].ToString()); }
+            if(!ProcessModelsList.Contains(PM.ToString()))
             {
                 Debug.Print("You selected incorrectly!!");
                 return 0;
@@ -130,6 +134,7 @@ namespace WebApplication2.Models
         }
         private Boolean ReadHighPriority(string query, string queryCount)
         {
+            Debug.Print("READ HIGH PRIORITY");
             string[,] Size=ReadQuery(queryCount, 1, 1, 0);
             int Rows = Convert.ToInt32(Size[0, 0]);
 
@@ -138,16 +143,37 @@ namespace WebApplication2.Models
             
             for(int i=0; i<PModel.GetLength(0); i++)
             {
-                if (Answers[i].Equals(PModel[i, 1].Trim())) {return true;}
+                if (!Answers[i].Equals(PModel[i, 1].Trim()) && Convert.ToInt32(PModel[i, 2].Trim())==5)
+                {
+                    Debug.Print("User Answer: " + Answers[i]);
+                    Debug.Print("Question Priority: "+ PModel[i, 2].Trim());
+                    Debug.Print("Question answer: " + PModel[i, 1].Trim());
+                    //make sure true and false are taken care of
+                    if (PModel[i, 1].Trim() == "false" && Answers[i] != "No")
+                    {
+                        Debug.Print("returning true");
+                        return true;
+                    }
+                    if (PModel[i, 1].Trim() == "true" && Answers[i] != "Yes")
+                    {
+                        Debug.Print("returning true");
+                        return true;
+                    }
+                    if(PModel[i,1].Trim()!="True" && PModel[i, 1].Trim() != "False")
+                    {
+                        Debug.Print("returning true");
+                        return true;
+                    }
+                }
             }
             return false;
         }
         public void EliminateProcessModels()
         {
-           if(ReadHighPriority("SELECT * FROM " + TableName.WaterFallPModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.WaterFallPModel.ToString() + " WHERE Priority=5")) { ProcessModelsList.Remove(ProcessModels.Waterfall);}
-           if(ReadHighPriority("SELECT * FROM "  + TableName.IterativeWaterfallPModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString() + " WHERE Priority=5")){ ProcessModelsList.Remove(ProcessModels.IterativeWaterfall);}
-           if(ReadHighPriority("SELECT * FROM " + TableName.RADTablePModel.ToString() + " WHERE Priority=5", "SELECT COUNT(*) FROM "+ TableName.RADTablePModel.ToString() + " WHERE Priority=5")){ ProcessModelsList.Remove(ProcessModels.RAD);}
-           if(ReadHighPriority("SELECT* FROM " + TableName.COTSTablePModel.ToString() + " WHERE Priority = 5", "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString() + " WHERE Priority=5")){ ProcessModelsList.Remove(ProcessModels.COTS);}
+           if(ReadHighPriority("SELECT * FROM " + TableName.WaterFallPModel.ToString(), "SELECT COUNT(*) FROM " + TableName.WaterFallPModel.ToString())) { ProcessModelsList.Remove(ProcessModels.Waterfall.ToString());}
+           if(ReadHighPriority("SELECT * FROM "  + TableName.IterativeWaterfallPModel.ToString(), "SELECT COUNT(*) FROM " + TableName.IterativeWaterfallPModel.ToString())){ ProcessModelsList.Remove(ProcessModels.IterativeWaterfall.ToString());}
+           if(ReadHighPriority("SELECT * FROM " + TableName.RADTablePModel.ToString(), "SELECT COUNT(*) FROM "+ TableName.RADTablePModel.ToString())){ ProcessModelsList.Remove(ProcessModels.RAD.ToString());}
+           if(ReadHighPriority("SELECT* FROM " + TableName.COTSTablePModel.ToString(), "SELECT COUNT(*) FROM " + TableName.COTSTablePModel.ToString())){ ProcessModelsList.Remove(ProcessModels.COTS.ToString());}
         }
         int ComputeScore(string query, string queryCount)
         {
@@ -167,7 +193,7 @@ namespace WebApplication2.Models
         public string ChooseProcessModels()
         {
             Debug.Print("In ChooseProcessModels");
-            
+            if (AreEliminated()) { ReplenishProcessModels(); }
             Dictionary<string, int> Points= new Dictionary<string, int>();
             Dictionary<string, int> Distance = new Dictionary<string, int>();
             for (int i = 0; i < ProcessModelsList.Count; i++)
@@ -265,6 +291,17 @@ namespace WebApplication2.Models
             WinningScores.Add(ProcessModels.IterativeWaterfall.ToString() + "Scores", IterativeWaterfallScores);
             WinningScores.Add(ProcessModels.RAD.ToString()+"Scores", RADScores);
             WinningScores.Add(ProcessModels.COTS.ToString()+"Scores", COTSScores);
+        }
+        private bool AreEliminated()
+        {
+            return ProcessModelsList.Count == 0 ? true : false;
+        }
+        private void ReplenishProcessModels()
+        {
+            foreach (ProcessModels processModel in Enum.GetValues(typeof(ProcessModels)))
+            {
+                ProcessModelsList.Add(processModel.ToString()); //adding all of the process models to the arraylist
+            }
         }
     }
 }

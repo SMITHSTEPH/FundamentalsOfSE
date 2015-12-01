@@ -10,13 +10,13 @@
     <h2>Leader Exchange</h2>
 
     <div>
-
+        
         @Html.Label("You can Edit the leader in these project: ")
         <br />
         <br />
-
         @foreach (ProjectTable proj in Model.ProjectTable)
         {
+            //THIS PAGE SHOULD NEVER BE USED
                 @Html.Label("Projet Number: ")
                 @proj.ProjectId
 
