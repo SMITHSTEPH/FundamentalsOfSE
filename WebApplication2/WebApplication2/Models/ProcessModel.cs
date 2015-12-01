@@ -18,12 +18,15 @@ namespace WebApplication2.Models
         private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
 
         //STEPHS STRING
-        private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
+        //private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
+        
+        //Azure String
+        private string ConnectionStr = "Server=tcp:vc6a15pj3w.database.windows.net,1433;Database=RegistrationEntities1;User ID=bbergeron@vc6a15pj3w;Password=BBErgero123!$*;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;";
 
-        //BRADS STRING
-        //private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Brad\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
+    //BRADS STRING
+    //private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Brad\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
 
-        private SqlConnection Connection;
+    private SqlConnection Connection;
         ArrayList ProcessModelsList = new ArrayList();
         //properties
         public string[,] Questions { get; set; }

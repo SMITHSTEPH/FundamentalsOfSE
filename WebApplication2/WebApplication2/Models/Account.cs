@@ -87,7 +87,7 @@ namespace WebApplication2.Models
 
                 MailMessage mail = new MailMessage("bradbergeron90@gmail.com", Emailto);
                 mail.Subject = "This mail is sent from asp.net application";
-                mail.Body = "Please Click <a href=\"http://localhost:49882/Account/EmailVerificationPage?UserName=" + User + "\">Here</a> to Confirm your email";
+                mail.Body = "Please Click <a href=\"http://team5soe.azurewebsites.net/Account/EmailVerificationPage?UserName=" + User + "\">Here</a> to Confirm your email";
                 mail.IsBodyHtml = true;
 
                 Sender.Send(mail);
@@ -158,7 +158,7 @@ namespace WebApplication2.Models
 
                 MailMessage mail = new MailMessage("bradbergeron90@gmail.com", Emailto);
                 mail.Subject = "This mail is sent from asp.net application";
-                mail.Body = "Please Click <a href=\"http://localhost:49882/Account/EmailChangePassword?UserName=" + User + "\">Here</a> to change your password, Your Username is: " + User;
+                mail.Body = "Please Click <a href=\"http://team5soe.azurewebsites.net/Account/EmailChangePassword?UserName=" + User + "\">Here</a> to change your password, Your Username is: " + User;
                 mail.IsBodyHtml = true;
 
                 Sender.Send(mail);
