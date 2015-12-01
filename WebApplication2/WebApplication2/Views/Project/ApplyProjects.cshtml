@@ -47,7 +47,7 @@
                             {
                                 <tr>
                                     <td> @Html.Label("Member: " + @member.UserName + " with a responsibitly: " + @junc.Responsibilities)</td>
-                                    <td><input type="submit" value="Remove" class="btn-primary button" , onclick="return confirm('Are you sure you want to remove this person to the project')" /></td>
+                                    <td><input type="submit" value="Remove" class="btn-primary button" , onclick="return confirm('Are you sure you want to remove this person to the project?')" /></td>
                                 </tr>
                             }
                         }
@@ -77,7 +77,7 @@
                         <tr>
                             <td>@Html.Label("Member: " + @member.UserName + " with a responsibitly: ");</td>
                             <td>@Html.DropDownList("DropChoice", new SelectList(dropDown, "Value", "Text"))</td>
-                            <td><input type="submit" value="Edit" class="button btn-primary" onclick="return confirm('Are you sure you want edit this member');"></td>
+                            <td><input type="submit" value="Edit" class="button btn-primary" onclick="return confirm('Are you sure you want edit this member?');"></td>
                         </tr>
                     }
                 }
