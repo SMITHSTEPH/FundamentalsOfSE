@@ -254,13 +254,12 @@ namespace WebApplication2.Controllers
 
             }
             administrationV2 admin = db.administrationV2.Find(UId);
-            Account User = new Account();
-            User.AccountId = admin.Id;
-            User.Rank = "Admin";
-            User.UserName = admin.UserName;
+
+            Project ListOfProjects = new Project();
+            ListOfProjects.AccountId = admin.Id;
 
 
-            return RedirectToAction("ExistingProjects", "Project", User);
+            return RedirectToAction("EditPeople", ListOfProjects);
         }
 
         public ActionResult RemoveTable(int id, string role, int Aid, int Uid)
