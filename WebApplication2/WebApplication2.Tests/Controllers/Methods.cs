@@ -14,7 +14,7 @@ namespace WebApplication2.Controllers.Tests
     public class Methods
     {
 
-        AccountController AccountTestController = new AccountController();
+        /*AccountController AccountTestController = new AccountController();
 
         [TestMethod()]
         public void SignInTest()
@@ -31,6 +31,6 @@ namespace WebApplication2.Controllers.Tests
             var Result = AccountTestController.SignIn(User) as ViewResult;
             Assert.AreEqual(5, 5);
             //Assert.AreEqual("ExistingProjects", Result.ViewName);
-        }
+        }*/
     }
 }
