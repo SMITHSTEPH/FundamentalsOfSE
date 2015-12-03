@@ -15,7 +15,7 @@ namespace WebApplication2.Models
         //fields
         enum ProcessModels{Waterfall, IterativeWaterfall, RAD, COTS}; //holds all of the possible process models that we are using
         //enum ProcessTableNames: string { Waterfall="WaterfallTable2", IterativeWaterfall("WaterfallIterationTable") };
-        private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
+        //private RegistrationEntities1 DB = new RegistrationEntities1(); //instance of process model Database
 
         //STEPHS STRING
         //private string ConnectionStr = "Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename = C:\\Users\\Stephanie\\Source\\Repos\\FundamentalsOfSE\\WebApplication2\\WebApplication2\\App_Data\\Registration.mdf; Integrated Security = True; MultipleActiveResultSets = True; Application Name = EntityFramework";
@@ -88,7 +88,7 @@ namespace WebApplication2.Models
             Array.Sort(pModel);
             return score >= pModel[0] && score <= pModel[pModel.Length - 1] ? true : false;
         }
-        private int ComputeMedian(int[] pModel)
+        public int ComputeMedian(int[] pModel)
         {
             Array.Sort(pModel);
             for(int i=0; i<pModel.Length; i++) { Debug.Write(pModel[i].ToString() + ", "); }

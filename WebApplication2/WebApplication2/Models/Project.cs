@@ -13,16 +13,17 @@ namespace WebApplication2.Models
         public string[] ProjectProcess { get; set; }
         public string[] Responsibiltes { get; set; }
 
-        //private RegistrationEntities1 db = new RegistrationEntities1();
-        protected RegistrationEntities1Entities1 db2 = new RegistrationEntities1Entities1();
+        private RegistrationEntities1 db = new RegistrationEntities1();
+        //protected RegistrationEntities1Entities1 db2 = new RegistrationEntities1Entities1();
 
         public Project UsersProjects (Account User)
         {
             
 
-            List<JunctionTableProjectAndAccountV2> projects = db2.JunctionTableProjectAndAccountV2.ToList();
-            List<ProjectTable> projectsProess = db2.ProjectTables.ToList();
-
+            //List<JunctionTableProjectAndAccountV2> projects = db2.JunctionTableProjectAndAccountV2.ToList();
+            //List<ProjectTable> projectsProess = db2.ProjectTables.ToList();
+            List<JunctionTableProjectAndAccountV2> projects = db.JunctionTableProjectAndAccountV2.ToList();
+            List<ProjectTable> projectsProess = db.ProjectTables.ToList();
             Project UsersProjects = new Project();
             int j = 0;
             UsersProjects.ProjectId = new int[projects.Count];

@@ -69,7 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Methods.cs" />
+    <Compile Include="Controllers\ProcessModelControllerTests.cs" />
     <Compile Include="Controllers\Views.cs" />
+    <Compile Include="Models\ProcessModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
