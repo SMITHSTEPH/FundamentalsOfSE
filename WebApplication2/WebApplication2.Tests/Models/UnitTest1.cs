@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using moq;
+using Moq;
 
 namespace WebApplication2.Tests.Models
 {
