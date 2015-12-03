@@ -11,7 +11,8 @@ namespace WebApplication2.Controllers
 {
     public class ProjectController : Controller
     {
-        private RegistrationEntities1 db = new RegistrationEntities1();
+        //private RegistrationEntities1 db = new RegistrationEntities1();
+        private RegistrationEntities1Entities1 db = new RegistrationEntities1Entities1();
 
         // GET: Project
         public ActionResult ExistingProjects(Account User)
@@ -265,19 +266,12 @@ namespace WebApplication2.Controllers
 
             }
             administrationV2 admin = db.administrationV2.Find(UId);
-            Account User = new Account();
-            User.AccountId = admin.Id;
-            User.Rank = "Admin";
-            User.UserName = admin.UserName;
 
-           /* dynamic myModel = new ExpandoObject();
-            myModel.Members = db.memberTableV2.ToList();
-            myModel.Leaders = db.leaderTableV2.ToList();
-            JunctionTableProjectAndAccountV2 table = new JunctionTableProjectAndAccountV2();
-            table.AID = ListofProjects.AccountId; //need to get ListofProjects
-            myModel.JunctionTable = table;
-            //return View("EditPeople");*/
-            return RedirectToAction("ExistingProjects", "Project", User);
+            Project ListOfProjects = new Project();
+            ListOfProjects.AccountId = admin.Id;
+
+
+            return RedirectToAction("EditPeople", ListOfProjects);
         }
 
         public ActionResult RemoveTable(int id, string role, int Aid, int Uid)

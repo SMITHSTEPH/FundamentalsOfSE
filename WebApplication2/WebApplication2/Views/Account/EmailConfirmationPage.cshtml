@@ -13,31 +13,7 @@
         <br />
         if (Convert.ToString(ViewData["Email"]) == "Sent")
         {
-            @Html.Label("Please check email to confirm this account!")
-        }
-        else
-        {
-            @Html.Label("Error in sending Email, Please enter Username and Password to Resend", new { @class = "warning" })
-            <br /><br />
-            <div class="outer">
-                <div>
-                    @Html.Label("Username:", new { @class = "signup_label" })
-                </div>
-                <div>
-                    @Html.TextBoxFor(model => model.UserName, "Username", new { @class = "textbox" })
-                </div>
-            </div>
-            <br /><br />
-            <div class="outer">
-                <div>
-                    @Html.Label("Password:", new { @class = "signup_label" })
-                </div>
-                <div>
-                    @Html.PasswordFor(model => model.Password, "Password")
-                </div>
-            </div>
-            <br /><br />
-            <input type="submit" value="Resend" class="btn-primary button">
+            @Html.Label("Please check email to confirm this account!, Please contact Raman")
         }
     }
 </div>

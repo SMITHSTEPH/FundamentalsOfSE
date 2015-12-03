@@ -12,9 +12,10 @@ namespace WebApplication2
     using System;
     using System.Collections.Generic;
     
-    public partial class ProjectTable
+    public partial class ScoreTable
     {
-        public int ProjectId { get; set; }
-        public string ProcessModelChosen { get; set; }
+        public int SId { get; set; }
+        public Nullable<int> Score { get; set; }
+        public string ProcessModel { get; set; }
     }
 }
