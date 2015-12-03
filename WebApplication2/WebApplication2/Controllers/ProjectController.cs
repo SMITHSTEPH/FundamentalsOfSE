@@ -158,7 +158,7 @@ namespace WebApplication2.Controllers
         {
 
             //Needs to add the project to the tables and inform the user the project was entered successfully
-            return View( );
+            return View();
         }
 
         public ActionResult AddtoTable(int id, string role, int Aid, int Uid)

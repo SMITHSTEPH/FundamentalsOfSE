@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Methods.cs" />
     <Compile Include="Controllers\ProcessModelControllerTests.cs" />
+    <Compile Include="Controllers\ProjectControllerTests.cs" />
     <Compile Include="Controllers\Views.cs" />
     <Compile Include="Models\ProcessModelTests.cs" />
     <Compile Include="Models\UnitTest1.cs" />

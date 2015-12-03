@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Mvc;
 using WebApplication2.Models;
+using Telerik.JustMock;
 
 
 namespace WebApplication2.Controllers.Tests
@@ -11,7 +12,6 @@ namespace WebApplication2.Controllers.Tests
     {
         AccountController AccountTestController = new AccountController();
         ProjectController ProjectTestController = new ProjectController();
-
         [TestMethod()]
         public void IndexTest()
         {
@@ -41,13 +41,21 @@ namespace WebApplication2.Controllers.Tests
         }
 
         [TestMethod()]
-        public void SignUpTest()
+        public void SignUpTest1()
         {
             var Result = AccountTestController.SignUp("SignUpMember") as ViewResult;
-            var Result2 = AccountTestController.SignUp("SignUpLeader") as ViewResult;
-            var Result3 = AccountTestController.SignUp("SignUpAdmin") as ViewResult;
             Assert.AreEqual("SignUpMember", Result.ViewName);
+        }
+        [TestMethod()]
+        public void SignUpTest2()
+        {
+            var Result2 = AccountTestController.SignUp("SignUpLeader") as ViewResult;
             Assert.AreEqual("SignUpLeader", Result2.ViewName);
+        }
+        [TestMethod()]
+        public void SignUpTest3()
+        {
+            var Result3 = AccountTestController.SignUp("SignUpAdmin") as ViewResult;
             Assert.AreEqual("SignUpAdmin", Result3.ViewName);
         }
 

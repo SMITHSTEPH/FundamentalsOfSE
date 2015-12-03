@@ -11,6 +11,11 @@ namespace WebApplication2.Controllers
     public class ProcessModelController : Controller
     {
         ProcessModel PModel = new ProcessModel();
+        public ActionResult test()
+        {
+            Debug.Print("Test");
+            return View("Test");
+        }
         public ActionResult Questions(Account User)
         {
             ViewData["id"] = User.AccountId;

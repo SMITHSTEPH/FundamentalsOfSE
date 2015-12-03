@@ -69,7 +69,7 @@ namespace WebApplication2.Models
             string[,] TableData=new string[rows, columns]; //where the data extracted from the table will be stored
             Connection.Open();
             //Debug.Print(query);
-               SqlCommand Command = new SqlCommand(query, Connection);
+            SqlCommand Command = new SqlCommand(query, Connection);
             SqlDataReader MyDataSet= Command.ExecuteReader();
             int Rows = 0;
             while(MyDataSet.Read()) //while there is data from the table left to read
@@ -86,7 +86,7 @@ namespace WebApplication2.Models
         public bool IsWithinRange(int[] pModel, int score)
         {
             Array.Sort(pModel);
-            return score >= pModel[0] && score <= pModel[pModel.Length - 1] ? true : false;
+            return ((score >= pModel[0]) && (score <= pModel[pModel.Length - 1])) ? true : false;
         }
         public int ComputeMedian(int[] pModel)
         {
@@ -94,7 +94,7 @@ namespace WebApplication2.Models
             for(int i=0; i<pModel.Length; i++) { Debug.Write(pModel[i].ToString() + ", "); }
             return pModel.Length % 2 == 0 ? (Convert.ToInt32(pModel[pModel.Length / 2 - 1]) + Convert.ToInt32(pModel[pModel.Length / 2])) / 2 : Convert.ToInt32(pModel[pModel.Length / 2]);
         }
-        private int ComputeDistanceFromMedian(int myScore, int[] pModel)
+        public int ComputeDistanceFromMedian(int myScore, int[] pModel)
         {
             Debug.Print("Score is: " + myScore.ToString());
             int median=ComputeMedian(pModel);
@@ -295,7 +295,7 @@ namespace WebApplication2.Models
             WinningScores.Add(ProcessModels.RAD.ToString()+"Scores", RADScores);
             WinningScores.Add(ProcessModels.COTS.ToString()+"Scores", COTSScores);
         }
-        private bool AreEliminated()
+        public bool AreEliminated()
         {
             return ProcessModelsList.Count == 0 ? true : false;
         }
