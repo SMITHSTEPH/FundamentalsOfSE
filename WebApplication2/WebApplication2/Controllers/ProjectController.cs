@@ -48,9 +48,21 @@ namespace WebApplication2.Controllers
             myModel.Leaders = db.leaderTableV2.ToList();
             JunctionTableProjectAndAccountV2 table = new JunctionTableProjectAndAccountV2();
             table.AID = ListofProjects.AccountId;
+            table.Role = ListofProjects.Rank;
             myModel.JunctionTable = table;
             return View("EditPeople", myModel);
 
+        }
+
+        public ActionResult ReturnExistingProjects(int UId)
+        {
+            administrationV2 admin = db.administrationV2.Find(UId);
+            Account User = new Account();
+            User.AccountId = admin.Id;
+            User.Rank = "Admin";
+            User.UserName = admin.UserName;
+
+            return RedirectToAction("ExistingProjects", "Project", User);
         }
 
         public ActionResult AddPeople(Project ListofProjects)
@@ -412,8 +424,6 @@ namespace WebApplication2.Controllers
         {
             
             List<JunctionTableProjectAndAccountV2> respInProject = new List<JunctionTableProjectAndAccountV2>();
-
-
             foreach (memberTableV2 member in db.memberTableV2)
             {
                 foreach (JunctionTableProjectAndAccountV2 junc in db.JunctionTableProjectAndAccountV2)

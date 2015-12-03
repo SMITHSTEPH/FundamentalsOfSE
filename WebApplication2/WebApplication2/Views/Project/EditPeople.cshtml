@@ -43,7 +43,16 @@
           }
       }
        </table>
+
+    <div align="center">
+        @using (Html.BeginForm("ReturnExistingProjects", "Project", new { UId = Model.JunctionTable.AID }))
+        {
+            <br/>
+            <input type="submit" value="Return to profile">
+        }
     </div>
+    </div>
+
  </body>
 </html>
 
