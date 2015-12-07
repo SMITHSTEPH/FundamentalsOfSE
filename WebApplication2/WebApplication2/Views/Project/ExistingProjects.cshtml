@@ -59,7 +59,9 @@
                          </div>
                          @Html.Label("Rank: " + entity.Z, new { @class = "project_input" })<br />
                          @Html.Label("Process Model: " + entity.X.Y, new { @class = "project_input" })<br />
-                         @Html.Label("View Project Schedule: ", new { @class = "project_input" })<br/>
+                         @Html.Label("View Project Schedule: ", new { @class = "project_input" })
+						 @Html.ActionLink("Calendar ", "lookCalendar", new { projectID = entity.X.X, role_calendar = entity.Z })<br/>
+
                          @if (Model.Rank == "Leader")
                          {
                              @:<div align="center">

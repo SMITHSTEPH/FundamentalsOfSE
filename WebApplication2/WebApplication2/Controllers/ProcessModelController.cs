@@ -29,7 +29,9 @@ namespace WebApplication2.Controllers
             int id = Convert.ToInt16(info[0]);
             string model = info[1];
 
-           RegistrationEntities1Entities1 db = new RegistrationEntities1Entities1();
+           //RegistrationEntities1Entities1 db = new RegistrationEntities1Entities1();
+			RegistrationEntities1 db = new RegistrationEntities1();
+
             db.ProjectTables.Add(new ProjectTable
             {
                 ProcessModelChosen = model

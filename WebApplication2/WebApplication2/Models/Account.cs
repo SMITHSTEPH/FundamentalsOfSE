@@ -18,7 +18,10 @@ namespace WebApplication2.Models
         
         protected Verifcation vf = new Verifcation();
         protected RegistrationEntities1Entities1 db = new RegistrationEntities1Entities1();
-        //protected RegistrationEntities1 db = new RegistrationEntities1(); //instance of the registration DB
+        //protected RegistrationEntities1Entities1 db = new RegistrationEntities1Entities1();
+        //protected RegistrationEntities1 db = new RegistrationEntities1();
+		
+		//protected RegistrationEntities1 db = new RegistrationEntities1(); //instance of the registration DB
         /****
         Verifies the possible user
         If the user filled out the username and password fields the try to find the user

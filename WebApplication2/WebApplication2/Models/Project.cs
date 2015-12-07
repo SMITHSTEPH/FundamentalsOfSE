@@ -15,6 +15,7 @@ namespace WebApplication2.Models
 
         //private RegistrationEntities1 db = new RegistrationEntities1();
         protected RegistrationEntities1Entities1 db2 = new RegistrationEntities1Entities1();
+		//protected RegistrationEntities1 db2 = new RegistrationEntities1();
 
         public Project UsersProjects (Account User)
         {

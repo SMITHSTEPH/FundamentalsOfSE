@@ -12,6 +12,7 @@ namespace WebApplication2.Controllers
     public class ProjectController : Controller
     {
         //private RegistrationEntities1 db = new RegistrationEntities1();
+       // private RegistrationEntities1 db = new RegistrationEntities1();
         private RegistrationEntities1Entities1 db = new RegistrationEntities1Entities1();
 
         // GET: Project
@@ -23,6 +24,28 @@ namespace WebApplication2.Controllers
             //Needs to go get the Projects the user is in than display those projects
             return View("ExistingProjects", ListofProjects);
         }
+
+
+		//redirect to calendar view 
+		public ActionResult lookCalendar(int projectID, string role_calendar)
+		{
+			role_calendar = role_calendar.Trim();
+			if (role_calendar == "Leader")
+			{
+				Console.WriteLine("role is leader and pID is" + projectID);
+			}
+			else
+			{
+				Console.WriteLine("role is " +role_calendar+"and pID is" + projectID);
+			}
+
+			GlobalVariables.ProjectID_cal = projectID;
+			GlobalVariables.role_cal = role_calendar;
+
+			return RedirectToAction("Index", "Calendar");
+		}
+
+
 
         public ActionResult AddProjects(Project ListofProjects)
         {
