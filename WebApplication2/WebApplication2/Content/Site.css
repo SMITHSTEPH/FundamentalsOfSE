@@ -1,7 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url('http://www.magic4walls.com/wp-content/uploads/2014/01/texture-blue-fonchik-simple-dark-colors-glow-background.jpg');
+    background-image: url('/Content/Images/texture-blue-fonchik-simple-dark-colors-glow-background.jpg');
     background-repeat: repeat
 }
 h2, h3, h1 {
@@ -34,7 +34,8 @@ textarea {
     max-width: 280px;
 }
 #navbar_custom{
-    background-image: url('https://s-media-cache-ak0.pinimg.com/236x/7d/2d/75/7d2d754d25f4abbd9de1e97f031f62b9.jpg');
+  
+    background-image: url('/Content/Images/navbar_color.jpg');
     background-repeat: repeat;
     border-bottom-color:grey
     

@@ -59,13 +59,14 @@
                     </table>
                 </div>*/
                 <div class="answers">
+                    <div class="col-sm-3">
                     <div class="checkbox_group">
                         @Html.Label("True", new { @class = "label" })
-                        @Html.RadioButton("answer[" + i + "]", i + "True", IsCheckedTrue, new { @class = "rbutton" })
-                    </div>
-                    <div class="checkbox_group">
+                        @Html.RadioButton("answer[" + i + "]", i + "True", IsCheckedTrue, new { @class = "rbutton radio" })
+                    </div></div>
+                    <div class="checkbox_group col-sm-4">
                         @Html.Label("False", new { @class = "label" })
-                        @Html.RadioButton("answer[" + i + "]", i + "False", IsCheckedFalse, new { @class = "rbutton" })
+                        @Html.RadioButton("answer[" + i + "]", i + "False", IsCheckedFalse, new { @class = "rbutton radio" })
                     </div>
                 </div>
                 IsCheckedTrue = false;
@@ -104,9 +105,13 @@
                             {
                                 IsCheckedMult = true;
                             }
-                            <div class="checkbox_group">
-                                @Html.Label(MultAnswers[j, m].Trim(), new { @class = "label" });
-                                @Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult);
+                            <div class="col-sm-3">
+                                <div class="checkbox_group">
+                               
+                                    @Html.Label(MultAnswers[j, m].Trim(), new { @class = "label" });
+                                  
+                                    @Html.RadioButton("answer[" + i + "]", i + MultAnswers[j, m].Trim(), IsCheckedMult, new {@class="radio"});
+                                </div>
                             </div>
                             m++;
                             IsCheckedMult = false;

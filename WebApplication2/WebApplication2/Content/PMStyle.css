@@ -18,17 +18,24 @@
     
 }
 .label{text-align:left;
-           margin-right:5px;
+       /*word-wrap:break-word*/
+       
+           /*margin-right:5px;*/
 }
 .question_cat_header{
     text-align:left;
 }
 .checkbox_group {
+     word-break:break-all;
+    overflow:auto;
   display: inline-block;
-  text-align: center;
+ 
 }
-.checkbox_group label {
+
+.checkbox_group .radio {
   display: block;
+  margin-left: 10px;
+  /*text-align: center*/
 }
 td{
    text-align:center;
